@@ -10,22 +10,22 @@
     <section
         @class([
             'breadcrumb__area include-bg',
-            'pt-60 pb-60 mb-50' => $breadcrumbStyle !== 'without-title' && empty($breadcrumbHeight),
-            'pt-30 pb-30 mb-50' => $breadcrumbStyle === 'without-title' && empty($breadcrumbHeight),
+            ' mb-20' => $breadcrumbStyle !== 'without-title' && empty($breadcrumbHeight),
+            'mb-20' => $breadcrumbStyle === 'without-title' && empty($breadcrumbHeight),
             'breadcrumb__style-2 include-bg' => $breadcrumbStyle === 'without-title',
-            'pt-30 pb-30' => $breadcrumbStyle === 'without-title' && empty($breadcrumbHeight),
-            'mb-30 text-center' => $breadcrumbStyle === 'align-center',
-            'mb-30 text-start' => $breadcrumbStyle === 'align-start',
+            'pt-20 pb-20' => $breadcrumbStyle === 'without-title' && empty($breadcrumbHeight),
+            'mb-20 text-center' => $breadcrumbStyle === 'align-center',
+            'mb-20 text-start' => $breadcrumbStyle === 'align-start',
             'breadcrumb__padding' => $breadcrumbStyle === 'full-width',
-            'pt-30' => empty($breadcrumbHeight) || $breadcrumbHeight < 90,
+            'pt-20 pb-20' => empty($breadcrumbHeight) || $breadcrumbHeight < 90,
         ])
         @style(["background-image: url($breadcrumbBackground)" => $breadcrumbBackground, "background-color: $breadcrumbBackgroundColor" => $breadcrumbBackgroundColor, "display: flex; align-items: center; height: $breadcrumbHeight" => $breadcrumbHeight])
     >
         <div @class(['container' => $breadcrumbStyle !== 'full-width', 'container-fluid' => $breadcrumbStyle === 'full-width'])>
             <div class="breadcrumb__content p-relative z-index-1">
-                @if (theme_option('breadcrumb_hide_title', 'no') == 'no' && $breadcrumbStyle !== 'without-title')
+                {{-- @if (theme_option('breadcrumb_hide_title', 'no') == 'no' && $breadcrumbStyle !== 'without-title')
                     <h3 class="breadcrumb__title">{!! BaseHelper::clean(Theme::get('pageTitle') ? Theme::get('pageTitle') : SeoHelper::getTitleOnly()) !!}</h3>
-                @endif
+                @endif --}}
                 <div @class(['breadcrumb__list', 'js_breadcrumb_reduce_length_on_mobile' => theme_option('breadcrumb_reduce_length_on_mobile', 'yes') == 'yes',])>
                     @foreach(Theme::breadcrumb()->getCrumbs() as $crumb)
                         <span>

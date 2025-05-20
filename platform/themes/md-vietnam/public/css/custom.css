@@ -1,0 +1,14 @@
+.modal-image .close {
+  position: absolute;
+  width: 13px;
+  height: 32px;
+  top: -7px;
+  right: 15px;
+  opacity: 0.8;
+  transition: all 200ms;
+  font-size: 32px;
+  text-decoration: none;
+  color: #222;
+  z-index: 99999;
+  cursor: pointer;
+}

@@ -487,7 +487,7 @@ $(() => {
         }
 
         initSwiperSlider('.tp-blog-main-slider-active', {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 20,
             loop: true,
             autoplay: {

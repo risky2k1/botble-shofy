@@ -10,7 +10,7 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
 
 @endphp
 
-<section @class(['tp-postbox-details-area', 'pb-120'=> $relatedPosts->isEmpty(), 'pt-50' => !
+<section @class(['tp-postbox-details-area pt-30', 'pb-120'=> $relatedPosts->isEmpty(), 'pt-50' => !
     theme_option('theme_breadcrumb_enabled', true)])>
     {!! apply_filters('ads_render', null, 'detail_page_before') !!}
 
@@ -19,7 +19,7 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
             <div @class(['col-xl-9 col-lg-8'=> $blogSidebar, 'col-12' => ! $blogSidebar])>
                 <div class="tp-postbox-details-top">
                     <h1 class="heading-title-post-details">{{ $post->name }}</h1>
-                    <div class="tp-postbox-details-meta mb-50">
+                    {{-- <div class="tp-postbox-details-meta mb-50">
                         <span>
                             {{ Theme::formatDate($post->created_at) }}
                         </span>
@@ -28,7 +28,7 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
                                 <img src="{{ Theme::asset()->url('images/icons/fb.png') }}" alt="">
                             </a>
                         </span>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="tp-postbox-details-main-wrapper">
                     <div class="tp-postbox-details-content">
@@ -65,9 +65,7 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
                             <div class="item-block-sliber-orther">
                                 <div class="news-item-img">
                                     <a href="{{ $post->url }}">
-                                        {{-- <img src="{{ RvMedia::getImageUrl($post->image, 'thumb') }}"
-                                            alt="{{ $post->name }}"> --}}
-                                        {{ RvMedia::image($post->image, $post->name, 'rectangle', useDefaultImage: true)
+                                        {{ RvMedia::image($post->image, $post->name)
                                         }}
                                     </a>
                                 </div>
@@ -83,28 +81,7 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
                         </div>
                     </div>
                 </div>
-                @if ($relatedPosts->isNotEmpty())
-                    <div class="box-slibar-col">
-                        <div class="item-slibar-col-member">
-                            <div class="title-slibar">
-                                <h2>{{ __('Related News') }}</h2>
-                            </div>
-                            <div class="body-new-orther">
-                                @foreach ($relatedPosts as $post)
-                                <div class="item-block-sliber-orther">
-                                    <div class="news-item-caption-block">
-                                        <div class="news-item-date ">{{ Theme::formatDate($post->created_at) }}</div>
-                                        <div class="news-item-title ">
-                                            <a href="{{ $post->url }}">{{ $post->name }}</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                @endif
+                
             </div>
             @endif
         </div>

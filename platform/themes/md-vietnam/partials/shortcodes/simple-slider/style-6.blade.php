@@ -1,9 +1,9 @@
 <section class="box-brand-container">
     <div class="container">
         <div class="box-member-brand">
-            <div class="row ai-center">
+            <div class="row ai-center js-between">
                 @if ($shortcode->title_heading)
-                <div class="col-lg-6">
+                <div class="col-lg-4">
                     <div class="box-hedding-title-brand">
                         <h2 class="vc_custom_heading">
                             {{ $shortcode->title_heading }}

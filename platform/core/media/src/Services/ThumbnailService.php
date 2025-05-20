@@ -105,6 +105,29 @@ class ThumbnailService
         return $this->fileName;
     }
 
+    public function replace($fileReplace)
+    {
+        $fileName = File::basename($this->imagePath);
+
+        if ($this->fileName) {
+            $fileName = $this->fileName;
+        }
+
+        $destinationPath = sprintf('%s/%s', trim($this->destinationPath, '/'), $fileName);
+
+        $thumbImage = RvMedia::imageManager()->read($fileReplace);
+
+        try {
+            $this->uploadManager->saveFile($destinationPath, $thumbImage->encode(new AutoEncoder()));
+        } catch (Throwable $exception) {
+            BaseHelper::logError($exception);
+
+            throw $exception;
+        }
+
+        return $destinationPath;
+    }
+
     public function save(string $type = 'fit'): bool|string
     {
         $fileName = File::basename($this->imagePath);

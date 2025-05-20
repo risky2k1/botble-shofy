@@ -292,7 +292,9 @@ ul.nav.nav-tabs.nav-justified.featured-boxes .nav-link:hover {
 .list-brand-slider {
     overflow: hidden;
 }
-
+.box-block-list-bottom .news-item.news-item-side {
+    display: block;
+}
 
 .item-left-brand-cl span {
     font-size: 30px;
@@ -462,13 +464,13 @@ section.about-sec {
     color: #e30006;
     font-weight: 600;
     text-transform: uppercase;
-    margin-bottom: 24px;
+    margin-bottom: 0px;
 }
 
 .about-content .sec-title .h2-title {
-    margin-bottom: 22px;
-    font-size: 51px;
-    line-height: 60px;
+    margin-bottom: 0px;
+    font-size: 33px;
+    line-height: 57px;
     color: #0d5189;
 }
 
@@ -579,7 +581,7 @@ section.about-sec {
     z-index: -1;
 }
 .about-counter-row {
-    margin-top: 126px;
+    margin-top: 15px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -989,8 +991,8 @@ section.equal {
 }
 
 .box-hedding-title-brand h2 {
-    font-weight: 700;
-    font-size: 56px;
+    font-weight: 500;
+    font-size: 49px;
     line-height: 67px;
     letter-spacing: -0.05em;
     padding-left: 54px;
@@ -1033,7 +1035,6 @@ section.equal {
     -ms-flex: 0 0 31.25%;
     flex: 0 0 31.25%;
     width: 100%;
-    max-width: 31.25%;
 }
 
 
@@ -1109,8 +1110,7 @@ section.block-news {
 
 .news-item-side .news-item-img img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    height: 240px;
 }
 .news-slide-list {
   height: 680px;
@@ -1241,7 +1241,16 @@ section.box-brand-container {
 .box-slider-custumer {
     overflow: hidden;
 }
-
+.box-customer-container {
+    padding: 20px 0px;
+}
+.about-feature-text {
+    flex: 1;
+}
+.hedding-customer span {
+    margin-bottom: 25px;
+    display: inline-block;
+}
 .hedding-customer {
     width: 65%;
     text-align: center;
@@ -1364,6 +1373,7 @@ h1.heading-title-post-details {
     color: #a20d3b;
     font-weight: 800;
     margin-bottom: 1.25rem;
+    font-size: 37px;
 }
 
 .title-slibar {
@@ -2291,9 +2301,15 @@ section.application .section-label {
     color: #2D6681;
     font-weight: 600;
 }
-
+.about-feature-text h4 {
+    font-size: 19px;
+}
 section.application .section-title {
     color: #fff;
+}
+.about-feature-icon img {
+    width: 35px;
+    height: 35px;
 }
 @media (min-width: 769px) {
     .news-item-side .news-item-img figure {
@@ -2472,6 +2488,7 @@ footer {
         height: 7.03125rem;
         height: 100%;
         object-fit: cover;
+        margin-bottom: 0px;
     }
 }
 @media screen and (max-width: 991px) {

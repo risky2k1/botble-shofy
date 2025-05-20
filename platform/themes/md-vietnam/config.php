@@ -31,6 +31,7 @@ return [
             $theme->asset()->usePath()->add('utilities', 'css/utilities.css', version: $version);
             $theme->asset()->usePath()->add('header', 'css/header.css', version: $version);
             $theme->asset()->usePath()->add('layout', 'css/layout.css', version: $version);
+            $theme->asset()->usePath()->add('custom', 'css/custom.css', version: $version);
             $theme->asset()->usePath()->add('style', 'css/style.css', version: $version);
 
             $theme->asset()->container('footer')->usePath()->add('jquery', 'js/jquery-3.7.1.min.js');

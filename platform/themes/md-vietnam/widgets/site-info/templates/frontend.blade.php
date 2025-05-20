@@ -45,7 +45,7 @@
             @endif
 
             @if (isset($config['image']) && $image = $config['image'])
-                <div class="tp-footer-image mt-5">
+                <div class="tp-footer-image mt-15">
                     <a href="{{ BaseHelper::getHomepageUrl() }}">
                         {{ RvMedia::image($image, Theme::getSiteTitle(), attributes: $attributes) }}
                     </a>

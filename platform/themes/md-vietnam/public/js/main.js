@@ -72,7 +72,7 @@ $(() => {
         })
 
         initSwiperSlider('.list-equal-right', {
-            slidesPerView: 4,
+            slidesPerView: 5,
             spaceBetween: 30,
             breakpoints: {
                 320: {
@@ -88,7 +88,7 @@ $(() => {
                     spaceBetween: 20,
                 },
                 1400: {
-                    slidesPerView: 4,
+                    slidesPerView: 5,
                     spaceBetween: 20,
                 },
             },
@@ -142,7 +142,7 @@ $(() => {
 
         initSwiperSlider('.news-slide-list', {
             direction: "vertical",
-            slidesPerView: 4,
+            slidesPerView: 3,
             spaceBetween: 30,
             breakpoints: {
                 320: {
@@ -158,7 +158,7 @@ $(() => {
                     spaceBetween: 20,
                 },
                 1400: {
-                    slidesPerView: 4,
+                    slidesPerView: 3,
                     spaceBetween: 20,
                 },
             },

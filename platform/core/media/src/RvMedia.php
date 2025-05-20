@@ -412,7 +412,7 @@ class RvMedia
 
             return response(
                 '<script>window.parent.CKEDITOR.tools.callFunction("' . $request->input('CKEditorFuncNum') .
-                '", "' . $this->url($file->url) . '", "");</script>'
+                    '", "' . $this->url($file->url) . '", "");</script>'
             )
                 ->header('Content-Type', 'text/html');
         }
@@ -712,6 +712,7 @@ class RvMedia
             return false;
         }
 
+
         foreach ($this->getSizes() as $size) {
             $readableSize = explode('x', $size);
 
@@ -727,7 +728,14 @@ class RvMedia
                 }
             }
 
-            $thumbnailPath = File::name($file->url) . '-' . $size . '.' . File::extension($file->url);
+            $fileUrl = $file->url;
+            $cleanUrl = parse_url($fileUrl, PHP_URL_PATH);
+
+            $thumbnailPath = File::name($cleanUrl) . '-' . $size . '.' . File::extension($cleanUrl);
+
+            if (Storage::exists($thumbnailPath)) {
+                Storage::delete($thumbnailPath);
+            }
 
             if (! $this->isUsingCloud() && Storage::exists($thumbnailPath)) {
                 continue;
@@ -736,7 +744,7 @@ class RvMedia
             $this->thumbnailService
                 ->setImage($fileUpload)
                 ->setSize($readableSize[0], $readableSize[1])
-                ->setDestinationPath(File::dirname($file->url))
+                ->setDestinationPath(File::dirname($cleanUrl))
                 ->setFileName($thumbnailPath)
                 ->save();
         }
@@ -1048,7 +1056,7 @@ class RvMedia
                         'slug' => $folderSlug,
                         'parent_id' => $parentId,
                     ])
-                    ->each(fn (MediaFolder $folder) => $folder->forceDelete());
+                    ->each(fn(MediaFolder $folder) => $folder->forceDelete());
             }
 
             $folder = MediaFolder::query()->create([

@@ -43,13 +43,6 @@
                                             </a>
                                         </h3>
 
-                                        @if($post->firstCategory)
-                                            <div class="tp-blog-tag">
-                                                <span><x-core::icon name="ti ti-tag" /></span>
-                                                <a href="{{ $post->firstCategory->url }}">{{ $post->firstCategory->name }}</a>
-                                            </div>
-                                        @endif
-
                                         <p>{{ Str::words($post->description, 20) }}</p>
                                     </div>
                                 </div>

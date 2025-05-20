@@ -6,7 +6,7 @@
     <main>
         {!! Theme::breadcrumb()->render(Theme::getThemeNamespace('partials.breadcrumbs')) !!}
 
-        <section class="tp-page-area pb-80 pt-50">
+        <section class="tp-page-area pb-80 pt-10">
             <div class="container">
                 {!! Theme::content() !!}
             </div>

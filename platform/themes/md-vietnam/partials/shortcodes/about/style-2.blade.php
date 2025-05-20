@@ -42,10 +42,10 @@
                         <span class="sub-title">{{ $shortcode->subtitle }}</span>
                         <h2 class="h2-title">{{ $shortcode->title }}</h2>
                     </div>
-                    @if ($shortcode->description)
+                    @if ($shortcode->description_editor)
                     <div class="about-text">
                         <p>
-                            {{ $shortcode->description }}
+                            {!! $shortcode->description_editor !!}
                         </p>
                     </div>
                     @endif

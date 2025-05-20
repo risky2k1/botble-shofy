@@ -9,7 +9,7 @@
 
 @endphp
 
-<section @class(['tp-postbox-details-area', 'pb-120' => $relatedPosts->isEmpty(),  'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
+<section @class(['tp-postbox-details-area pt-30', 'pb-120' => $relatedPosts->isEmpty(),  'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
     {!! apply_filters('ads_render', null, 'detail_page_before') !!}
 
     <div class="container">
@@ -26,7 +26,7 @@
                         </div>
                     @endif
                     <h1 class="tp-postbox-details-title">{{ $post->name }}</h1>
-                    <div class="tp-postbox-details-meta mb-50">
+                    {{-- <div class="tp-postbox-details-meta mb-50">
                         @if ($post->author)
                             <span data-meta="author">
                                 <x-core::icon name="ti ti-user" />
@@ -41,7 +41,7 @@
                             <x-core::icon name="ti ti-eye" />
                             {{ number_format($post->views) }}
                         </span>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>

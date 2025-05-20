@@ -545,24 +545,26 @@ class MediaController extends BaseController
                 break;
 
             case 'crop':
-                $validated = Validator::validate($request->input(), [
+                $validated = Validator::validate($request->all(), [
                     'imageId' => ['required', 'string', 'exists:media_files,id'],
-                    'cropData' => ['required', 'json'],
+                    'image' => ['required', 'image'],
                 ]);
 
-                $data = json_decode($validated['cropData'], true);
+                // $data = json_decode($validated['cropData'], true);
 
-                $cropData = Validator::validate($data, [
-                    'x' => ['required', 'numeric'],
-                    'y' => ['required', 'numeric'],
-                    'width' => ['required', 'numeric'],
-                    'height' => ['required', 'numeric'],
-                ]);
+                // $cropData = Validator::validate($data, [
+                //     'x' => ['required', 'numeric'],
+                //     'y' => ['required', 'numeric'],
+                //     'width' => ['required', 'numeric'],
+                //     'height' => ['required', 'numeric'],
+                // ]);
 
                 /**
                  * @var MediaFile $file
                  */
                 $file = MediaFile::query()->findOrFail($validated['imageId']);
+                $imageReplace = $request->file('image');
+
 
                 if (! $file->canGenerateThumbnails()) {
                     $response = RvMedia::responseError(trans('core/media::media.failed_to_crop_image'));
@@ -580,11 +582,9 @@ class MediaController extends BaseController
                 try {
                     $thumbnailService
                         ->setImage(RvMedia::getRealPath($fileUrl))
-                        ->setSize((int) $cropData['width'], (int) $cropData['height'])
-                        ->setCoordinates((int) $cropData['x'], (int) $cropData['y'])
                         ->setDestinationPath(File::dirname($fileUrl))
                         ->setFileName(File::name($fileUrl) . '.' . File::extension($fileUrl))
-                        ->save('crop');
+                        ->replace($imageReplace);
                 } catch (UnableToWriteFile $exception) {
                     $message = $exception->getMessage();
 
@@ -597,7 +597,29 @@ class MediaController extends BaseController
                     return RvMedia::responseError($exception->getMessage());
                 }
 
+                // try {
+                //     $thumbnailService
+                //         ->setImage(RvMedia::getRealPath($fileUrl))
+                //         ->setSize((int) $cropData['width'], (int) $cropData['height'])
+                //         ->setCoordinates((int) $cropData['x'], (int) $cropData['y'])
+                //         ->setDestinationPath(File::dirname($fileUrl))
+                //         ->setFileName(File::name($fileUrl) . '.' . File::extension($fileUrl))
+                //         ->save('crop');
+                // } catch (UnableToWriteFile $exception) {
+                //     $message = $exception->getMessage();
+
+                //     if (! RvMedia::isUsingCloud()) {
+                //         $message = trans('core/media::media.unable_to_write', ['folder' => RvMedia::getUploadPath()]);
+                //     }
+
+                //     return RvMedia::responseError($message);
+                // } catch (Throwable $exception) {
+                //     return RvMedia::responseError($exception->getMessage());
+                // }
+
                 $file->url = $fileUrl . '?v=' . time();
+                $file->mime_type = $imageReplace->getMimeType();
+                $file->size = $imageReplace->getSize();
                 $file->save();
 
                 RvMedia::generateThumbnails($file);

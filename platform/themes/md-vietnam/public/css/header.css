@@ -39,14 +39,25 @@ a.hotline:hover:before {
 .header-container .logo {
   display: flex;
   align-items: center;
-  margin: 8px 0;
+  margin: 3px 0;
 }
 
 .logo img {
   height: 80px;
   margin-right: 10px;
 }
-
+ul.submenu:before {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 45px;
+    border: 6px solid #ffffff;
+    border-top-color: #ffffff;
+    border-right-color: #ffffff;
+    transform: rotate(-45deg);
+    background: #fff;
+    z-index: 999;
+}
 .logo-text {
   color: white;
   font-size: 22px;
@@ -73,14 +84,17 @@ a.hotline:hover:before {
 .menu li a {
   color: #000000;
   text-decoration: none;
-  padding: 10px 15px;
+  padding: 10px 10px;
   display: block;
   font-weight: 400;
   transition: all 0.3s ease;
   border-radius: 4px;
   font-size: 16px;
 }
-
+.menu li a svg {
+    width: 18px;
+    height: 18px;
+}
 .menu li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
 }
@@ -225,7 +239,7 @@ ul.submenu {
     display: none;
     background: #fff;
     border-radius: 5px;
-    overflow: hidden;
+    /* overflow: hidden; */
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
@@ -241,6 +255,8 @@ ul.submenu li:hover {
 
 ul.submenu li {
     margin: unset;
+    list-style: none;
+    z-index: 99999;
 }
 
 ul.submenu li a {

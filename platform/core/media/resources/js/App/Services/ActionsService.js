@@ -1,7 +1,10 @@
-import Cropper from 'cropperjs'
-import { RecentItems } from '../Config/MediaConfig'
-import { Helpers } from '../Helpers/Helpers'
-import { MessageService } from './MessageService'
+import Cropper from 'cropperjs';
+import ImageEditor from 'tui-image-editor';
+import 'tui-image-editor/dist/tui-image-editor.css';
+import { RecentItems } from '../Config/MediaConfig';
+import { Helpers } from '../Helpers/Helpers';
+import { MessageService } from './MessageService';
+import { MediaService } from './MediaService';
 
 export class ActionsService {
     static handleDropdown() {
@@ -48,57 +51,130 @@ export class ActionsService {
         const html = $('#rv_media_crop_image').html()
         const modal = $('#modal_crop_image .crop-image').empty()
         const item = Helpers.getSelectedItems()[0]
-        const form = $('#modal_crop_image .form-crop')
-        let cropData
+        // const form = $('#modal_crop_image .form-crop')
+
 
         const el = html.replace(/__src__/gi, item.full_url)
         modal.append(el)
 
         const image = modal.find('img')[0]
 
-        const options = {
-            minContainerWidth: 500,
-            minContainerHeight: 550,
-            dragMode: 'move',
-            crop(event) {
-                cropData = event.detail
-                form.find('input[name="image_id"]').val(item.id)
-                form.find('input[name="crop_data"]').val(JSON.stringify(cropData))
-                setHeight(cropData.height)
-                setWidth(cropData.width)
+        $(document).on('click', '#modal-edit-file .close', function () {
+            $('#modal-edit-file').modal('hide')
+        });
+
+
+        const imageEditor = new ImageEditor(document.querySelector('#image-editor-wrapper'), {
+            includeUI: {
+                loadImage: {
+                    path: image.src, // đường dẫn ảnh mặc định
+                    name: 'SampleImage'
+                },
+                theme: {}, // Có thể tùy chỉnh giao diện
+                initMenu: 'filter',
+                menuBarPosition: 'bottom'
             },
-        }
-        let cropper = new Cropper(image, options)
-
-        form.find('#aspectRatio').on('click', function () {
-            cropper.destroy()
-            if ($(this).is(':checked')) {
-                options.aspectRatio = cropData.width / cropData.height
-            } else {
-                options.aspectRatio = null
+            cssMaxWidth: 700,
+            cssMaxHeight: 500,
+            selectionStyle: {
+                cornerSize: 20,
+                rotatingPointOffset: 70
             }
-            cropper = new Cropper(image, options)
         })
 
-        form.find('#dataHeight').on('change', function () {
-            cropData.height = parseFloat($(this).val())
-            cropper.setData(cropData)
-            setHeight(cropData.height)
-        })
+         let newButton = $('<button>')
+            .text('Save')
+            .attr('id', 'custom-save-button')
+            .css({
+                'background-color': '#fdba3b', 'border': '1px solid #fdba3b', 'color': '#fff', 'font-size': '12px'
+            })
+            .on('click', function () {
+                let editedImageUrl = imageEditor.toDataURL();
+                let blob = dataURLToBlob(editedImageUrl);
+                console.log(blob);
 
-        form.find('#dataWidth').on('change', function () {
-            cropData.width = parseFloat($(this).val())
-            cropper.setData(cropData)
-            setWidth(cropData.width)
-        })
+                let formData = new FormData();
+                formData.append('_token', $('meta[name="csrf-token"]').attr('content'))
+                formData.append('image', blob)
+                formData.append('imageId', item.id)
+                formData.append('action', 'crop')
 
-        const setHeight = (height) => {
-            form.find('#dataHeight').val(parseInt(height))
+                $(this).text('Saving...')
+
+                 ActionsService.processAction(
+                    formData,
+                    (response) => {
+                        if (!response.error) {
+                            $('#modal-edit-file').modal('hide')
+
+                            new MediaService().getMedia(true)
+                        }
+                    }
+                )
+            });
+
+        function dataURLToBlob(dataURL) {
+            var byteString = atob(dataURL.split(',')[1]);
+            var mimeString = dataURL.split(',')[0].split(':')[1].split(';')[0];
+            var ab = new ArrayBuffer(byteString.length);
+            var ia = new Uint8Array(ab);
+            for (var i = 0; i < byteString.length; i++) {
+                ia[i] = byteString.charCodeAt(i);
+            }
+            return new Blob([ab], { type: mimeString });
         }
 
-        const setWidth = (width) => {
-            form.find('#dataWidth').val(parseInt(width))
-        }
+        var saveButton = imageEditor.ui._buttonElements.download;
+        $(saveButton[1].parentElement).append(newButton);
+        saveButton[1].remove();
+
+
+
+        // const options = {
+        //     minContainerWidth: 500,
+        //     minContainerHeight: 550,
+        //     dragMode: 'move',
+        //     crop(event) {
+        //         cropData = event.detail
+        //         form.find('input[name="image_id"]').val(item.id)
+        //         form.find('input[name="crop_data"]').val(JSON.stringify(cropData))
+        //         setHeight(cropData.height)
+        //         setWidth(cropData.width)
+        //     },
+        // }
+        // let cropper = new Cropper(image, options)
+        // console.log('cropper', cropper);
+
+
+        // form.find('#aspectRatio').on('click', function () {
+        //     cropper.destroy()
+        //     if ($(this).is(':checked')) {
+        //         options.aspectRatio = cropData.width / cropData.height
+        //     } else {
+        //         options.aspectRatio = null
+        //     }
+        //     cropper = new Cropper(image, options)
+        // })
+
+        // form.find('#dataHeight').on('change', function () {
+        //     cropData.height = parseFloat($(this).val())
+        //     cropper.setData(cropData)
+        //     setHeight(cropData.height)
+        // })
+
+        // form.find('#dataWidth').on('change', function () {
+        //     cropData.width = parseFloat($(this).val())
+        //     cropper.setData(cropData)
+        //     setWidth(cropData.width)
+        // })
+
+        // const setHeight = (height) => {
+        //     form.find('#dataHeight').val(parseInt(height))
+        // }
+
+        // const setWidth = (width) => {
+        //     form.find('#dataWidth').val(parseInt(width))
+        // }
     }
 
     static async handleCopyLink() {
@@ -159,10 +235,10 @@ export class ActionsService {
                 $('#modal_rename_items').modal('show').find('form.form-rename').data('action', type)
                 break
             case 'copy_link':
-                ActionsService.handleCopyLink().then(() => {})
+                ActionsService.handleCopyLink().then(() => { })
                 break
             case 'copy_indirect_link':
-                ActionsService.handleCopyIndirectLink().then(() => {})
+                ActionsService.handleCopyIndirectLink().then(() => { })
                 break
             case 'share':
                 $('#modal_share_items').modal('show')
@@ -174,7 +250,7 @@ export class ActionsService {
                 $('#modal_alt_text_items').modal('show').find('form.form-alt-text').data('action', type)
                 break
             case 'crop':
-                $('#modal_crop_image').modal('show').find('form.rv-form').data('action', type)
+                $('#modal-edit-file').modal('show')
                 break
             case 'trash':
                 $('#modal_trash_items').modal('show').find('form.form-delete-items').data('action', type)
@@ -247,7 +323,7 @@ export class ActionsService {
             let item = VIEW.replace(
                 /__icon__/gi,
                 value.icon ||
-                    `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"></path>
                 </svg>`
@@ -287,7 +363,7 @@ export class ActionsService {
             let item = VIEW.replace(
                 /__icon__/gi,
                 value.icon ||
-                    `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                `<svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
                     <path d="M5 4h4l3 3h7a2 2 0 0 1 2 2v8a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2"></path>
                 </svg>`
@@ -304,7 +380,7 @@ export class ActionsService {
 
     static renderShareItems() {
         const target = $('#modal_share_items [data-bb-value="share-result"]')
-        const shareType =  $('#modal_share_items select[data-bb-value="share-type"]').val()
+        const shareType = $('#modal_share_items select[data-bb-value="share-type"]').val()
         target.val('')
 
         let results = []

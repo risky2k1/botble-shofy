@@ -1,4 +1,4 @@
-<section class="tp-map-area pb-100">
+<section class="tp-map-area">
     <div class="{{ $shortcode->display_style == 'default' ? 'container' : '' }}">
         <div class="row">
             <div class="col-xl-12">

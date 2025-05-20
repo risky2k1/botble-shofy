@@ -428,7 +428,7 @@ class MediaManagement {
             ActionsService.renderShareItems()
         })
 
-        _self.$body.on('show.bs.modal', '#modal_crop_image', () => {
+        _self.$body.on('show.bs.modal', '#modal-edit-file', () => {
             ActionsService.renderCropImage()
         })
 

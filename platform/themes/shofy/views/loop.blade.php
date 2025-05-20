@@ -6,7 +6,7 @@
     $blogSidebar = dynamic_sidebar('blog_sidebar');
 @endphp
 
-<section @class(['tp-blog-grid-area pb-120', 'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
+<section @class(['tp-blog-grid-area pb-20', 'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
     {!! apply_filters('ads_render', null, 'listing_page_before') !!}
 
     <div class="container">

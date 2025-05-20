@@ -1,4 +1,4 @@
-<section class="tp-map-area pb-100">
+<section class="tp-map-area ">
     <div class="container">
         <div class="row">
             <div class="col-xl-12">

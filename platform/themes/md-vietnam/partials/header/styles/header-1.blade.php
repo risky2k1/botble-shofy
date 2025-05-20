@@ -2,8 +2,8 @@
     <div class="container header-container">
         <div class="logo">
             {!! Theme::partial('header.logo') !!}
-            {!! Menu::renderMenuLocation('main-menu', ['view' => 'main-menu']) !!}
         </div>
+        {!! Menu::renderMenuLocation('main-menu', ['view' => 'main-menu']) !!}
 
         <div class="mobile-menu-btn">
             <x-core::icon name="ti ti-menu-2" size="sx" />

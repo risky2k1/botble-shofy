@@ -7,6 +7,34 @@
     ])>
         @include('core/base::layouts.partials.page-header')
 
+        {{-- Modal edit file --}}
+        <div class="modal fade modal-image" id="modal-edit-file" style="z-index: 99999;">
+            <div class="modal-dialog modal-dialog-centered modal-fullscreen" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <a class="close" href="javascript:void(0);" style="
+                            position: absolute;
+                            width: 13px;
+                            height: 32px;
+                            top: -7px;
+                            right: 15px;
+                            opacity: 0.8;
+                            transition: all 200ms;
+                            font-size: 32px;
+                            text-decoration: none;
+                            color: #222;
+                            z-index: 99999;
+                            cursor: pointer;
+                            ">&times;</a>
+                        <div id="image-editor-wrapper">
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{-- End modal edit file --}}
+
         <div class="page-body page-content">
             <div class="{{ AdminAppearance::getContainerWidth() }}">
                 {!! apply_filters('core_layout_before_content', null) !!}

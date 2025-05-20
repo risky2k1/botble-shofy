@@ -2,6 +2,7 @@
 
 use Botble\Base\Forms\FieldOptions\ColorFieldOption;
 use Botble\Base\Forms\FieldOptions\CoreIconFieldOption;
+use Botble\Base\Forms\FieldOptions\EditorFieldOption;
 use Botble\Base\Forms\FieldOptions\MediaImageFieldOption;
 use Botble\Base\Forms\FieldOptions\OnOffFieldOption;
 use Botble\Base\Forms\FieldOptions\RadioFieldOption;
@@ -11,6 +12,7 @@ use Botble\Base\Forms\FieldOptions\TextFieldOption;
 use Botble\Base\Forms\FieldOptions\UiSelectorFieldOption;
 use Botble\Base\Forms\Fields\ColorField;
 use Botble\Base\Forms\Fields\CoreIconField;
+use Botble\Base\Forms\Fields\EditorField;
 use Botble\Base\Forms\Fields\HtmlField;
 use Botble\Base\Forms\Fields\MediaImageField;
 use Botble\Base\Forms\Fields\OnOffField;
@@ -95,9 +97,9 @@ Shortcode::setAdminConfig('about', function (array $attributes) {
                 ->colspan(2)
         )
         ->add(
-            'description',
-            TextareaField::class,
-            TextareaFieldOption::make()
+            'description_editor',
+            EditorField::class,
+            EditorFieldOption::make()
                 ->label(__('Description'))
                 ->colspan(2)
         )

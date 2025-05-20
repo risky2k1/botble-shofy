@@ -13,14 +13,12 @@
 @endphp
 
 @if ($logo || $logoLight)
-    <div class="logo">
-        <a href="{{ BaseHelper::getHomepageUrl() }}">
-            @if ($hasLogoLight)
-                {{ RvMedia::image($logoLight ?: $logo, Theme::getSiteTitle(), attributes: ['class' => 'logo-light', ...$attributes], lazy: false) }}
-                {{ RvMedia::image($logo ?: $logoLight, Theme::getSiteTitle(), attributes: ['class' => 'logo-dark', ...$attributes], lazy: false) }}
-            @else
-                {{ RvMedia::image($defaultIsDark ? $logo : $logoLight, Theme::getSiteTitle(), attributes: $attributes, lazy: false) }}
-            @endif
-        </a>
-    </div>
+<a href="{{ BaseHelper::getHomepageUrl() }}">
+    @if ($hasLogoLight)
+        {{ RvMedia::image($logoLight ?: $logo, Theme::getSiteTitle(), attributes: ['class' => 'logo-light', ...$attributes], lazy: false) }}
+        {{ RvMedia::image($logo ?: $logoLight, Theme::getSiteTitle(), attributes: ['class' => 'logo-dark', ...$attributes], lazy: false) }}
+    @else
+        {{ RvMedia::image($defaultIsDark ? $logo : $logoLight, Theme::getSiteTitle(), attributes: $attributes, lazy: false) }}
+    @endif
+</a>
 @endif

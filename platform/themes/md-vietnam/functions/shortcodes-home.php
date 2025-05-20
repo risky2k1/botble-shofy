@@ -53,6 +53,12 @@ app()->booted(function (): void {
                         ->label(__('Image Left'))
                 )
                 ->add(
+                    'link_left',
+                    MediaImageField::class,
+                    MediaImageFieldOption::make()
+                        ->label(__('Link Left'))
+                )
+                ->add(
                     'title',
                     TextField::class,
                     TextFieldOption::make()
