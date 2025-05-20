@@ -1,0 +1,5 @@
+@php
+$style = in_array($shortcode->style, [1, 2, 3, 4, 5, 6, 7]) ? $shortcode->style : 1;
+@endphp
+
+{!! Theme::partial("shortcodes.table-of-contents.style-$style", compact('shortcode','tabFeatureBoxs')) !!}

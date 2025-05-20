@@ -1,0 +1,347 @@
+header {
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+a.hotline:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  opacity: 0;
+  background-color: rgba(255, 255, 255, 0.2);
+  -webkit-transform: scale(1, 0.5);
+  -ms-transform: scale(1, 0.5);
+  transform: scale(1, 0.5);
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  transition: all 0.4s ease;
+}
+
+a.hotline:hover:before {
+  opacity: 1;
+  -webkit-transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  transform: scale(1, 1);
+}
+.header-container .logo {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+}
+
+.logo img {
+  height: 80px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  color: white;
+  font-size: 22px;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  margin-left: 25px;
+}
+
+.menu {
+  display: flex;
+  list-style: none;
+}
+
+.menu li {
+  position: relative;
+  margin: 0 5px;
+}
+
+.menu li a {
+  color: #000000;
+  text-decoration: none;
+  padding: 10px 15px;
+  display: block;
+  font-weight: 400;
+  transition: all 0.3s ease;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.menu li a:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.menu li.active a {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.contact-info {
+  display: flex;
+  align-items: center;
+}
+
+.hotline {
+  background-color: #085fab;
+  color: white;
+  padding: 10px 15px;
+  position: relative;
+  border-radius: 5px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  transition: all 0.3s ease;
+  margin-right: 15px;
+  justify-content: center;
+  gap: 0px 5px;
+}
+
+.hotline:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+.hotline i {
+  margin-right: 5px;
+}
+
+.language-selector {
+  position: relative;
+  margin-left: 10px;
+}
+
+.language-selector select {
+  padding: 5px 10px;
+  border: none;
+  background-color: rgb(2 92 171 / 17%);
+  color: #005baa;
+  border-radius: 4px;
+  cursor: pointer;
+  outline: none;
+}
+
+.mobile-menu-btn {
+  display: none;
+  color: #000;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Hero Section Styles */
+.hero-section {
+  position: relative;
+  height: 500px;
+  background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url("/api/placeholder/1200/500") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  color: white;
+  overflow: hidden;
+}
+
+.hero-content {
+  max-width: 600px;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.hero-text {
+  font-size: 18px;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.cta-primary,
+.cta-secondary {
+  padding: 12px 25px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.cta-primary {
+  background-color: #7ebdc2;
+  color: white;
+}
+
+.cta-primary:hover {
+  background-color: #66a9af;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(126, 189, 194, 0.3);
+}
+
+.cta-secondary {
+  background-color: transparent;
+  color: white;
+  border: 2px solid white;
+}
+
+.cta-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+section.banner-desk {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+li.has-submenu {
+    position: relative;
+}
+
+ul.submenu {
+    position: absolute;
+    width: 100%;
+    display: none;
+    background: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+li.has-submenu:hover ul.submenu {
+    display: block;
+    width: max-content;
+}
+
+ul.submenu li:hover {
+    background: #085fab1c;
+    margin: 0px;
+}
+
+ul.submenu li {
+    margin: unset;
+}
+
+ul.submenu li a {
+    font-size: 15px;
+    padding: 6px 15px;
+}
+
+@media screen and (max-width: 992px) {
+  li.has-submenu:hover ul.submenu {
+    position: unset;
+    width: 100%;
+    background: #15204426;
+    box-shadow: unset;
+    border-radius: unset;
+    padding-left: 25px;
+}
+li.has-submenu.open ul.submenu {
+    display: block;
+    position: unset;
+    width: 100%;
+    background: #15204426;
+    box-shadow: unset;
+    border-radius: unset;
+    padding-left: 25px;
+}
+.menu li.active a {
+    background-color: unset;
+}
+
+ul.menu.active li a {
+    color: #fff;
+}
+
+  .mobile-menu-btn i {
+    color: #000;
+}
+.logo img {
+    height: 50px;
+}
+  .menu {
+    display: none;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background-color: #5d99c6;
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .menu.active {
+    display: flex;
+  }
+
+  .menu li {
+    margin: 0;
+    width: 100%;
+  }
+
+  .menu li a {
+    padding: 15px 20px;
+    border-radius: 0;
+  }
+
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .contact-info {
+    margin-right: 50px;
+  }
+
+  .hero-title {
+    font-size: 36px;
+  }
+
+  .hero-section {
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact-info {
+    display: none;
+  }
+
+  .hero-title {
+    font-size: 32px;
+  }
+
+  .hero-text {
+    font-size: 16px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .hero-section {
+    height: 350px;
+  }
+}

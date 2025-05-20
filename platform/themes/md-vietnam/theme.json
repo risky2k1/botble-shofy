@@ -1,0 +1,39 @@
+{
+    "id": "botble/shofy",
+    "name": "md-vietnam",
+    "namespace": "Theme\\Shofy\\",
+    "author": "Botble Technologies",
+    "url": "https://botble.com",
+    "version": "1.0.9",
+    "description": "Shofy - eCommerce & Multivendor Marketplace Laravel Platform",
+    "required_plugins": [
+        "ecommerce"
+    ],
+    "theme_options": [
+        {
+            "section_id": "about_us",
+            "title": "Về chúng tôi",
+            "fields": [
+                {
+                    "id": "about_us_title",
+                    "type": "text",
+                    "label": "Tiêu đề",
+                    "attributes": {
+                        "name": "about_us_title",
+                        "value": "Về chúng tôi"
+                    }
+                },
+                {
+                    "id": "about_us_description",
+                    "type": "textarea",
+                    "label": "Mô tả",
+                    "attributes": {
+                        "name": "about_us_description",
+                        "rows": 5,
+                        "value": "Mô tả chi tiết về trung tâm đào tạo."
+                    }
+                }
+            ]
+        }
+    ]
+}
