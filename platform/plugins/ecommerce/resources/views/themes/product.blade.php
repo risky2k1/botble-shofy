@@ -63,7 +63,7 @@
 
     @if ($relatedProducts->isNotEmpty())
         <div class="container mt-5">
-            <h2>{{ __('Related products') }}</h2>
+            {{-- <h2>{{ __('Related products') }}</h2> --}}
 
             <div class="row">
                 @include(EcommerceHelper::viewPath('includes.product-items'), ['products' => $relatedProducts])

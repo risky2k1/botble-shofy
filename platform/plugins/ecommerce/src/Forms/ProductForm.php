@@ -296,76 +296,76 @@ class ProductForm extends FormAbstract
                 ],
             ]);
 
-        if (! $totalProductVariations) {
-            $this
-                ->removeMetaBox('variations')
-                ->addMetaBoxes([
-                    'general' => [
-                        'title' => trans('plugins/ecommerce::products.overview'),
-                        'content' => view(
-                            'plugins/ecommerce::products.partials.general',
-                            [
-                                'product' => $productId ? $this->getModel() : null,
-                                'isVariation' => false,
-                                'originalProduct' => null,
-                            ]
-                        ),
-                        'before_wrapper' => '<div id="main-manage-product-type">',
-                        'priority' => 2,
-                    ],
-                    'attributes' => [
-                        'title' => trans('plugins/ecommerce::products.attributes'),
-                        'content' => view('plugins/ecommerce::products.partials.add-product-attributes', [
-                            'product' => $this->getModel(),
-                            'productAttributeSets' => $productAttributeSets,
-                            'addAttributeToProductUrl' => $this->getModel()->id
-                                ? route('products.add-attribute-to-product', $this->getModel()->id)
-                                : null,
-                        ]),
-                        'header_actions' => $productAttributeSets->isNotEmpty()
-                            ? view('plugins/ecommerce::products.partials.product-attribute-actions')
-                            : null,
-                        'after_wrapper' => '</div>',
-                        'priority' => 3,
-                    ],
-                ]);
-        } elseif ($productId) {
-            $productVariationTable = app(ProductVariationTable::class)
-                ->setProductId($productId)
-                ->setProductAttributeSets($productAttributeSets);
+        // if (! $totalProductVariations) {
+        //     $this
+        //         ->removeMetaBox('variations')
+        //         ->addMetaBoxes([
+        //             'general' => [
+        //                 'title' => trans('plugins/ecommerce::products.overview'),
+        //                 'content' => view(
+        //                     'plugins/ecommerce::products.partials.general',
+        //                     [
+        //                         'product' => $productId ? $this->getModel() : null,
+        //                         'isVariation' => false,
+        //                         'originalProduct' => null,
+        //                     ]
+        //                 ),
+        //                 'before_wrapper' => '<div id="main-manage-product-type">',
+        //                 'priority' => 2,
+        //             ],
+        //             'attributes' => [
+        //                 'title' => trans('plugins/ecommerce::products.attributes'),
+        //                 'content' => view('plugins/ecommerce::products.partials.add-product-attributes', [
+        //                     'product' => $this->getModel(),
+        //                     'productAttributeSets' => $productAttributeSets,
+        //                     'addAttributeToProductUrl' => $this->getModel()->id
+        //                         ? route('products.add-attribute-to-product', $this->getModel()->id)
+        //                         : null,
+        //                 ]),
+        //                 'header_actions' => $productAttributeSets->isNotEmpty()
+        //                     ? view('plugins/ecommerce::products.partials.product-attribute-actions')
+        //                     : null,
+        //                 'after_wrapper' => '</div>',
+        //                 'priority' => 3,
+        //             ],
+        //         ]);
+        // } elseif ($productId) {
+        //     $productVariationTable = app(ProductVariationTable::class)
+        //         ->setProductId($productId)
+        //         ->setProductAttributeSets($productAttributeSets);
 
-            /**
-             * @var Product $product
-             */
-            $product = $this->getModel();
+        //     /**
+        //      * @var Product $product
+        //      */
+        //     $product = $this->getModel();
 
-            if (EcommerceHelper::isEnabledSupportDigitalProducts() && $product->isTypeDigital()) {
-                $productVariationTable->isDigitalProduct();
-            }
+        //     if (EcommerceHelper::isEnabledSupportDigitalProducts() && $product->isTypeDigital()) {
+        //         $productVariationTable->isDigitalProduct();
+        //     }
 
-            $this
-                ->removeMetaBox('general')
-                ->addMetaBoxes([
-                    'variations' => [
-                        'title' => trans('plugins/ecommerce::products.product_has_variations'),
-                        'content' => view('plugins/ecommerce::products.partials.configurable', [
-                            'product' => $this->getModel(),
-                            'productAttributeSets' => $productAttributeSets,
-                            'productVariationTable' => $productVariationTable,
-                        ]),
-                        'header_actions' => view(
-                            'plugins/ecommerce::products.partials.product-variation-actions',
-                            ['product' => $this->getModel()]
-                        ),
-                        'has_table' => true,
-                        'before_wrapper' => '<div id="main-manage-product-type">',
-                        'after_wrapper' => '</div>',
-                        'priority' => 3,
-                        'render' => false,
-                    ],
-                ])
-                ->addAfter('brand_id', 'sku', TextField::class, TextFieldOption::make()->label(trans('plugins/ecommerce::products.sku')));
-        }
+        //     $this
+        //         ->removeMetaBox('general')
+        //         ->addMetaBoxes([
+        //             'variations' => [
+        //                 'title' => trans('plugins/ecommerce::products.product_has_variations'),
+        //                 'content' => view('plugins/ecommerce::products.partials.configurable', [
+        //                     'product' => $this->getModel(),
+        //                     'productAttributeSets' => $productAttributeSets,
+        //                     'productVariationTable' => $productVariationTable,
+        //                 ]),
+        //                 'header_actions' => view(
+        //                     'plugins/ecommerce::products.partials.product-variation-actions',
+        //                     ['product' => $this->getModel()]
+        //                 ),
+        //                 'has_table' => true,
+        //                 'before_wrapper' => '<div id="main-manage-product-type">',
+        //                 'after_wrapper' => '</div>',
+        //                 'priority' => 3,
+        //                 'render' => false,
+        //             ],
+        //         ])
+        //         ->addAfter('brand_id', 'sku', TextField::class, TextFieldOption::make()->label(trans('plugins/ecommerce::products.sku')));
+        // }
 
         if ($productId && is_in_admin(true)) {
             add_filter('base_action_form_actions_extra', function () {

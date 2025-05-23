@@ -225,6 +225,13 @@ if (! function_exists('get_product_by_brand')) {
     }
 }
 
+if (! function_exists('get_product_by_category')) {
+    function get_product_by_category(array $params): Collection|LengthAwarePaginator|Product|null
+    {
+        return app(ProductInterface::class)->getProductsByCategories($params);
+    }
+}
+
 if (! function_exists('the_product_price')) {
     function the_product_price(Product $product, array $htmlWrap = []): string
     {

@@ -34,7 +34,7 @@ class Category extends BaseModel implements HasTreeCategoryContract
         'is_default',
         'status',
         'author_id',
-        'author_type',
+        'author_type'
     ];
 
     protected $casts = [

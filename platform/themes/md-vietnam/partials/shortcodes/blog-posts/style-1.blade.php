@@ -1,4 +1,4 @@
-<section class="tp-blog-area pt-50 pb-50">
+<section class="tp-blog-area pt-50 pb-10">
     <div class="container">
         <div class="row align-items-center mb-40">
             <div class="col-xl-4 col-md-6">

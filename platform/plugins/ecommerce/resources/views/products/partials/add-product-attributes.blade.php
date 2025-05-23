@@ -1,5 +1,5 @@
 @if ($productAttributeSets->isNotEmpty())
-    <div class="add-new-product-attribute-wrap">
+    <div class="add-new-product-attribute-wrap d-none">
         <input
             id="is_added_attributes"
             name="is_added_attributes"

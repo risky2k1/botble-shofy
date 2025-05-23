@@ -30,6 +30,7 @@ app()->booted(function (): void {
             'popular' => get_popular_posts($limit),
             default => get_recent_posts($limit),
         };
+        // dd($posts->pluck('id'));
 
         if ($posts->isEmpty()) {
             return null;

@@ -8,7 +8,6 @@
             <div class="title-article-contact">
                 <h2>{{ $shortcode->title ?? '' }}</h2>
             </div>
-
             <div class="list-article-item">
                 <div class="row">
                     @foreach ($addressBoxes as $addressBox)
@@ -22,8 +21,8 @@
                                 <span>{{ $addressBox['company_name'] }}</span>
                                 <ul>
                                     <li>{{ $addressBox['address'] }}</li>
-                                    <li><i class="ti ti-phone"></i></i> {{ $addressBox['phone'] }} </li>
-                                    <li><i class="ti ti-envelope"></i>{{ $addressBox['email'] }}</li>
+                                    <li><i class="ti ti-phone"></i></i> {{ $addressBox['phone'] ?? '' }} </li>
+                                    <li><i class="ti ti-envelope"></i>{{ $addressBox['email'] ?? '' }}</li>
                                 </ul>
                             </div>
                         </div>

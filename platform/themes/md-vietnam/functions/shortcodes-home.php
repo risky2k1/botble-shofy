@@ -29,7 +29,7 @@ app()->booted(function (): void {
     function block5()
     {
         Shortcode::register('block-5', __('Home Block 5'), __('Home Block 5'), function (ShortcodeCompiler $shortcode) {
-            $listEqualRights = Shortcode::fields()->getTabsData(['image', 'title', 'description'], $shortcode);
+            $listEqualRights = Shortcode::fields()->getTabsData(['image', 'title', 'description', 'link'], $shortcode);
 
             return Theme::partial('shortcodes.home.block-5', [
                 'listEqualRights' => $listEqualRights,
@@ -54,8 +54,8 @@ app()->booted(function (): void {
                 )
                 ->add(
                     'link_left',
-                    MediaImageField::class,
-                    MediaImageFieldOption::make()
+                    TextField::class,
+                    TextFieldOption::make()
                         ->label(__('Link Left'))
                 )
                 ->add(
@@ -80,6 +80,10 @@ app()->booted(function (): void {
                             'description' => [
                                 'type' => 'text',
                                 'title' => __('Description'),
+                            ],
+                            'link' => [
+                                'type' => 'text',
+                                'title' => __('Link'),
                             ],
                         ])
                         ->attrs($attributes)

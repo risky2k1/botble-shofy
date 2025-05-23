@@ -2,20 +2,22 @@
 <div class="panel panel-default">
     <div class="tp-footer-widget footer-col-1 mb-50">
         <div class="tp-footer-widget-content">
-            <div class="tp-footer-logo">
-                @if ($logo = $config['logo'])
+            @if ($logo = $config['logo'])
+                <div class="tp-footer-logo">
                     <a href="{{ BaseHelper::getHomepageUrl() }}">
                         {{ RvMedia::image($logo, Theme::getSiteTitle(), attributes: $attributes) }}
                     </a>
-                @endif
-            </div>
-            <div class="tp-footer-desc">
-                {!! BaseHelper::clean(nl2br($config['about'])) !!}
-            </div>
+                </div>
+            @endif
+            @if ($config['about'])
+                <div class="tp-footer-desc">
+                    {!! BaseHelper::clean(nl2br($config['about'])) !!}
+                </div>
+            @endif
             @if (isset($config['title']))
-            <div class="mb-4">
-                <span class="tp-footer-title">{{ $config['title'] }}</span>
-            </div>
+                <div class="mb-4">
+                    <span class="tp-footer-title">{{ $config['title'] }}</span>
+                </div>
             @endif
             @if (count($tabs) > 0)
                 <div class="list-footer-left-nav mt-4">
@@ -44,13 +46,13 @@
                 </div>
             @endif
 
-            @if (isset($config['image']) && $image = $config['image'])
+            @if (isset($config['image']) && ($image = $config['image']))
                 <div class="tp-footer-image mt-15">
                     <a href="{{ BaseHelper::getHomepageUrl() }}">
                         {{ RvMedia::image($image, Theme::getSiteTitle(), attributes: $attributes) }}
                     </a>
                 </div>
             @endif
-        </div>
+        </div> 
     </div>
 </div>

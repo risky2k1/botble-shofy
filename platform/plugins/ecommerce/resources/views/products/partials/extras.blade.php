@@ -30,7 +30,7 @@
     </x-core::card.body>
 </x-core::card>
 
-<x-core::card class="mb-3">
+{{-- <x-core::card class="mb-3">
     <x-core::card.header>
         <x-core::card.title>
             {{ trans('plugins/ecommerce::products.cross_selling_products') }}
@@ -66,7 +66,7 @@
             {{ trans('plugins/ecommerce::products.cross_sell_help.type_description') }}
         </p>
     </x-core::card.body>
-</x-core::card>
+</x-core::card> --}}
 
 <x-core::custom-template id="selected_product_list_template">
     <div class="list-group-item">

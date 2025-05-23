@@ -19,6 +19,7 @@ $(() => {
 
     document.addEventListener('shortcode.loaded', () => {
         initSwiper();
+        initCounterUp();
     })
 
     const initSwiper = () => {
@@ -227,6 +228,42 @@ $(() => {
         new Swiper(element, options)
     }
 
+
+    const initCounterUp = () => {
+        // Kiểm tra nếu đã chạy
+        if (window.counterScriptExecuted) {
+            console.log('Counter already executed – skipping');
+            return;
+        }
+
+        const $counters = $('.counter');
+
+        // Không có phần tử nào
+        if ($counters.length === 0) {
+            console.log('No .counter elements found – skipping');
+            return;
+        }
+
+        console.log('Running counterUp immediately');
+
+        // Gọi counterUp ngay lập tức, không dùng dấu phẩy
+        $counters.each(function () {
+            const $this = $(this);
+
+            $this.prop('Counter', 0).animate({
+                Counter: parseInt($this.text().replace(/,/g, '')) || 0
+            }, {
+                duration: 1200,
+                easing: 'swing',
+                step: function (now) {
+                    $this.text(Math.ceil(now)); // 👈 KHÔNG format
+                }
+            });
+        });
+
+        // Đánh dấu đã chạy
+        window.counterScriptExecuted = true;
+    };
 
 
     // Mobile menu toggle

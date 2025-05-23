@@ -6,11 +6,11 @@
     <main>
         {!! Theme::breadcrumb()->render(Theme::getThemeNamespace('partials.breadcrumbs')) !!}
 
-        <section class="tp-page-area pb-80 pt-10">
-            <div class="container">
+        {{-- <section class="tp-page-area pb-30 pt-10">
+            <div class="container"> --}}
                 {!! Theme::content() !!}
-            </div>
-        </section>
+            {{-- </div>
+        </section> --}}
     </main>
 
     {!! apply_filters('theme_front_footer_content', null) !!}

@@ -28,8 +28,8 @@
                         @endif
                     </div>
                     <div class="tp-about-content pl-120">
-                        @if($shortcode->description)
-                            <p>{!! BaseHelper::clean($shortcode->description) !!}</p>
+                        @if($shortcode->description_editor)
+                            <p>{!! BaseHelper::clean($shortcode->description_editor) !!}</p>
                         @endif
 
                         @if($shortcode->action_label)

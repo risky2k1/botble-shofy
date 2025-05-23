@@ -33,7 +33,7 @@
     <div class="alert alert-warning rounded-0">
         <div class="d-flex align-items-center gap-2">
             <x-core::icon name="ti ti-info-circle" />
-            {{ __('No products were found matching your selection.') }}
+            {{ __('No results found') }}
         </div>
     </div>
 @endif

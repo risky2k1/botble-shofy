@@ -3,7 +3,7 @@
     Theme::set('pageTitle', __('Galleries'));
 @endphp
 
-<section @class(['pb-100', 'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
+<section @class(['pb-20', 'pt-20' => ! theme_option('theme_breadcrumb_enabled', true)])>
     {!! apply_filters('ads_render', null, 'listing_page_before') !!}
 
     <div class="container">

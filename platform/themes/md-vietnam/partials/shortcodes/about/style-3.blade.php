@@ -13,12 +13,17 @@
         </div>
         <div class="box-body-about-product1">
             <div class="box-section-member-about-row">
-                <div class="row">
-                    <div class="col-lg-6">
+                {{-- @dd($shortcode->description_editor) --}}
+                <div class="ck-content">
+                    {{-- {!! BaseHelper::clean($shortcode->description_editor) !!} --}}
+                    {!! $shortcode->description_editor !!}
+                </div>
+            </div>
+            {{-- <div class="col-lg-6">
                         <div class="content-about-product-1">
-                            @if ($shortcode->description)
+                            @if ($shortcode->description_editor)
                                 <p>
-                                    {!! $shortcode->description !!}
+                                    {!! $shortcode->description_editor !!}
                                 </p>
                             @endif
 
@@ -51,9 +56,7 @@
                                 <p>{!! $shortcode->description_2 !!}</p>
                             @endif
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </div> --}}
         </div>
 
         {{-- <div class="mucluc-about-products">

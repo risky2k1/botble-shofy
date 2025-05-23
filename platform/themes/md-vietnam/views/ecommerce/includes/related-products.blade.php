@@ -2,9 +2,9 @@
     @if ($products->isNotEmpty())
         <section class="tp-related-product">
             <div class="container">
-                <div class="tp-section-title-wrapper-6 text-center mb-40">
+                {{-- <div class="tp-section-title-wrapper-6 text-center mb-40">
                     <h3 class="section-title tp-section-title-6">{{ __('Related Products') }}</h3>
-                </div>
+                </div> --}}
 
                 <div class="row">
                     <div class="tp-product-related-slider">

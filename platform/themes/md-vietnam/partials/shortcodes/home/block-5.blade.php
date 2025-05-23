@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-4">
                 <div class="ModuleContent-equal-left">
-                    <a href="javascript:void(0)">
+                    <a href="{{ $data->link_left }}" target="_blank">
                         {{ RvMedia::image($data->image_left,
                         $data->title, null, true) }}
                     </a>
@@ -20,7 +20,7 @@
                                 <div class="swiper-wrapper">
                                     @foreach ($listEqualRights as $item)
                                     <div class="item-equal-cake swiper-slide">
-                                        <a href="javascript:void(0)">
+                                        <a href="{{ $item['link'] }}" target="_blank">
                                             {{ RvMedia::image($item['image'],
                                             $item['title'], null, true, ['width' => 80, 'height' => 80]) }}
 

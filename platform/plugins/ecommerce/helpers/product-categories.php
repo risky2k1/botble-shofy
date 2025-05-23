@@ -7,9 +7,9 @@ if (! function_exists('get_product_categories')) {
     /**
      * @deprecated
      */
-    function get_product_categories(): Collection
+    function get_product_categories(array $params): Collection
     {
-        return ProductCategoryHelper::getAllProductCategories();
+        return ProductCategoryHelper::getAllProductCategories($params);
     }
 }
 

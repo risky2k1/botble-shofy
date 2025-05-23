@@ -17,9 +17,9 @@
             @endif
             <div class="tp-shop-main-wrapper">
                 @if (! empty($pageName))
-                    <div class="ps-block__header">
+                    {{-- <div class="ps-block__header">
                         <h1 class="h1">{{ $pageName }}</h1>
-                    </div>
+                    </div> --}}
 
                     @if (! empty($pageDescription))
                         <div class="ps-block__content">
@@ -28,7 +28,7 @@
                     @endif
                 @endif
 
-                @include(EcommerceHelper::viewPath('includes.product-filters-top'))
+                {{-- @include(EcommerceHelper::viewPath('includes.product-filters-top')) --}}
 
                 <div class="bb-product-items-wrapper tp-shop-item-primary">
                     @include(Theme::getThemeNamespace('views.ecommerce.includes.product-items'))

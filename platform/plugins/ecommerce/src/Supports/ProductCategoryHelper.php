@@ -1,5 +1,4 @@
 <?php
-
 namespace Botble\Ecommerce\Supports;
 
 use Botble\Base\Enums\BaseStatusEnum;
@@ -29,6 +28,10 @@ class ProductCategoryHelper
                 $query = $query->where($conditions);
             }
 
+            if (! empty($whereIn = Arr::get($params, 'whereIn', []))) {
+                $query = $query->whereIn('id', $whereIn);
+            }
+
             if (! empty($with = Arr::get($params, 'with', []))) {
                 $query = $query->with($with);
             }
@@ -54,6 +57,7 @@ class ProductCategoryHelper
                 'status',
                 'is_featured',
                 'image',
+                'description',
             ])) {
                 $query = $query->select($select);
             }
@@ -99,7 +103,7 @@ class ProductCategoryHelper
             $this->treeCategories = $this->getAllProductCategories(
                 [
                     'condition' => $activeOnly ? ['status' => BaseStatusEnum::PUBLISHED] : [],
-                    'with' => [$activeOnly ? 'activeChildren' : 'children' => function ($query) use ($select): void {
+                    'with'      => [$activeOnly ? 'activeChildren' : 'children' => function ($query) use ($select): void {
                         $query->select($select ?: '*');
                     }],
                 ],
@@ -110,7 +114,7 @@ class ProductCategoryHelper
         return $this->treeCategories;
     }
 
-    public function getTreeCategoriesOptions(array|Collection $categories, array $options = [], ?string $indent = null): array
+    public function getTreeCategoriesOptions(array | Collection $categories, array $options = [], ?string $indent = null): array
     {
         if (! $categories instanceof Collection) {
             foreach ($categories as $category) {
@@ -139,7 +143,7 @@ class ProductCategoryHelper
         return $options;
     }
 
-    public function renderProductCategoriesSelect(array|int|string|null $selected = null): string
+    public function renderProductCategoriesSelect(array | int | string | null $selected = null): string
     {
         $cache = Cache::make(ProductCategory::class);
 
@@ -165,8 +169,8 @@ class ProductCategoryHelper
         }
 
         return view('core/base::forms.partials.nested-select-option', [
-            'options' => $categories,
-            'indent' => null,
+            'options'  => $categories,
+            'indent'   => null,
             'selected' => $selected,
         ])->render();
     }
@@ -182,7 +186,7 @@ class ProductCategoryHelper
         }
 
         $tablePrefix = Schema::getConnection()->getTablePrefix();
-        $query = ProductCategory::query()
+        $query       = ProductCategory::query()
             ->toBase()
             ->where('status', BaseStatusEnum::PUBLISHED)
             ->select([
@@ -224,10 +228,10 @@ class ProductCategoryHelper
             ->oldest('ec_product_categories.order')
             ->when(
                 ! empty($categoryIds),
-                fn (Builder $query) => $query->whereIn('ec_product_categories.id', $categoryIds)
+                fn(Builder $query) => $query->whereIn('ec_product_categories.id', $categoryIds)
             )
-            ->when($limit > 0, fn ($query) => $query->limit($limit))
-            ->when($condition, fn ($query) => $query->where($condition));
+            ->when($limit > 0, fn($query) => $query->limit($limit))
+            ->when($condition, fn($query) => $query->where($condition));
 
         $query = $this->applyQuery($query);
 
@@ -256,7 +260,7 @@ class ProductCategoryHelper
     protected function isEnabledMultiLanguages(): bool
     {
         return is_plugin_active('language') &&
-            is_plugin_active('language-advanced') &&
-            Language::getCurrentLocale() !== Language::getDefaultLocale();
+        is_plugin_active('language-advanced') &&
+        Language::getCurrentLocale() !== Language::getDefaultLocale();
     }
 }

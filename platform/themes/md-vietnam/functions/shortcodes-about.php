@@ -153,3 +153,99 @@ Shortcode::setAdminConfig('about', function (array $attributes) {
                 ->colspan(2)
         );
 });
+
+Shortcode::register('about-custom', __('About Custom'), __('About Custom'), function (ShortcodeCompiler $shortcode) {
+    $tabFeatures = Shortcode::fields()->getTabsData(['image_left', 'image_right', 'text_left', 'text_right'], $shortcode);
+
+    return Theme::partial('shortcodes.about-custom.index', compact('shortcode', 'tabFeatures'));
+});
+
+Shortcode::setAdminConfig('about-custom', function (array $attributes) {
+    $styles = [];
+
+    foreach (range(1, 1) as $i) {
+        $styles[$i] = [
+            'label' => __('Style :number', ['number' => $i]),
+            'image' => Theme::asset()->url(sprintf('images/shortcodes/about-custom/style-%s.png', $i)),
+        ];
+    }
+
+    return ShortcodeForm::createFromArray($attributes)
+        ->withLazyLoading()
+        ->columns()
+        ->add(
+            'style',
+            UiSelectorField::class,
+            UiSelectorFieldOption::make()
+                ->choices($styles)
+                ->selected(Arr::get($attributes, 'style', 1))
+                ->colspan(2)
+        )
+        // ->add(
+        //     'image_1',
+        //     MediaImageField::class,
+        //     MediaImageFieldOption::make()
+        //         ->label(__('Image 1'))
+        // )
+        // ->add(
+        //     'image_2',
+        //     MediaImageField::class,
+        //     MediaImageFieldOption::make()
+        //         ->label(__('Image 2'))
+        // )
+        ->add(
+            'subtitle',
+            TextField::class,
+            TextFieldOption::make()
+                ->label(__('Subtitle'))
+                ->colspan(1)
+        )
+        ->add(
+            'subtitle_2',
+            TextField::class,
+            TextFieldOption::make()
+                ->label(__('Subtitle') . ' 2')
+                ->colspan(1)
+        )
+        ->add(
+            'title',
+            TextField::class,
+            TextFieldOption::make()
+                ->label(__('Title'))
+                ->colspan(2)
+        )
+        ->add(
+            'description_editor',
+            EditorField::class,
+            EditorFieldOption::make()
+                ->label(__('Description'))
+                ->colspan(2)
+        )
+        ->add(
+            'features',
+            ShortcodeTabsField::class,
+            ShortcodeTabsFieldOption::make()
+                ->fields([
+                    'image_left' => [
+                        'type' => 'image',
+                        'title' => __('Image Left'),
+                    ], 
+                    'image_right' => [
+                        'type' => 'image',
+                        'title' => __('Image Right'),
+                    ],
+                    'text_left' => [
+                        'type' => 'textarea',
+                        'title' => __('Text Left'),
+                    ],
+                    'text_right' => [
+                        'type' => 'textarea',
+                        'title' => __('Text Right'),
+                    ],
+                ])
+                ->attrs($attributes)
+                ->colspan(2)
+                ->max(10)
+
+        );
+});

@@ -41,6 +41,7 @@ use Botble\Theme\Facades\Theme;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Arr;
+use Botble\Blog\Models\Category;
 
 app()->booted(function (): void {
     if (! is_plugin_active('ecommerce')) {
@@ -665,19 +666,19 @@ app()->booted(function (): void {
     Shortcode::setPreviewImage('ecommerce-product-groups', Theme::asset()->url('images/shortcodes/ecommerce-product-groups/tabs.png'));
 
     Shortcode::setAdminConfig('ecommerce-product-groups', function (array $attributes) {
-        $productTabs = [
-            'all' => __('All'),
-            'featured' => __('Featured'),
-            'on-sale' => __('On sale'),
-            'trending' => __('Trending'),
-            'top-rated' => __('Top rated'),
-        ];
+        // $productTabs = [
+        //     'all' => __('All'),
+        //     'featured' => __('Featured'),
+        //     'on-sale' => __('On sale'),
+        //     'trending' => __('Trending'),
+        //     'top-rated' => __('Top rated'),
+        // ];
 
-        $selectedTabs = Shortcode::fields()->parseIds(Arr::get($attributes, 'tabs'));
+        // $selectedTabs = Shortcode::fields()->parseIds(Arr::get($attributes, 'tabs'));
 
-        if (empty($selectedTabs)) {
-            $selectedTabs = array_keys($productTabs);
-        }
+        // if (empty($selectedTabs)) {
+        //     $selectedTabs = array_keys($productTabs);
+        // }
 
         return ShortcodeForm::createFromArray($attributes)
             ->withLazyLoading()
@@ -721,6 +722,18 @@ app()->booted(function (): void {
                     ->label(__('Description'))
             )
             ->add(
+                'action_label',
+                TextField::class,
+                TextFieldOption::make()
+                    ->label(__('Action Label'))
+            )
+            ->add(
+                'action_url',
+                TextField::class,
+                TextFieldOption::make()
+                    ->label(__('Action URL'))
+            )
+            ->add(
                 'limit',
                 NumberField::class,
                 NumberFieldOption::make()
@@ -743,15 +756,16 @@ app()->booted(function (): void {
                     ->searchable()
                     ->multiple()
             )
-            ->add(
-                'tabs[]',
-                MultiCheckListField::class,
-                [
-                    'label' => __('Groups'),
-                    'choices' => $productTabs,
-                    'value' => $selectedTabs,
-                ]
-            );
+            // ->add(
+            //     'tabs[]',
+            //     MultiCheckListField::class,
+            //     [
+            //         'label' => __('Groups'),
+            //         'choices' => $productTabs,
+            //         'value' => $selectedTabs,
+            //     ]
+            // )
+            ;
     });
 
     Shortcode::register(

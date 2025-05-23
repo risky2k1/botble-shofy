@@ -9,7 +9,9 @@
                     <span>
                         {!! BaseHelper::clean($buttonLabel) !!}
                     </span>
-                    <em class="far fa-arrow-right-to-arc"></em>
+                    <em class="far fa-arrow-right-to-arc">
+                        <svg role="img" xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24" aria-labelledby="arrowRightIconTitle" stroke="#000" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter" fill="none" color="#000"> <title id="arrowRightIconTitle">Arrow Right</title> <path d="M15 18l6-6-6-6"/> <path d="M3 12h17"/> <path stroke-linecap="round" d="M21 12h-1"/> </svg>
+                    </em>
                 </a>
                 @endif
             </div>
@@ -17,7 +19,7 @@
             @php
             $postFirst = $posts->first();
             @endphp
-            
+
             <div class="row">
                 <div class="col-lg-6">
 
@@ -39,7 +41,7 @@
                                 </a>
                             </div>
                             <div class="news-item-brief">
-                                {!! Str::words($postFirst->description, 20) !!}
+                               {{ $postFirst->description }}
                             </div>
                         </div>
                     </div>
@@ -69,7 +71,7 @@
                                         </a>
                                     </div>
                                     <div class="news-item-brief">
-                                        {!! Str::words($post->description, 20) !!}
+                                        {{ $post->description }}
                                     </div>
                                 </div>
                             </div>

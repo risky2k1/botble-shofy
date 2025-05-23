@@ -7,7 +7,7 @@
                     <div class="about-counter-box-wp">
                         <div class="about-counter-box">
                             <h3 class="h3-title">
-                                <span class="counting" data-count="{{ $tabCounterBox['count_number'] ?? 0 }}">{{
+                                <span class="counting counter" data-count="{{ $tabCounterBox['count_number'] ?? 0 }}">{{
                                     $tabCounterBox['count_number'] ?? 0 }}</span>+
                             </h3>
                             <div class="about-counter-text">

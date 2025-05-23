@@ -35,9 +35,15 @@ return [
             $theme->asset()->usePath()->add('style', 'css/style.css', version: $version);
 
             $theme->asset()->container('footer')->usePath()->add('jquery', 'js/jquery-3.7.1.min.js');
+
             $theme->asset()->container('footer')->usePath()->add('bootstrap', 'plugins/bootstrap/bootstrap.min.js', attributes: ['defer']);
             $theme->asset()->container('footer')->usePath()->add('meanmenu', 'js/meanmenu.js', attributes: ['defer']);
             $theme->asset()->container('footer')->usePath()->add('swiper', 'plugins/swiper/swiper-bundle.js', attributes: ['defer'], version: $version);
+
+            $theme->asset()->container('footer')->usePath()->add('waypoints', 'plugins/waypoints/jquery.waypoints.min.js', attributes: ['defer'], version: $version);
+
+            $theme->asset()->container('footer')->usePath()->add('counterup', 'plugins/counterup/jquery.counterup.min.js', attributes: ['defer'], version: $version);
+
             $theme->asset()->container('footer')->add('slick-js', 'vendor/core/plugins/ecommerce/libraries/slick/slick.min.js', attributes: ['defer']);
             $theme->asset()->container('footer')->usePath()->add('countdown', 'js/countdown.js', attributes: ['defer']);
             $theme->asset()->container('footer')->usePath()->add('theme', 'js/theme.js', attributes: ['defer'], version: $version);
