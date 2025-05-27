@@ -87,10 +87,10 @@ class ProductForm extends FormAbstract
                     ->placeholder(trans('core/base::forms.description_placeholder'))
             )
             ->add('content', EditorField::class, ContentFieldOption::make()->allowedShortcodes())
-            ->add('images[]', MediaImagesField::class, [
-                'label' => trans('plugins/ecommerce::products.form.image'),
-                'values' => $productId ? $this->getModel()->images : [],
-            ])
+            // ->add('images[]', MediaImagesField::class, [
+            //     'label' => trans('plugins/ecommerce::products.form.image'),
+            //     'values' => $productId ? $this->getModel()->images : [],
+            // ])
             ->addMetaBoxes([
                 'with_related' => [
                     'title' => null,
@@ -177,12 +177,12 @@ class ProductForm extends FormAbstract
                     $selectedProductLabels = $product->productLabels()->pluck('product_label_id')->all();
                 }
 
-                $this
-                    ->add('product_labels[]', MultiCheckListField::class, [
-                        'label' => trans('plugins/ecommerce::products.form.labels'),
-                        'choices' => $productLabels,
-                        'value' => old('product_labels', $selectedProductLabels),
-                    ]);
+                // $this
+                //     ->add('product_labels[]', MultiCheckListField::class, [
+                //         'label' => trans('plugins/ecommerce::products.form.labels'),
+                //         'choices' => $productLabels,
+                //         'value' => old('product_labels', $selectedProductLabels),
+                //     ]);
             })
             ->when(EcommerceHelper::isTaxEnabled(), function (): void {
                 $taxes = Tax::query()->orderBy('percentage')->get()->pluck('title_with_percentage', 'id')->all();

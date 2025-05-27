@@ -8,7 +8,7 @@
                 @endif
 
                 @if ($description = $shortcode->description)
-                <span>{{ $description }}</span>
+                <div>{{ nl2br($description, true) }}</div>
                 @endif
             </div>
             @endif
@@ -42,37 +42,42 @@
                         name="content" cols="50" aria-required="true"></textarea>
                 </div>
 
-                <div class="policy-label-form">
-                    <label class="required form-check">
-                        <input type="checkbox" id="agree_terms_and_policy_243f28785407323f2c450d79cc588bc4"
-                            name="agree_terms_and_policy" class="form-check-input contact-form-input"
-                            required="required" value="1" aria-required="true">
+                <div class="d-flex justify-content-between w-100 align-items-center">
+                    <div class="policy-label-form">
+                        <label class="required form-check">
+                            <input type="checkbox" id="agree_terms_and_policy_243f28785407323f2c450d79cc588bc4"
+                                name="agree_terms_and_policy" class="form-check-input contact-form-input"
+                                required="required" value="1" aria-required="true">
 
-                        <span class="form-check-label">
-                            {{ __('I agree to the Terms and Privacy Policy') }}
-                        </span>
+                            <span class="form-check-label">
+                                {{ __('I agree to the Terms and Privacy Policy') }}
+                            </span>
 
-                    </label>
+                        </label>
+                    </div>
+
+                    {{-- <div class="baomat-contact">
+                        <!-- <a href="{{ $shortcode->button_url }}">{{ $shortcode->button_label }}</a> -->
+                    </div> --}}
+
+                    <div class="btn-form-contacts">
+                        <button type="submit">
+                            {{ __('Send') }}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
+                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                                <path d="M9 12h12l-3 -3" />
+                                <path d="M18 15l3 -3" />
+                            </svg>
+                        </button>
+                    </div>
+
                 </div>
 
-                <div class="baomat-contact">
-                    <a href="{{ $shortcode->button_url }}">{{ $shortcode->button_label }}</a>
-                </div>
 
 
-                <div class="btn-form-contacts">
-                    <button type="submit">
-                        {{ __('Send') }}
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                            class="icon icon-tabler icons-tabler-outline icon-tabler-logout">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-                            <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
-                            <path d="M9 12h12l-3 -3" />
-                            <path d="M18 15l3 -3" />
-                        </svg>
-                    </button>
-                </div>
                 {!! Form::close() !!}
             </div>
 

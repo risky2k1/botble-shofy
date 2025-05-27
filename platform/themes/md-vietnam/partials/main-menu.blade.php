@@ -1,4 +1,7 @@
 <ul {!! $options !!} class="menu">
+    @php
+        $i=1;
+    @endphp
     @foreach ($menu_nodes->loadMissing('metadata') as $key => $row)
         <li class="has-submenu" @class(['has-dropdown' => $row->has_child])>
             <a href="{{ url($row->url) }}" title="{{ $row->title }}"
@@ -12,12 +15,15 @@
                 @endif
             </a>
             @if ($row->has_child)
+            @php
+                $i++;
+            @endphp
                 {!! Menu::generateMenu([
                     'menu' => $menu,
                     'menu_nodes' => $row->child,
                     'view' => 'main-menu',
                     'options' => [
-                        'class' => 'submenu',
+                        'class' => $i <= 3 ? 'submenu' : 'submenu submenu-3',
                     ],
                 ]) !!}
             @endif

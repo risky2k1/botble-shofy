@@ -4,7 +4,7 @@
             {{ RvMedia::image($product->image, $product->name, 'rectangle') }}
         </a>
 
-        @include(Theme::getThemeNamespace('views.ecommerce.includes.product.badges'))
+        {{-- @include(Theme::getThemeNamespace('views.ecommerce.includes.product.badges')) --}}
 
         {{-- @include(Theme::getThemeNamespace('views.ecommerce.includes.product.style-1.actions')) --}}
     </div>

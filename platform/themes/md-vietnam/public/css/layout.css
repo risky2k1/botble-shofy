@@ -1646,11 +1646,8 @@ h1.heading-title-post-details {
 
 
 
-
-
 .box-contact-article-section {
     position: relative;
-    background: url(https://suleco.vn/data/sites/1/skins/default/img/contact-bg-2.png);
     padding: 5.20833rem 0;
     background-position: 50%;
     background-repeat: no-repeat;
@@ -1757,6 +1754,10 @@ section.about-product1 {
     background-color: #233c5e;
     padding: 50px 0 50px 0;
     position: relative;
+}
+
+section.about-product1.table-of-contents{
+    margin-top: -110px;
 }
 
 .hedding-about1 {

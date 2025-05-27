@@ -291,3 +291,30 @@ $(() => {
         $parent.toggleClass("open");
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  const content = document.querySelector(".ps-block__content");
+  const tocContainer = content.querySelector("#table-of-contents");
+
+  // Lấy tất cả h2 nhưng không lấy h2 nằm trong #table-of-contents
+  const headings = Array.from(content.querySelectorAll("h2")).filter(h2 => !tocContainer.contains(h2));
+
+  const ul = document.createElement("ul");
+
+  headings.forEach((heading, index) => {
+    // Gán id nếu chưa có
+    if (!heading.id) {
+      heading.id = `section-${index + 1}`;
+    }
+
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.href = `#${heading.id}`;
+    a.textContent = heading.textContent;
+
+    li.appendChild(a);
+    ul.appendChild(li);
+  });
+
+  tocContainer.appendChild(ul);
+});

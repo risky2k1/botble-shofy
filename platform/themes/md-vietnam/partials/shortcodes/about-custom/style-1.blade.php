@@ -11,15 +11,15 @@
                 <a href="javascript:void(0)">{{ $shortcode->subtitle_2 }}</a>
             @endif
         </div>
-        <div class="box-body-about-product1">
+        <div class="box-body-about-product1 text-light">
             <div class="box-section-member-about-row">
                 <div class="ck-content">
-                    {!! $shortcode->description_editor !!}
+                    {!! BaseHelper::fixSmartQuotes($shortcode->description_editor) !!}
                 </div>
             </div>
             <div class="row">
                 @foreach ($tabFeatures as $tab)
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 mb-4">
                         <div class="content-about-product-1">
                             @if ($tab['image_left'])
                                 <div>
@@ -29,12 +29,12 @@
 
                             @if ($tab['text_left'])
                                 <div class="mt-4">
-                                    {{ $tab['text_left'] }}
+                                    {!! BaseHelper::fixSmartQuotes($tab['text_left']) !!}
                                 </div>
                             @endif
                         </div>
                     </div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 mb-4">
                         <div class="content-about-product-1-right">
                             @if ($tab['image_right'])
                                 <div>
@@ -44,7 +44,7 @@
 
                             @if ($tab['text_right'])
                                 <div class="mt-4">
-                                    {{ $tab['text_right'] }}
+                                    {!! BaseHelper::fixSmartQuotes($tab['text_right']) !!}
                                 </div>
                             @endif
                         </div>

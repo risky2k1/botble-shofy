@@ -1,5 +1,4 @@
 <?php
-
 namespace Botble\Base\Helpers;
 
 use Botble\Base\Facades\AdminAppearance;
@@ -36,7 +35,7 @@ class BaseHelper
         return $timestamp->format($format);
     }
 
-    public function formatDate(CarbonInterface|int|string|null $date, ?string $format = null, bool $translated = false): ?string
+    public function formatDate(CarbonInterface | int | string | null $date, ?string $format = null, bool $translated = false): ?string
     {
         if (empty($format)) {
             $format = $this->getDateFormat();
@@ -53,7 +52,7 @@ class BaseHelper
         return $this->formatTime($date, $format, $translated);
     }
 
-    public function formatDateTime(CarbonInterface|int|string|null $date, ?string $format = null, bool $translated = false): ?string
+    public function formatDateTime(CarbonInterface | int | string | null $date, ?string $format = null, bool $translated = false): ?string
     {
         if (empty($format)) {
             $format = $this->getDateTimeFormat();
@@ -67,8 +66,8 @@ class BaseHelper
         $units = ['B', 'KB', 'MB', 'GB', 'TB'];
 
         $bytes = max($bytes, 0);
-        $pow = floor(($bytes ? log($bytes) : 0) / log(1024));
-        $pow = min($pow, count($units) - 1);
+        $pow   = floor(($bytes ? log($bytes) : 0) / log(1024));
+        $pow   = min($pow, count($units) - 1);
 
         $bytes /= pow(1024, $pow);
 
@@ -85,7 +84,7 @@ class BaseHelper
         return $convertToArray ? json_decode($file, true) : $file;
     }
 
-    public function saveFileData(string $path, array|string|null $data, bool $json = true): bool
+    public function saveFileData(string $path, array | string | null $data, bool $json = true): bool
     {
         try {
             if ($json) {
@@ -104,7 +103,7 @@ class BaseHelper
         }
     }
 
-    public function jsonEncodePrettify(array|string|null $data): string
+    public function jsonEncodePrettify(array | string | null $data): string
     {
         return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) . PHP_EOL;
     }
@@ -116,7 +115,7 @@ class BaseHelper
         }
 
         $ignoreFiles = array_merge(['.', '..', '.DS_Store'], $ignoreFiles);
-        $files = [];
+        $files       = [];
 
         foreach (new \DirectoryIterator($path) as $file) {
             if (! $file->isDot() && ! in_array($file->getFilename(), $ignoreFiles)) {
@@ -166,7 +165,7 @@ class BaseHelper
         return apply_filters(BASE_FILTER_ADMIN_LANGUAGE_DIRECTION, AdminAppearance::forCurrentUser()->getLocaleDirection());
     }
 
-    public function isHomepage(int|string|null $pageId = null): bool
+    public function isHomepage(int | string | null $pageId = null): bool
     {
         $homepageId = $this->getHomepageId();
 
@@ -206,7 +205,7 @@ class BaseHelper
     {
         return apply_filters(BASE_FILTER_AVAILABLE_EDITORS, [
             'ckeditor' => 'CKEditor',
-            'tinymce' => 'TinyMCE',
+            'tinymce'  => 'TinyMCE',
         ]);
     }
 
@@ -223,7 +222,7 @@ class BaseHelper
         return 'ckeditor';
     }
 
-    public function removeQueryStringVars(?string $url, array|string $key): ?string
+    public function removeQueryStringVars(?string $url, array | string $key): ?string
     {
         if (! is_array($key)) {
             $key = [$key];
@@ -248,7 +247,7 @@ class BaseHelper
         return htmlentities($this->clean($value));
     }
 
-    public function getPhoneValidationRule(bool $asArray = false): string|array
+    public function getPhoneValidationRule(bool $asArray = false): string | array
     {
         $rule = config('core.base.general.phone_validation_rule');
 
@@ -259,7 +258,7 @@ class BaseHelper
         return $rule;
     }
 
-    public function getZipcodeValidationRule(bool $asArray = false): string|array
+    public function getZipcodeValidationRule(bool $asArray = false): string | array
     {
         $rule = config('core.base.general.zipcode_validation_rule');
 
@@ -270,7 +269,7 @@ class BaseHelper
         return $rule;
     }
 
-    public function sortSearchResults(array|Collection $collection, string $searchTerms, string $column): Collection
+    public function sortSearchResults(array | Collection $collection, string $searchTerms, string $column): Collection
     {
         if (! $collection instanceof Collection) {
             $collection = collect($collection);
@@ -313,7 +312,7 @@ class BaseHelper
         return $formats;
     }
 
-    public function clean(array|string|null $dirty, array|string|null $config = null): array|string|null
+    public function clean(array | string | null $dirty, array | string | null $config = null): array | string | null
     {
         if (config('core.base.general.enable_less_secure_web', false)) {
             return $dirty;
@@ -330,7 +329,7 @@ class BaseHelper
         return clean($dirty, $config);
     }
 
-    public function html(array|string|null $dirty, array|string|null $config = null): HtmlString
+    public function html(array | string | null $dirty, array | string | null $config = null): HtmlString
     {
         return new HtmlString((string) $this->clean($dirty, $config));
     }
@@ -367,7 +366,7 @@ class BaseHelper
         return compact('red', 'green', 'blue');
     }
 
-    public function iniSet(string $key, int|string|null $value): self
+    public function iniSet(string $key, int | string | null $value): self
     {
         if (config('core.base.general.enable_ini_set', true)) {
             @ini_set($key, $value);
@@ -384,9 +383,9 @@ class BaseHelper
         return $this;
     }
 
-    public function removeSpecialCharacters(?string $string): array|string|null
+    public function removeSpecialCharacters(?string $string): array | string | null
     {
-        $string = str_replace(' ', '-', $string); // Replaces all spaces with hyphens.
+        $string = str_replace(' ', '-', $string);                // Replaces all spaces with hyphens.
         $string = preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 
         return preg_replace('/-+/', '-', $string); // Replaces multiple hyphens with single one.
@@ -554,13 +553,13 @@ class BaseHelper
 
     public function getHomepageUrl()
     {
-        return apply_filters('cms_homepage_url', rescue(fn () => route('public.index'), report: false));
+        return apply_filters('cms_homepage_url', rescue(fn() => route('public.index'), report: false));
     }
 
     public function getFonts(): array
     {
         $customGoogleFonts = config('core.base.general.custom_google_fonts');
-        $customFonts = apply_filters('cms_custom_fonts', config('core.base.general.custom_fonts', []) ?: []);
+        $customFonts       = apply_filters('cms_custom_fonts', config('core.base.general.custom_fonts', []) ?: []);
 
         if (! empty($customGoogleFonts) && ! is_array($customGoogleFonts)) {
             $customGoogleFonts = array_filter(explode(',', $customGoogleFonts));
@@ -571,9 +570,15 @@ class BaseHelper
         }
 
         return [
-            ...GoogleFonts::getFonts(),
+             ...GoogleFonts::getFonts(),
             ...(! empty($customGoogleFonts) ? $customGoogleFonts : []),
             ...(! empty($customFonts) ? $customFonts : []),
         ];
+    }
+
+    function fixSmartQuotes($text) : string
+    {
+        $smartQuotes = ['“', '”', '„', '‟', '″', '‶', '❝', '❞', '〝', '〞'];
+        return str_replace($smartQuotes, '"', $text);
     }
 }

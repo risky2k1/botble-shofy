@@ -1,7 +1,7 @@
 <section class="contacts-section">
-    <div class="line-contact">
+    {{-- <div class="line-contact">
         <img src="{{ Theme::asset()->url(sprintf('images/contact-bg.png')) }}" alt="">
-    </div>
+    </div> --}}
     <div class="box-contact-article-section"
         style="background-image: url({{ RvMedia::getImageUrl($shortcode->background_image) }})">
         <div class="container">
@@ -15,7 +15,7 @@
                     <div class="col-lg-6">
                         <div class="item-section-article-member">
                             <div class="number">
-                                <span>{{ $loop->index + 1 }}</span>
+                               <span>{{ str_pad($loop->index + 1, 2, '0', STR_PAD_LEFT) }}</span>
                             </div>
                             <div class="caption-body-article">
                                 <span>{{ $addressBox['company_name'] }}</span>

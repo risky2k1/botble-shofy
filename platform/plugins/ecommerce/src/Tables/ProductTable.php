@@ -63,17 +63,17 @@ class ProductTable extends TableAbstract
                 Column::make('name')
                     ->title(trans('plugins/ecommerce::products.name'))
                     ->alignStart(),
-                Column::make('price')
-                    ->title(trans('plugins/ecommerce::products.price'))
-                    ->alignStart(),
-                Column::make('stock_status')
-                    ->title(trans('plugins/ecommerce::products.stock_status')),
-                Column::make('quantity')
-                    ->title(trans('plugins/ecommerce::products.quantity'))
-                    ->alignStart(),
-                Column::make('sku')
-                    ->title(trans('plugins/ecommerce::products.sku'))
-                    ->alignStart(),
+                // Column::make('price')
+                //     ->title(trans('plugins/ecommerce::products.price'))
+                //     ->alignStart(),
+                // Column::make('stock_status')
+                //     ->title(trans('plugins/ecommerce::products.stock_status')),
+                // Column::make('quantity')
+                //     ->title(trans('plugins/ecommerce::products.quantity'))
+                //     ->alignStart(),
+                // Column::make('sku')
+                //     ->title(trans('plugins/ecommerce::products.sku'))
+                //     ->alignStart(),
                 Column::make('order')
                     ->title(trans('plugins/ecommerce::ecommerce.sort_order'))
                     ->width(50),

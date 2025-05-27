@@ -476,9 +476,9 @@ class HookServiceProvider extends ServiceProvider
                         return false;
                     }
 
-                    MetaBox::addMetaBox('faq_schema_config_wrapper', __('Product FAQs'), function () {
-                        return (new FaqSupport())->renderMetaBox(func_get_args()[0] ?? null);
-                    }, $object::class, $context);
+                    // MetaBox::addMetaBox('faq_schema_config_wrapper', __('Product FAQs'), function () {
+                    //     return (new FaqSupport())->renderMetaBox(func_get_args()[0] ?? null);
+                    // }, $object::class, $context);
 
                     return true;
                 }, 139, 2);

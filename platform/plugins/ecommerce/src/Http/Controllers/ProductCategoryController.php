@@ -1,5 +1,4 @@
 <?php
-
 namespace Botble\Ecommerce\Http\Controllers;
 
 use Botble\Base\Events\CreatedContentEvent;
@@ -89,7 +88,7 @@ class ProductCategoryController extends BaseController
 
             $response->setData([
                 'model' => $productCategory,
-                'form' => $form,
+                'form'  => $form,
             ]);
         }
 
@@ -130,7 +129,7 @@ class ProductCategoryController extends BaseController
 
             $response->setData([
                 'model' => $productCategory,
-                'form' => $form,
+                'form'  => $form,
             ]);
         }
 
@@ -188,12 +187,12 @@ class ProductCategoryController extends BaseController
     protected function getOptions(array $options = []): array
     {
         return array_merge([
-            'canCreate' => Auth::user()->hasPermission('product-categories.create'),
-            'canEdit' => Auth::user()->hasPermission('product-categories.edit'),
-            'canDelete' => Auth::user()->hasPermission('product-categories.destroy'),
-            'createRoute' => 'product-categories.create',
-            'editRoute' => 'product-categories.edit',
-            'deleteRoute' => 'product-categories.destroy',
+            'canCreate'       => Auth::user()->hasPermission('product-categories.create'),
+            'canEdit'         => Auth::user()->hasPermission('product-categories.edit'),
+            'canDelete'       => Auth::user()->hasPermission('product-categories.destroy'),
+            'createRoute'     => 'product-categories.create',
+            'editRoute'       => 'product-categories.edit',
+            'deleteRoute'     => 'product-categories.destroy',
             'updateTreeRoute' => 'product-categories.update-tree',
         ], $options);
     }
@@ -234,7 +233,7 @@ class ProductCategoryController extends BaseController
     protected function buildTree(
         Collection $categories,
         ?Collection $tree = null,
-        int|string $parentId = 0,
+        int | string $parentId = 0,
         ?string $indent = null
     ): Collection {
         if ($tree === null) {
@@ -246,7 +245,7 @@ class ProductCategoryController extends BaseController
         if ($currentCategories) {
             foreach ($currentCategories as $category) {
                 $tree->push([
-                    'id' => $category->id,
+                    'id'   => $category->id,
                     'name' => $indent . ' ' . $category->name,
                 ]);
 

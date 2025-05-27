@@ -30,8 +30,10 @@
 
                 {{-- @include(EcommerceHelper::viewPath('includes.product-filters-top')) --}}
 
+                <div class="container">
                 <div class="bb-product-items-wrapper tp-shop-item-primary">
                     @include(Theme::getThemeNamespace('views.ecommerce.includes.product-items'))
+                </div>
                 </div>
             </div>
             @if ($listingLayout !== 'no-sidebar')

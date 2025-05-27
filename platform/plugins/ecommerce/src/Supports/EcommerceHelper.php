@@ -1714,14 +1714,14 @@ class EcommerceHelper
                 $fields[1]['label'] = trans('plugins/ecommerce::products.form.enter_video_url');
             }
 
-            $form->addAfter(
-                $afterField,
-                'video_media',
-                RepeaterField::class,
-                RepeaterFieldOption::make()
-                    ->label(trans('plugins/ecommerce::products.form.video'))
-                    ->fields($fields),
-            );
+            // $form->addAfter(
+            //     $afterField,
+            //     'video_media',
+            //     RepeaterField::class,
+            //     RepeaterFieldOption::make()
+            //         ->label(trans('plugins/ecommerce::products.form.video'))
+            //         ->fields($fields),
+            // );
         });
     }
 
