@@ -1,16 +1,18 @@
-<section class="about-product1">
+<section class="about-product1 tp-full-width">
     <div class="container">
-        <div class="hedding-about1">
-            @if ($shortcode->subtitle)
-                <span>{{ $shortcode->subtitle }}</span>
-            @endif
-            @if ($shortcode->title)
-                <h2>{{ $shortcode->title }}</h2>
-            @endif
-            @if ($shortcode->subtitle_2)
-                <a href="javascript:void(0)">{{ $shortcode->subtitle_2 }}</a>
-            @endif
-        </div>
+        @if ($shortcode->subtitle || $shortcode->title || $shortcode->subtitle_2)
+            <div class="hedding-about1">
+                @if ($shortcode->subtitle)
+                    <span>{{ $shortcode->subtitle }}</span>
+                @endif
+                @if ($shortcode->title)
+                    <h2>{{ $shortcode->title }}</h2>
+                @endif
+                @if ($shortcode->subtitle_2)
+                    <a href="javascript:void(0)">{{ $shortcode->subtitle_2 }}</a>
+                @endif
+            </div>
+        @endif
         <div class="box-body-about-product1 text-light">
             <div class="box-section-member-about-row">
                 <div class="ck-content">
@@ -23,13 +25,14 @@
                         <div class="content-about-product-1">
                             @if ($tab['image_left'])
                                 <div>
-                                    <img src="{{ RvMedia::getImageUrl($tab['image_left']) }}" alt="" class="w-100">
+                                    <img src="{{ RvMedia::getImageUrl($tab['image_left']) }}" alt=""
+                                        class="w-100">
                                 </div>
                             @endif
 
                             @if ($tab['text_left'])
                                 <div class="mt-4">
-                                    {!! BaseHelper::fixSmartQuotes($tab['text_left']) !!}
+                                    {!! BaseHelper::fixSmartQuotes(nl2br($tab['text_left'])) !!}
                                 </div>
                             @endif
                         </div>
@@ -38,13 +41,14 @@
                         <div class="content-about-product-1-right">
                             @if ($tab['image_right'])
                                 <div>
-                                    <img src="{{ RvMedia::getImageUrl($tab['image_right']) }}" alt="" class="w-100">
+                                    <img src="{{ RvMedia::getImageUrl($tab['image_right']) }}" alt=""
+                                        class="w-100">
                                 </div>
                             @endif
 
                             @if ($tab['text_right'])
                                 <div class="mt-4">
-                                    {!! BaseHelper::fixSmartQuotes($tab['text_right']) !!}
+                                    {!! BaseHelper::fixSmartQuotes(nl2br($tab['text_right'])) !!}
                                 </div>
                             @endif
                         </div>

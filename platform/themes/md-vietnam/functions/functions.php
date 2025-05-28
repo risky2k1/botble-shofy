@@ -364,6 +364,12 @@ app()->booted(function (): void {
                 )
                 ->addAfter(
                     'image',
+                    'text_color',
+                    ColorField::class,
+                    InputFieldOption::make()->label(__('Text color'))->metadata()
+                )
+                ->addAfter(
+                    'image',
                     'background_color',
                     ColorField::class,
                     InputFieldOption::make()->label(__('Background color'))->metadata()

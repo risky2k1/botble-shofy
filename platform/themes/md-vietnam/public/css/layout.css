@@ -2844,3 +2844,8 @@ em.far.fa-arrow-right-to-arc svg path {
 .tp-product-details-top {
     margin: 10px 0 !important;
 }
+
+.tp-full-width {
+    width: 100vw; 
+    margin-left: calc(-50vw + 50%);
+}

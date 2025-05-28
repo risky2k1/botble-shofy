@@ -45,7 +45,7 @@ Shortcode::setPreviewImage('about', Theme::asset()->url('images/shortcodes/about
 Shortcode::setAdminConfig('about', function (array $attributes) {
     $styles = [];
 
-    foreach (range(1, 3) as $i) {
+    foreach (range(1, 4) as $i) {
         $styles[$i] = [
             'label' => __('Style :number', ['number' => $i]),
             'image' => Theme::asset()->url(sprintf('images/shortcodes/about/style-%s.png', $i)),
@@ -117,7 +117,7 @@ Shortcode::setAdminConfig('about', function (array $attributes) {
                         'title' => __('Title'),
                     ],
                     'ft_description' => [
-                        'type' => 'text',
+                        'type' => 'textarea',
                         'title' => __('Description'),
                     ],
                 ])

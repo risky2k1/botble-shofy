@@ -538,7 +538,9 @@ app()->booted(function (): void {
                     ->attrs($attributes)
                     ->colspan(2)
                     ->max(10)
-            );
+            )
+            ->add('image', MediaImageField::class, MediaImageFieldOption::make()->label(__('Image')))
+            ->add('color', ColorField::class, ColorFieldOption::make()->label(__('Color'))->defaultValue('#ffffff'));
     });
 
     Shortcode::register('multiple_custom_columns', __('Multiple Custom Columns'), __('Multiple Custom Columns'), function (ShortcodeCompiler $shortcode): string {
@@ -597,7 +599,8 @@ app()->booted(function (): void {
                     ->attrs($attributes)
                     ->colspan(2)
                     ->max(12)
-            );
+            )
+            ->add('color', ColorField::class, ColorFieldOption::make()->label(__('Color'))->defaultValue('#ffffff'));
     });
 
     Shortcode::register('custom_column', __('Custom Column'), __('Custom Column'), function (ShortcodeCompiler $shortcode): string {

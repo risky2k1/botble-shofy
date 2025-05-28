@@ -1,4 +1,4 @@
-<div class="ss03_abouts">
+<div class="ss03_abouts" @if($shortcode->color) style="background: {{ $shortcode->color }} !important;" @endif>
     <div class="ctnr">
         <div class="row">
             @foreach ($tabs as $tab)

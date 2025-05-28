@@ -188,6 +188,39 @@ $(() => {
             },
         })
 
+
+        
+        initSwiperSlider('.list-address-slider', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            breakpoints: {
+                320: {
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                },
+                767: {
+                    slidesPerView: 3,
+                    spaceBetween: 10,
+                },
+                991: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                1400: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+            },
+        })
+
+        
+
+        initSwiperSlider('.tp-slider-active-8', {
+            slidesPerView: 3,
+            effect: 'fade',
+        })
+
+       
         new Swiper(".banner-desk", {
             loop: true,
         });

@@ -542,6 +542,12 @@ $(() => {
             },
         })
 
+        initSwiperSlider('.tp-slider-active-8', {
+            slidesPerView: 3,
+            spaceBetween: 30,
+            effect: 'fade',
+        })
+
         initSwiperSlider('.tp-slider-active-3', {
             slidesPerView: 1,
             spaceBetween: 30,

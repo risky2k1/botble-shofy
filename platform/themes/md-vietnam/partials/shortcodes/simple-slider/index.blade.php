@@ -1,5 +1,5 @@
 @php
-    $style = in_array($shortcode->style, [1, 2, 3, 4, 5, 6, 7, 'full-width']) ? $shortcode->style : 1;
+    $style = in_array($shortcode->style, [1, 2, 3, 4, 5, 6, 7, 8, 9, 'full-width']) ? $shortcode->style : 1;
     $sliders->loadMissing('metadata');
 
     $shortcode->font_family_of_description = $shortcode->font_family_of_description ?: theme_option('tp_cursive_font');

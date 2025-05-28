@@ -30,7 +30,7 @@ app()->booted(function (): void {
     Shortcode::modifyAdminConfig('simple-slider', function (ShortcodeForm $form) {
         $styles = [];
 
-        foreach (range(1, 7) as $i) {
+        foreach (range(1, 9) as $i) {
             $styles[$i] = [
                 'label' => __('Style :number', ['number' => $i]),
                 'image' => Theme::asset()->url(sprintf('images/shortcodes/simple-slider/style-%s.png', $i)),
