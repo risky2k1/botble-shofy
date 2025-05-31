@@ -1,4 +1,4 @@
-<section class="develop" style="background: {{ $shortcode->image ?  }}">
+<section class="develop tp-full-width" style="background: {{ $shortcode->image ? 'url(' . RvMedia::getImageUrl($shortcode->image) . ')' : $shortcode->color }};">
     <div class="ctnr">
         <h2 class="title-section title-section__big ta-center">
             {{ $shortcode->title }}

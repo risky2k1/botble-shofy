@@ -45,7 +45,7 @@ Shortcode::setPreviewImage('about', Theme::asset()->url('images/shortcodes/about
 Shortcode::setAdminConfig('about', function (array $attributes) {
     $styles = [];
 
-    foreach (range(1, 4) as $i) {
+    foreach (range(1, 5) as $i) {
         $styles[$i] = [
             'label' => __('Style :number', ['number' => $i]),
             'image' => Theme::asset()->url(sprintf('images/shortcodes/about/style-%s.png', $i)),
@@ -100,7 +100,14 @@ Shortcode::setAdminConfig('about', function (array $attributes) {
             'description_editor',
             EditorField::class,
             EditorFieldOption::make()
-                ->label(__('Description'))
+                ->label(__('Description') . ' 1')
+                ->colspan(2)
+        )
+        ->add(
+            'description_2',
+            EditorField::class,
+            EditorFieldOption::make()
+                ->label(__('Description') . ' 2')
                 ->colspan(2)
         )
         ->add(
@@ -143,13 +150,6 @@ Shortcode::setAdminConfig('about', function (array $attributes) {
             TextareaField::class,
             TextareaFieldOption::make()
                 ->label(__('YouTube Iframe'))
-                ->colspan(2)
-        )
-        ->add(
-            'description_2',
-            TextareaField::class,
-            TextareaFieldOption::make()
-                ->label(__('Description') . ' 2')
                 ->colspan(2)
         );
 });

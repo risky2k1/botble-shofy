@@ -96,8 +96,13 @@ $(() => {
         })
 
         initSwiperSlider('.list-slick-slider-brand-mafei', {
-            slidesPerView: 4,
+            slidesPerView: 5,
             navigation: {},
+             loop: true, 
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
             breakpoints: {
                 320: {
                     slidesPerView: 1.5,
@@ -108,7 +113,7 @@ $(() => {
                     spaceBetween: 10,
                 },
                 991: {
-                    slidesPerView: 4,
+                    slidesPerView: 5,
                     spaceBetween: 20,
                 },
             },
@@ -145,6 +150,13 @@ $(() => {
             direction: "vertical",
             slidesPerView: 3,
             spaceBetween: 30,
+            watchOverflow: true,
+    resistanceRatio: 0,
+     loop: true, 
+    autoplay: {
+      delay: 3000, 
+      disableOnInteraction: false, 
+    },
             breakpoints: {
                 320: {
                     slidesPerView: 2,
@@ -166,6 +178,11 @@ $(() => {
         })
 
         initSwiperSlider('.box-slider-custumer', {
+                    loop: true, 
+    autoplay: {
+      delay: 3000, 
+      disableOnInteraction: false, 
+    },
             slidesPerView: 3,
             spaceBetween: 30,
             breakpoints: {
@@ -215,9 +232,32 @@ $(() => {
 
         
 
-        initSwiperSlider('.tp-slider-active-8', {
+       initSwiperSlider('.tp-slider-active-8', {
+             loop: true, 
+    autoplay: {
+      delay: 3000, 
+      disableOnInteraction: false, 
+    },
             slidesPerView: 3,
             effect: 'fade',
+            breakpoints: {
+                320: {
+                    slidesPerView: 3,
+                    spaceBetween: 0,
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                991: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                1400: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+            },
         })
 
        

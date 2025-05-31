@@ -1,0 +1,11 @@
+{
+    "id": "botble/page-builder",
+    "name": "Page Builder",
+    "namespace": "Botble\\PageBuilder\\",
+    "provider": "Botble\\PageBuilder\\Providers\\PageBuilderServiceProvider",
+    "author": "tanvn",
+    "url": "",
+    "version": "1.0.0",
+    "description": "",
+    "minimum_core_version": "7.5.5"
+}

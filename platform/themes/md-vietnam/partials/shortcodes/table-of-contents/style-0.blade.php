@@ -1,4 +1,4 @@
-<section class="about-product1 table-of-contents">
+<section class="about-product1 table-of-contents tp-full-width">
     <div class="container">
         <div class="mucluc-about-products">
             <div class="box-container-mucluc-abouts">

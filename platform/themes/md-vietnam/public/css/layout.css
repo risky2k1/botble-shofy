@@ -264,7 +264,7 @@ ul.nav.nav-tabs.nav-justified.featured-boxes .nav-link:hover {
 
 .box-images-brand-slider-twe img {
     padding: 10px;
-    height: 100%;
+    height: 175px;
     width: 100%;
     object-fit: contain;
 }
@@ -470,7 +470,7 @@ section.about-sec {
     margin-bottom: 0px;
     font-size: 33px;
     line-height: 57px;
-    color: #0d5189;
+    color: #18203d;
 }
 
 .about-text {
@@ -1236,9 +1236,12 @@ p.content-text {
 }
 
 .single-client-card .quote svg {
-    padding: 13px;
+    /* padding: 9px; */
+    stroke-width: unset;
+    width: 36px;
+    height: 36px;
+    margin-left: 10px;
 }
-
 
 .single-client-card .quote svg path {
     fill: #fff;
@@ -1397,7 +1400,7 @@ ul.elementor-icon-list-items li {
 .box-item-footer-seciton-twe {
     display: flex;
     gap: 0px 10px;
-    align-items: center;
+    align-items: start;
 }
 
 .content-section-map-footer a p {
@@ -1751,14 +1754,12 @@ h1.heading-title-post-details {
 
 
 section.about-product1 {
-    background-color: #233c5e;
+    background-color: #18203d;
     padding: 50px 0 50px 0;
     position: relative;
 }
 
-section.about-product1.table-of-contents{
-    margin-top: -110px;
-}
+
 
 .hedding-about1 {
     text-align: center;
@@ -1803,7 +1804,7 @@ section.about-product1.table-of-contents{
     display: block;
 }
 
-span.btn-dangky-about1 {
+.btn-dangky-about1 {
     font-size: 19px;
     font-weight: 600;
     background-color: #E0762A;
@@ -1813,12 +1814,12 @@ span.btn-dangky-about1 {
     display: inline-block;
 }
 
-span.btn-dangky-about1 svg {
+.btn-dangky-about1 svg {
     width: 25px;
     height: 25px;
 }
 
-span.btn-dangky-about1 svg path {
+.btn-dangky-about1 svg path {
     fill: #fff;
 }
 
@@ -1834,7 +1835,9 @@ span.btn-dangky-about1 svg path {
 .box-body-about-product1 {
     margin-bottom: 40px;
 }
-
+.box-container-mucluc-abouts h3 {
+    text-transform: uppercase;
+}
 .mucluc-about-products {
     transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
     margin-top: 30px;
@@ -1842,6 +1845,7 @@ span.btn-dangky-about1 svg path {
     padding: 50px 50px 50px 50px;
     background-color: #FFF;
     border-radius: 20px 20px 20px 20px;
+    margin: 0 auto;
 }
 
 .box-container-mucluc-abouts h2 {
@@ -1898,6 +1902,7 @@ span.btn-dangky-about1 svg path {
     border-radius: 25px 25px 25px 25px;
     display: inline-block;
     margin-bottom: 15px;
+    font-size: 20px;
 }
 
 .hedding-member-reasons h2 {
@@ -1925,11 +1930,11 @@ span.btn-dangky-about1 svg path {
 }
 
 .list-reasons-body {
-    padding: 30px 0px;
+    padding: 30px 0px 0px;
 }
 
 .item-header-reasons span {
-    color: #347c95;
+    color: #18203d;
     font-family: "Roboto", Sans-serif;
     font-size: 60px;
     font-weight: 600;
@@ -1937,7 +1942,7 @@ span.btn-dangky-about1 svg path {
 }
 
 .box-right-item-reasons-header span {
-    color: #347c95;
+    color: #18203d;
     font-family: "Roboto", Sans-serif;
     font-size: 23px;
     font-weight: 600;
@@ -1945,14 +1950,18 @@ span.btn-dangky-about1 svg path {
 }
 
 .box-right-item-reasons-header p {
-    padding: 5px 0 05px 0;
-    background-color: #808080;
+    padding: 5px 10px 5px 10px;
+    background-color: #da3318;
     text-align: center;
     color: #ffff;
     font-size: 16px;
     font-weight: 500;
     text-transform: uppercase;
     margin-bottom: 0px;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
 
@@ -2003,7 +2012,7 @@ section.condition {
     transition: background 0.3s, border 0.3s, border-radius 0.3s, box-shadow 0.3s;
     margin-top: 0;
     margin-bottom: 0;
-    padding: 30px 0 30px 0;
+    padding: 30px 0 0px 0;
 }
 
 .hedding-condition {
@@ -2079,7 +2088,7 @@ section.condition {
 
 
 .item-clause {
-    margin-bottom: 50px;
+    margin-bottom: 0px;
 }
 
 
@@ -2090,7 +2099,7 @@ section.condition {
 
 
 section.condition-2 {
-    padding: 3rem 0px;
+    padding: 1rem 0px;
 }
 
 section.condition-2 .hedding-condition span {
@@ -2179,6 +2188,7 @@ section.condition-2 .hedding-condition p {
 .column-right {
     padding: 20px;
     position: relative;
+    color: #fff;
 }
 
 .condition-3 .column-bottom {
@@ -2194,12 +2204,12 @@ section.condition-2 .hedding-condition p {
     font-size: 60px;
     font-weight: bold;
     color: rgb(255 255 255);
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .condition-3 .column-title {
     font-size: 18px;
-    color: #334b72;
+    color: #fff;
     font-weight: bold;
     margin-bottom: 20px;
     line-height: 1.4;
@@ -2328,7 +2338,7 @@ section.scholarships .section-header .section-label {
 }
 
 .hedding-scholarships p {
-    color: #233c5e;
+    color: #18203d;
     font-size: 21px;
     font-weight: 600;
     text-transform: capitalize;
@@ -2388,7 +2398,9 @@ section.application .section-label {
     color: #2D6681;
     font-weight: 600;
 }
-
+.ps-block__content table {
+    width: 100%;
+}
 .about-feature-text h4 {
     font-size: 19px;
 }
@@ -2409,7 +2421,25 @@ em.far.fa-arrow-right-to-arc svg path {
 .box-block-list-bottom .news-item-caption {
     height: 165px;
 }
+.clause-item-header span {
+    font-size: 18px;
+}
+.hedding-header-contact h1 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
 
+.hedding-header-contact {
+    padding-bottom: 15px;
+}
+
+.box-contact-article-section {
+    padding: 2.20833rem 0;
+}
+
+.btn-form-contacts button {
+    font-size: 16px;
+}
 @media (min-width: 769px) {
     .news-item-side .news-item-img figure {
         -o-object-fit: cover;
@@ -2421,6 +2451,59 @@ em.far.fa-arrow-right-to-arc svg path {
 }
 
 @media screen and (max-width: 991px) {
+    .hedding-member-reasons p {
+    font-size: 17px;
+}
+.clause-item-header {
+    margin: unset;
+}
+.hedding-member-reasons span {
+    font-size: 17px;
+}
+.hedding-item-body-condition-2 h2 {
+    font-size: 26px;
+}
+
+.desc-content-body-condition-2 {
+    margin-top: 25px;
+}
+    .box-right-item-reasons-header span {
+    font-size: 19px;
+}
+.item-header-reasons span {
+    font-size: 45px;
+}
+
+.box-right-item-reasons-header span {
+    font-size: 19px;
+}
+.item-header-reasons {
+    flex-direction: column;
+}
+
+
+.box-right-item-reasons-header {
+    order: 1;
+}
+
+.box-right-item-reasons-header p {
+    font-size: 14px;
+}
+.tp-shop-main-wrapper {
+    padding: unset;
+}
+
+section.about-sec .container {
+    padding: unset;
+}
+
+.condition-3 .section-content .column-right {
+    border: unset;
+}
+    .mucluc-about-products {
+    padding: 20px 20px 25px 29px;
+}
+
     figure {
         margin: 0 0 0rem 0px;
     }
@@ -2524,9 +2607,11 @@ em.far.fa-arrow-right-to-arc svg path {
     .box-hedding-title-brand br {
         display: none;
     }
-
+section.customer{
+    padding: 10px 0px;
+}
     .box-hedding-title-brand h2 {
-        font-size: 35px;
+        font-size: 28px;
         padding-left: 17px;
         line-height: 36px;
         margin-bottom: 25px;
@@ -2622,10 +2707,35 @@ em.far.fa-arrow-right-to-arc svg path {
 }
 
 @media screen and (max-width: 991px) {
+    .section-container.condition-3 {
+    padding-bottom: 0px;
+}
+
+.hedding-scholarships p {
+    font-size: 18px;
+}
+    .mucluc-about-products {
+    padding: 20px 15px 20px 22px;
+}
+
+.box-container-mucluc-abouts h3 {
+    margin-bottom: 20px;
+}
+
     .section-heading {
         justify-content: center;
     }
+.single-client-card .quote svg {
+    margin-bottom: -5px;
+}
 
+.news-item-side .news-item-img img {
+    height: 166px !important;
+}
+
+.news-item-side .news-item-img {
+    flex: 0 0 39.25%;
+}
     .content-succer-col p {
         font-size: 16px;
     }
@@ -2669,7 +2779,7 @@ em.far.fa-arrow-right-to-arc svg path {
 
     .news-slide-list {
         margin-top: 20px;
-        height: 300px;
+        height: unset;
         overflow: hidden;
     }
 
@@ -2736,7 +2846,7 @@ em.far.fa-arrow-right-to-arc svg path {
 
     .about-content {
         margin-left: 0;
-        margin-top: 60px;
+        margin-top: 20px;
     }
 
     .sub-title {
@@ -2846,6 +2956,6 @@ em.far.fa-arrow-right-to-arc svg path {
 }
 
 .tp-full-width {
-    width: 100vw; 
+    width: 100vw;
     margin-left: calc(-50vw + 50%);
 }

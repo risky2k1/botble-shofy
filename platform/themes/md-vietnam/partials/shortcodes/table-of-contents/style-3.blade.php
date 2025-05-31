@@ -6,10 +6,10 @@
                     <div class="desc-content-body-condition-2">
                         <div class="hedding-item-body-condition-2">
                             @if ($shortcode->subtitle_left)
-                                <span>{{ $shortcode->subtitle_left }}</span>
+                                <span style="color: {{ $shortcode->text_color }}; border-color: {{ $shortcode->text_color }};">{{ $shortcode->subtitle_left }}</span>
                             @endif
                             @if ($shortcode->title_left)
-                                <h2>{{ $shortcode->title_left }}</h2>
+                                <h2 style="color: {{ $shortcode->text_color }};">{{ $shortcode->title_left }}</h2>
                             @endif
                         </div>
 
@@ -29,10 +29,10 @@
                     <div class="desc-content-body-condition-2">
                         <div class="hedding-item-body-condition-2">
                             @if ($shortcode->subtitle_right)
-                                <span>{{ $shortcode->subtitle_right }}</span>
+                                <span style="color: {{ $shortcode->text_color }}; border-color: {{ $shortcode->text_color }};">{{ $shortcode->subtitle_right }}</span>
                             @endif
                             @if ($shortcode->title_right)
-                                <h2>{{ $shortcode->title_right }}</h2>
+                                <h2 style="color: {{ $shortcode->text_color }}">{{ $shortcode->title_right }}</h2>
                             @endif
                         </div>
 

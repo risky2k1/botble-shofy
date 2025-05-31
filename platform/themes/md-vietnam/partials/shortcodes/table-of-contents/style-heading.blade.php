@@ -1,4 +1,4 @@
-<section class="REASONS-p1 mb-10 tp-full-width">
+<section class="REASONS-p1 tp-full-width">
     <div class="hedding-reasons" style="background-color: {{ $shortcode->background_color }} !important;">
         <div class="container">
             <div class="hedding-member-reasons">

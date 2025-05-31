@@ -1,4 +1,4 @@
-<section class="condition">
+<section class="condition tp-full-width" style="background: {{ $shortcode->background_color }}">
     <div class="container">
         <div class="box-condition">
             <div class="box-condition-body">

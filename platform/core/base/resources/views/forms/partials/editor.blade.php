@@ -2,6 +2,7 @@
     @php
         $id = Arr::get($attributes, 'id', $name);
         Arr::set($attributes, 'id', $id);
+        $page = request()->page ?? collect();
     @endphp
 
     <div class="mb-2 btn-list">
@@ -12,6 +13,20 @@
         >
             {{ trans('core/base::forms.show_hide_editor') }}
         </x-core::button>
+
+        {{-- ✅ Nút chuyển sang trình chỉnh sửa Page builder --}}
+
+        @if (is_plugin_active('page-builder') && Route::currentRouteName() === 'pages.edit')
+            <x-core::button
+                type="button"
+                icon="ti ti-layout"
+                class="page-builder-btn"
+                onclick="window.open('/admin/page-builders/builder?id={{ $page->id ?? null }}', '_blank')"
+            >
+                {{ __('plugins/page-builder::page-builder.page_builder') }}
+            </x-core::button>
+        @endif
+
 
         <x-core::button
             type="button"

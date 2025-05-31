@@ -406,6 +406,11 @@ $(() => {
 
     const initSwiper = () => {
         initSwiperSlider('.tp-slider-active', {
+                 loop: true, 
+    autoplay: {
+      delay: 3000, 
+      disableOnInteraction: false, 
+    },
             slidesPerView: 1,
             spaceBetween: 30,
             effect: 'slide',

@@ -13,11 +13,11 @@
 @endphp
 
 @if (BaseHelper::isHomepage($page->id) || $page->id == 16)
-    {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, BaseHelper::clean($page->content), $page) !!}
+    {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, $page->content, $page) !!}
 @else
     <div @class(['pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
         <div class="{{ $page->template != 'full-width' ? 'container' : '' }}">
-            {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, BaseHelper::clean($page->content), $page) !!}
+            {!! apply_filters(PAGE_FILTER_FRONT_PAGE_CONTENT, $page->content, $page) !!}
         </div>
     </div>
 @endif
