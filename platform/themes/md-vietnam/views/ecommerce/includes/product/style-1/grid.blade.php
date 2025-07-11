@@ -1,3 +1,4 @@
+
 <div @class(['tp-product-item transition-3 mb-25', 'tp-product-item-3 tp-product-style-primary mb-50' => $style === 3, $class ?? null])>
     <div class="tp-product-thumb p-relative fix m-img">
         <a href="{{ $product->url }}">

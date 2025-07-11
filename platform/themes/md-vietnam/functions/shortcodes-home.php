@@ -31,8 +31,13 @@ app()->booted(function (): void {
         Shortcode::register('block-5', __('Home Block 5'), __('Home Block 5'), function (ShortcodeCompiler $shortcode) {
             $listEqualRights = Shortcode::fields()->getTabsData(['image', 'title', 'description', 'link'], $shortcode);
 
+            // $listEqualRightBottoms = Shortcode::fields()->getTabsData(['image_bottom', 'title_bottom', 'description_bottom', 'link_bottom'], $shortcode);
+    
+            $listEqualRightBottoms = Shortcode::fields()->getTabsData(['image_bottom', 'link_bottom', 'description_bottom'], $shortcode);
+
             return Theme::partial('shortcodes.home.block-5', [
                 'listEqualRights' => $listEqualRights,
+                'listEqualRightBottoms' => $listEqualRightBottoms,
                 'data' => $shortcode,
             ]);
         });
@@ -82,6 +87,31 @@ app()->booted(function (): void {
                                 'title' => __('Description'),
                             ],
                             'link' => [
+                                'type' => 'text',
+                                'title' => __('Link'),
+                            ],
+                        ])
+                        ->attrs($attributes)
+                        ->max(8)
+                )
+                ->add(
+                    'list_equal_right_bottom',
+                    ShortcodeTabsField::class,
+                    ShortcodeTabsFieldOption::make()
+                        ->fields([
+                            'image_bottom' => [
+                                'type' => 'image',
+                                'title' => __('Image'),
+                            ],
+                            // 'title_bottom' => [
+                            //     'type' => 'text',
+                            //     'title' => __('Title'),
+                            // ],
+                            'description_bottom' => [
+                                'type' => 'text',
+                                'title' => __('Description'),
+                            ],
+                            'link_bottom' => [
                                 'type' => 'text',
                                 'title' => __('Link'),
                             ],

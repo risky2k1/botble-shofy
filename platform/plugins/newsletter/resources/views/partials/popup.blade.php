@@ -9,7 +9,9 @@
     <div @class(['modal-content border-0', 'd-flex flex-md-col flex-lg-row' => $image])>
         @if ($image)
             <div class="d-none d-md-block col-6 newsletter-popup-bg">
-                {!! RvMedia::image($image, $title, attributes: ['loading' => 'eager']) !!}
+                <a href="{{ $title }}" target="_blank">
+                    {!! RvMedia::image($image, $title, attributes: ['loading' => 'eager']) !!}
+                </a>
             </div>
         @endif
 

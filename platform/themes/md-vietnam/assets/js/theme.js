@@ -583,6 +583,24 @@ $(() => {
             slidesPerView: 3,
             effect: 'fade',
             spaceBetween: 20,
+            breakpoints: {
+                320: {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                },
+                767: {
+                    slidesPerView: 1,
+                    spaceBetween: 0,
+                },
+                991: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                1400: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+            },
         })
 
         initSwiperSlider('.tp-slider-nav-actives', {
@@ -973,7 +991,7 @@ $(() => {
         })
 
         initSwiperSlider('.tp-brand-slider-active', {
-            slidesPerView: 5,
+            slidesPerView: 3,
             spaceBetween: 0,
             loop: false,
             enteredSlides: false,

@@ -8,11 +8,14 @@ use Botble\Base\Forms\Fields\NumberField;
 use Botble\Base\Forms\Fields\SelectField;
 use Botble\Base\Forms\Fields\TextField;
 use Botble\Base\Forms\Fields\UiSelectorField;
+use Botble\Blog\Models\Category;
 use Botble\Shortcode\Compilers\Shortcode as ShortcodeCompiler;
 use Botble\Shortcode\Facades\Shortcode;
 use Botble\Shortcode\Forms\ShortcodeForm;
+use Botble\Shortcode\ShortcodeField;
 use Botble\Theme\Facades\Theme;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Arr;
 
 app()->booted(function (): void {
     if (! is_plugin_active('blog')) {
@@ -21,6 +24,8 @@ app()->booted(function (): void {
 
     Shortcode::register('blog-posts', __('Blog Posts'), __('Blog Posts'), function (ShortcodeCompiler $shortcode) {
         $limit = (int) $shortcode->limit ?: 3;
+        $categoryIds = Shortcode::fields()->getIds('category_ids', $shortcode);
+
 
         /**
          * @var Collection $posts
@@ -28,6 +33,7 @@ app()->booted(function (): void {
         $posts = match ($shortcode->type) {
             'featured' => get_featured_posts($limit),
             'popular' => get_popular_posts($limit),
+            'category' => get_posts_by_category($categoryIds, 0, $limit),
             default => get_recent_posts($limit),
         };
         // dd($posts->pluck('id'));
@@ -79,8 +85,26 @@ app()->booted(function (): void {
                         'recent' => __('Recent'),
                         'featured' => __('Featured'),
                         'popular' => __('Popular'),
+                        'category' => __('By Category'),
                     ])
+                    ->selected($attributes['type'] ?? 'recent')
                     ->defaultValue('recent'),
+            )
+            ->add(
+                'category_ids',
+                SelectField::class,
+                SelectFieldOption::make()
+                    ->choices(
+                        Category::query()
+                            ->wherePublished()
+                            ->pluck('name', 'id')
+                            ->all()
+                    )
+                    ->label(__('Choose categories'))
+                    ->selected(ShortcodeField::parseIds(Arr::get($attributes, 'category_ids')))
+                    ->searchable()
+                    ->collapseTrigger('type', 'category', Arr::get($attributes, 'type', 'recent') == 'category')
+                    ->multiple()
             )
             ->add(
                 'limit',
@@ -94,9 +118,9 @@ app()->booted(function (): void {
                 'button_label',
                 TextField::class,
                 TextFieldOption::make()
-                ->label(__('Button Label'))
-                ->placeholder(__('Button view more label'))
-                ->toArray(),
+                    ->label(__('Button Label'))
+                    ->placeholder(__('Button view more label'))
+                    ->toArray(),
             )
             ->add(
                 'button_url',

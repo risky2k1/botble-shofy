@@ -574,6 +574,17 @@ class ThemeSupport
                     ],
                 ],
             ],
+            [
+                'type' => 'text',
+                'label' => __('Display type'),
+                'attributes' => [
+                    'name' => 'display_type',
+                    'value' => null,
+                    'options' => [
+                        'class' => 'form-control',
+                    ],
+                ],
+            ],
         ];
     }
 
@@ -614,7 +625,8 @@ class ThemeSupport
                 icon: Arr::get($item, 'icon') ?: Arr::get($item, 'social-icon'),
                 image: Arr::get($item, 'image') ?: Arr::get($item, 'social-image'),
                 color: Arr::get($item, 'color'),
-                backgroundColor: Arr::get($item, 'background-color')
+                backgroundColor: Arr::get($item, 'background-color'),
+                displayType: Arr::get($item, 'display_type')
             );
         }
 

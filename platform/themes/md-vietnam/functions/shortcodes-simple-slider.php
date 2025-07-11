@@ -30,7 +30,7 @@ app()->booted(function (): void {
     Shortcode::modifyAdminConfig('simple-slider', function (ShortcodeForm $form) {
         $styles = [];
 
-        foreach (range(1, 9) as $i) {
+        foreach (range(1, 10) as $i) {
             $styles[$i] = [
                 'label' => __('Style :number', ['number' => $i]),
                 'image' => Theme::asset()->url(sprintf('images/shortcodes/simple-slider/style-%s.png', $i)),
@@ -102,7 +102,7 @@ app()->booted(function (): void {
                 TextField::class,
                 TextFieldOption::make()
                     ->label(__('Title'))
-                    ->collapseTrigger('style', [6, 7])
+                    
             )
             ->add(
                 'is_autoplay',

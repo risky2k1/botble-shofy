@@ -15,7 +15,8 @@ class SocialLink
         protected ?string $icon,
         protected ?string $image,
         protected ?string $color,
-        protected ?string $backgroundColor
+        protected ?string $backgroundColor,
+        protected ?string $displayType
     ) {
     }
 
@@ -46,6 +47,11 @@ class SocialLink
         }
 
         return $this->color;
+    }
+    
+    public function getDisplayType(): ?string
+    {
+        return $this->displayType;
     }
 
     public function getBackgroundColor(): ?string

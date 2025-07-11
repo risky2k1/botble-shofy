@@ -13,7 +13,7 @@
 ])>
     {!! apply_filters('ads_render', null, 'listing_page_before') !!}
     <div class="container">
-        <div class="row pb-20">
+        <div class="row pb-10">
             @if ($posts->isNotEmpty())
                 <div class="col-lg-6">
                     @php
@@ -75,7 +75,7 @@
                 </div>
             @endif
         </div>
-        <div class="row pb-20">
+        <div class="row pb-10">
             @foreach ($posts->slice(5) as $post)
                 <div class="col-lg-4">
                     <div class="box-block-list-bottom">
@@ -103,7 +103,7 @@
         </div>
         <div class="row">
             <div class="col-xl-12">
-                <div class="tp-blog-pagination mt-30">
+                <div class="tp-blog-pagination mt-10">
                     {{ $posts->links(Theme::getThemeNamespace('partials.pagination')) }}
                 </div>
             </div>

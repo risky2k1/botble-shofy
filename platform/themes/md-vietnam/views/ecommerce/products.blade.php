@@ -1,6 +1,6 @@
 @php
     Theme::layout('full-width');
-    Theme::set('pageTitle', __('Products'));
+    Theme::set('pageTitle', __('Field of operation'));
 @endphp
 
 <section class="tp-shop-area">

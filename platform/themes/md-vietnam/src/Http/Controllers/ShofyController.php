@@ -66,13 +66,16 @@ class ShofyController extends PublicController
 
     public function ajaxGetRelatedProducts(Product $product)
     {
+        $limit = theme_option('number_of_related_product', 4);
+        $page = request()->get('page', 1);
+
         return $this
             ->httpResponse()
             ->setData(view(
                 Theme::getThemeNamespace(
                     'views.ecommerce.includes.related-products'
                 ),
-                ['products' => get_related_products($product)]
+                ['products' => get_related_products($product, $limit, $page)]
             )->render());
     }
 }

@@ -15,6 +15,7 @@ use Botble\Ecommerce\Facades\EcommerceHelper;
 use Botble\Ecommerce\Services\Products\UpdateDefaultProductService;
 use Botble\Faq\Models\Faq;
 use Botble\Media\Facades\RvMedia;
+use Botble\Page\Models\Page;
 use Botble\Theme\Supports\Youtube;
 use Carbon\Carbon;
 use Exception;
@@ -75,6 +76,7 @@ class Product extends BaseModel
         'maximum_order_quantity',
         'notify_attachment_updated',
         'specification_table_id',
+        'page_id',
     ];
 
     protected $appends = [
@@ -829,5 +831,10 @@ class Product extends BaseModel
 
             return $this->with_storehouse_management ? $this->quantity : 1000;
         });
+    }
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class, 'page_id');
     }
 }

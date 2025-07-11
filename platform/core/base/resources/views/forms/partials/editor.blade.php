@@ -6,36 +6,29 @@
     @endphp
 
     <div class="mb-2 btn-list">
-        <x-core::button
-            type="button"
-            data-result="{{ $id }}"
-            class="show-hide-editor-btn"
-        >
+        <x-core::button type="button" data-result="{{ $id }}" class="show-hide-editor-btn">
             {{ trans('core/base::forms.show_hide_editor') }}
         </x-core::button>
 
         {{-- ✅ Nút chuyển sang trình chỉnh sửa Page builder --}}
 
         @if (is_plugin_active('page-builder') && Route::currentRouteName() === 'pages.edit')
-            <x-core::button
-                type="button"
-                icon="ti ti-layout"
-                class="page-builder-btn"
-                onclick="window.open('/admin/page-builders/builder?id={{ $page->id ?? null }}', '_blank')"
-            >
+            @php
+
+                $route = '/admin/page-builders/builder?id=' . $page->id . '&ref_lang=' . request()->get('ref_lang', null);
+
+            @endphp
+
+            <x-core::button type="button" icon="ti ti-layout" class="page-builder-btn"
+                onclick="window.open('{{ $route }}', '_blank')">
                 {{ __('plugins/page-builder::page-builder.page_builder') }}
             </x-core::button>
+
         @endif
 
 
-        <x-core::button
-            type="button"
-            icon="ti ti-photo"
-            class="btn_gallery"
-            data-result="{{ $id }}"
-            data-multiple="true"
-            data-action="media-insert-{{ BaseHelper::getRichEditor() }}"
-        >
+        <x-core::button type="button" icon="ti ti-photo" class="btn_gallery" data-result="{{ $id }}"
+            data-multiple="true" data-action="media-insert-{{ BaseHelper::getRichEditor() }}">
             {{ trans('core/media::media.add') }}
         </x-core::button>
 

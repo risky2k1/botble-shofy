@@ -3,9 +3,334 @@ header {
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 1000;
+  /* z-index: 999999999; */
+  z-index: 9999999;
 }
 
+#button-contact-vr {
+    bottom: 10px;
+    left: 10px;
+    margin: -10px;
+    transform: scale(0.8);
+    margin-bottom: 0px !important;
+    position: fixed;
+    z-index: 99999;
+}
+
+#gom-all-in-one #viber-vr {
+    transition: 1.3s all;
+    -moz-transition: 1.3s all;
+    -webkit-transition: 1.3s all;
+}
+
+#button-contact-vr .button-contact {
+    position: relative;
+    margin-top: -5px;
+}
+
+#button-contact-vr .button-contact .phone-vr {
+    position: relative;
+    visibility: visible;
+    background-color: transparent;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    z-index: 11;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transition: visibility .5s;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+
+#viber-vr .phone-vr-circle-fill {
+    box-shadow: 0 0 0 0 #2196f3;
+    background-color: rgba(33, 150, 243, 0.7);
+}
+
+.phone-vr-circle-fill {
+    width: 65px;
+    height: 65px;
+    top: 12px;
+    left: 12px;
+    position: absolute;
+    box-shadow: 0 0 0 0 #c31d1d;
+    background-color: rgba(230, 8, 8, 0.7);
+    border-radius: 50%;
+    border: 2px solid transparent;
+    -webkit-animation: phone-vr-circle-fill 2.3s infinite ease-in-out;
+    animation: phone-vr-circle-fill 2.3s infinite ease-in-out;
+    transition: all .5s;
+    -webkit-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    -webkit-animuiion: zoom 1.3s infinite;
+    animation: zoom 1.3s infinite;
+}
+
+#button-contact-vr .button-contact .phone-vr {
+    position: relative;
+    visibility: visible;
+    background-color: transparent;
+    width: 90px;
+    height: 90px;
+    cursor: pointer;
+    z-index: 11;
+    -webkit-backface-visibility: hidden;
+    -webkit-transform: translateZ(0);
+    transition: visibility .5s;
+    left: 0;
+    bottom: 0;
+    display: block;
+}
+
+.phone-vr-img-circle a {
+    display: block;
+    line-height: 37px;
+}
+#phone-vr span {
+    position: absolute;
+    background: linear-gradient(90deg, rgba(28, 124, 135, 1) 14%, rgba(95, 186, 194, 1) 56%, rgba(161, 161, 161, 1) 95%);
+    text-decoration: none;
+    color: #fff;
+    display: inline-block;
+    text-align: center;
+    font-weight: 500;
+    font-size: 21px;
+    line-height: 1.2;
+    padding: 10px 12px 10px;
+    border-radius: 4px;
+    margin-right: 10px;
+    width: 168px;
+    left: 100%;
+    top: 30%;
+}
+#phone-vr span::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-width: 8px;
+    border-style: solid;
+    border-color: transparent #1c7c87 transparent transparent;
+    position: absolute;
+    right: 100%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    -ms-transition: all 200ms linear;
+    -webkit-transition: all 200ms linear;
+    transition: all 200ms linear;
+}
+.phone-vr-img-circle img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    object-fit: cover;
+    width: 40px;
+}
+
+#gom-all-in-one #zalo-vr {
+    transition: 1s all;
+    -moz-transition: 1s all;
+    -webkit-transition: 1s all;
+}
+
+#button-contact-vr .button-contact {
+    position: relative;
+    margin-top: -5px;
+}
+
+#zalo-vr .phone-vr-circle-fill {
+    box-shadow: 0 0 0 0 #2196f3;
+    background-color: rgba(33, 150, 243, 0.7);
+}
+
+#gom-all-in-one #phone-vr {
+    transition: 0.7s all;
+    -moz-transition: 0.7s all;
+    -webkit-transition: 0.7s all;
+}
+
+#phone-vr .phone-vr-circle-fill {
+    opacity: 0.7;
+    /* box-shadow: 0 0 0 0 #dd2223; */
+}
+
+.phone-bar a,
+#phone-vr .phone-vr-circle-fill,
+#phone-vr .phone-vr-img-circle,
+#phone-vr .phone-bar a {
+    background-color: #dd2223;
+}
+
+.phone-bar a,
+#phone-vr .phone-vr-circle-fill,
+#phone-vr .phone-vr-img-circle,
+#phone-vr .phone-bar a {
+    background-color: #dd2223;
+}
+
+#phone-vr .phone-vr-circle-fill {
+    opacity: 0.7;
+    /* box-shadow: 0 0 0 0 #dd2223; */
+}
+
+.phone-vr-img-circle {
+    background-color: #e60808;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    top: 25px;
+    left: 25px;
+    position: absolute;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    -webkit-animation: phonering-alo-circle-img-anim 1s infinite ease-in-out;
+    animation: phone-vr-circle-fill 1s infinite ease-in-out;
+}
+
+#zalo-vr .phone-vr-img-circle {
+    background-color: #2196F3;
+}
+
+#viber-vr .phone-vr-img-circle {
+    background-color: #2196f3;
+}
+
+
+
+
+@-webkit-keyframes phone-vr-circle-fill {
+    0% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+    }
+
+    10% {
+        -webkit-transform: rotate(-25deg) scale(1) skew(1deg);
+    }
+
+    20% {
+        -webkit-transform: rotate(25deg) scale(1) skew(1deg);
+    }
+
+    30% {
+        -webkit-transform: rotate(-25deg) scale(1) skew(1deg);
+    }
+
+    40% {
+        -webkit-transform: rotate(25deg) scale(1) skew(1deg);
+    }
+
+    50% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(0) scale(1) skew(1deg);
+    }
+}
+
+@-webkit-keyframes zoom {
+    0% {
+        transform: scale(.9)
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px transparent
+    }
+
+    100% {
+        transform: scale(.9);
+        box-shadow: 0 0 0 0 transparent
+    }
+}
+
+@keyframes zoom2 {
+    0% {
+        transform: scale(.9);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px transparent
+    }
+
+    100% {
+        transform: scale(.9);
+        box-shadow: 0 0 0 0 transparent
+    }
+}
+
+@keyframes zoom {
+    0% {
+        transform: scale(.9)
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 15px transparent
+    }
+
+    100% {
+        transform: scale(.9);
+        box-shadow: 0 0 0 0 transparent
+    }
+}
+
+.fix-footer {
+    z-index: 99999999;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(90deg, rgba(28,124,135,1) 14%, rgba(95,186,194,1) 56%, rgba(161,161,161,1) 95%);
+    padding: 10px 0px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, .1);
+    display: block;
+    padding: 42px 0px 2px 0;
+    display: none;
+}
+
+.fix-footer-box svg {
+    height: 20px;
+    width: 33px;
+    fill: #fff;
+}
+
+ul.submenu.level-3 {
+    left: 100%;
+    top: 0px;
+}
+ul.submenu.level-2 li:hover ul.submenu.level-3 {
+    opacity: 1;
+}
+ul.submenu.level-3 {
+    opacity: 0;
+}
+
+ul.submenu.level-2 .has-submenu:hover ul.submenu.level-3 {
+    opacity: 1;
+}
+ul.submenu.level-2 svg {
+    transform: rotate(-93deg);
+    margin-bottom: 3px;
+}
+ul.submenu.level-3:before {
+    content: "";
+    border: unset;
+}
+li.has-submenu .submenu a {
+    font-size: 14px !important;
+    font-weight: 500;
+}
 .header-container {
   display: flex;
   justify-content: space-between;
@@ -83,14 +408,14 @@ ul.submenu:before {
 
 .menu li a {
      color: #000000;
-    text-decoration: none;
-    padding: 10px 5px;
-    display: block;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    border-radius: 4px;
-    font-size: 14px;
-        text-transform: uppercase;
+     text-decoration: none;
+     padding: 10px 5px;
+     display: block;
+     font-weight: 500;
+     transition: all 0.3s ease;
+     border-radius: 4px;
+     font-size: 14px;
+     text-transform: uppercase;
 }
 .menu li a svg {
     width: 18px;
@@ -110,7 +435,7 @@ ul.submenu:before {
 }
 
 .hotline {
-  background-color: #172040;
+  background-color: #db2d1b;
   color: white;
   padding: 10px 15px;
   position: relative;
@@ -122,6 +447,8 @@ ul.submenu:before {
   margin-right: 15px;
   justify-content: center;
   gap: 0px 5px;
+  font-weight: 600;
+  font-size: 15px;
 }
 
 .hotline:hover {
@@ -265,6 +592,17 @@ ul.submenu li a {
     padding: 6px 15px;
 }
 
+.newsletter-popup .modal-dialog.modal-lg {
+    width: 500px;
+    height: 500px;
+}
+
+.newsletter-popup {
+    position: fixed;
+    z-index: 9999999999999999 !important;
+    top: 0 !important;
+    bottom: 0 !important;
+}
 @media screen and (max-width: 992px) {
   ul.submenu:before{
     content: "";
@@ -278,6 +616,7 @@ ul.submenu li a {
     box-shadow: unset;
     border-radius: unset;
     padding-left: 25px;
+    opacity: 1;
 }
 li.has-submenu.open ul.submenu {
     display: block;
@@ -367,3 +706,4 @@ ul.menu.active li a {
     height: 350px;
   }
 }
+

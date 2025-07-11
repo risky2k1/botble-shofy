@@ -10,6 +10,7 @@ use Botble\Base\Models\BaseModel;
 use Botble\Base\Traits\HasTreeCategory;
 use Botble\Ecommerce\Tables\ProductTable;
 use Botble\Media\Facades\RvMedia;
+use Botble\Page\Models\Page;
 use Botble\Support\Services\Cache\Cache;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Collection as EloquentCollection;
@@ -39,6 +40,7 @@ class ProductCategory extends BaseModel implements HasTreeCategoryContract
         'is_featured',
         'icon',
         'icon_image',
+        'page_id',
     ];
 
     protected $casts = [
@@ -193,5 +195,10 @@ class ProductCategory extends BaseModel implements HasTreeCategoryContract
         }
 
         return $categoryIds;
+    }
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class, 'page_id');
     }
 }

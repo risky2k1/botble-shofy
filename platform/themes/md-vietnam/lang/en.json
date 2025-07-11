@@ -1187,7 +1187,6 @@
     "million": "million",
     "when shipping fee less than or equal :amount": "when shipping fee less than or equal :amount",
     "✅ Purchased :time": "✅ Purchased :time",
-
     "Excluding :tax GST": "Excluding :tax% GST",
     "Including :tax": "Including :tax",
     "Excluding :tax": "Excluding :tax",
@@ -1198,7 +1197,22 @@
     "Call us": "Call us",
     "Call us now": "Call us now",
     "Effect": "Effect",
-    "Display Style" : "Display Style",
-    "Full Width" : "Full Width",
-    "Enter Your" : "Enter Your"
+    "Display Style": "Display Style",
+    "Full Width": "Full Width",
+    "Enter Your": "Enter Your",
+    "FREE CONSULTATION": "FREE CONSULTATION",
+    "Get in Touch": "Get in Touch",
+    "Get in Touch with Us": "Get in Touch with Us",
+    "Free consultation description": "Free consultation description",
+    "NAME": "NAME",
+    "PHONE": "PHONE",
+    "LEAVE A MESSAGE": "LEAVE A MESSAGE",
+    "CONSULT NOW": "CONSULT NOW",
+    "Your Message": "Your Message",
+    "Read more": "Read more",
+    "Latest News": "Latest News",
+    "Hello, I need help with": "Hello, I need help with",
+    "Contact Us Form": "Contact Us Form",
+    "Popup Link" : "Liên kết Popup",
+    "By Category" : "Theo Danh mục"
 }

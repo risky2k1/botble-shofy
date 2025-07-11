@@ -8,7 +8,6 @@
     foreach ($categories as $category) {
         $category_products[] = $category->products->take($shortcode->limit);
     }
-    // dd($categories);
 @endphp
 <section class="field">
     <div class="ctnr">
@@ -54,17 +53,17 @@
                             @endforeach
                         </div>
                     </div>
+                    <div class="lvhd-button-next swiper-button-disabled"></div>
+                    <div class="lvhd-button-prev"></div>
                 </div>
             </div>
         </div>
-        <div class="lvhd-button-next swiper-button-disabled"></div>
-        <div class="lvhd-button-prev"></div>
     </div>
     </div>
 
     @if (count($categories) > 0)
         <div class="lvhd_col_bottom col-md-12 col-sm-12">
-            <div class="tabs nganh-hang-tabs tabs-simple tabs-light">
+            <div class="tabs nganh-hang-tabs tabs-simple tabs-light ctnr">
                 <div class="box-nav-tabs-hangngang">
                     <ul class="nav nav-tabs nav-justified featured-boxes">
                         @foreach ($categories as $key => $category)
@@ -101,8 +100,8 @@
                                         </div>
                                     @endforeach
                                 </div>
-                                <div class="lvhd-button-prev swiper-button-disabled"></div>
-                                <div class="lvhd-button-next"></div>
+                                {{-- <div class="lvhd-button-prev swiper-button-disabled"></div>
+                                <div class="lvhd-button-next"></div> --}}
                             </div>
                         </div>
                     @endforeach

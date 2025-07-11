@@ -15,7 +15,7 @@
                 </div>
             @endif
             @if (isset($config['title']))
-                <div class="mb-4">
+                <div class="mb-4 ">
                     <span class="tp-footer-title">{{ $config['title'] }}</span>
                 </div>
             @endif
@@ -39,10 +39,13 @@
             @if ($config['show_social_links'] && ($socialLinks = Theme::getSocialLinks()))
                 <div class="tp-footer-social mt-4">
                     @foreach ($socialLinks as $socialLink)
-                        @continue(!$socialLink->getUrl() || !$socialLink->getIconHtml())
+                        @if ($socialLink->getDisplayType() === 'footer')
+                            @continue(!$socialLink->getUrl() || !$socialLink->getIconHtml())
 
-                        <a {!! $socialLink->getAttributes() !!}>{{ $socialLink->getIconHtml() }}</a>
+                            <a {!! $socialLink->getAttributes() !!}>{{ $socialLink->getIconHtml() }}</a>
+                        @endif
                     @endforeach
+
                 </div>
             @endif
 
@@ -53,6 +56,6 @@
                     </a>
                 </div>
             @endif
-        </div> 
+        </div>
     </div>
 </div>

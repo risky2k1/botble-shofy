@@ -1,10 +1,10 @@
-@if(request()->ajax() && isset($products))
+@if(isset($products))
     @if ($products->isNotEmpty())
         <section class="tp-related-product">
             <div class="container">
-                {{-- <div class="tp-section-title-wrapper-6 text-center mb-40">
+                <div class="tp-section-title-wrapper-6 text-center mb-40">
                     <h3 class="section-title tp-section-title-6">{{ __('Related Products') }}</h3>
-                </div> --}}
+                </div>
 
                 <div class="row">
                     <div class="tp-product-related-slider">
@@ -18,6 +18,9 @@
                             </div>
                         </div>
                         <div class="tp-related-swiper-scrollbar tp-swiper-scrollbar"></div>
+                        <div class="related-product-pagination mt-3">
+                            {!! $products->links(Theme::getThemeNamespace('partials.pagination')) !!}
+                        </div>
                     </div>
                 </div>
             </div>

@@ -38,6 +38,7 @@ class ContactRequest extends Request
 
     public function rules(): array
     {
+
         $rules = [
             'name' => ['required', 'string', 'max:40'],
             'email' => ['nullable', new EmailRule(), 'max:80'],
@@ -47,9 +48,9 @@ class ContactRequest extends Request
             'subject' => ['nullable', 'string', 'max:500'],
         ];
 
-        if (setting('contact_form_show_terms_checkbox', true)) {
-            $rules['agree_terms_and_policy'] = ['required', 'accepted:1'];
-        }
+        // if (setting('contact_form_show_terms_checkbox', true)) {
+        //     $rules['agree_terms_and_policy'] = ['required', 'accepted:1'];
+        // }
 
         try {
             // Get display_fields and required_fields from request

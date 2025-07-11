@@ -40,6 +40,7 @@ use Botble\Ecommerce\Models\ProductVariation;
 use Botble\Ecommerce\Models\SpecificationTable;
 use Botble\Ecommerce\Models\Tax;
 use Botble\Ecommerce\Tables\ProductVariationTable;
+use Botble\Page\Models\Page;
 
 class ProductForm extends FormAbstract
 {
@@ -56,7 +57,14 @@ class ProductForm extends FormAbstract
         $productId = null;
         $selectedCategories = [];
         $tags = null;
-        $totalProductVariations = 0;
+        // $totalProductVariations = 0;
+
+        $pages = Page::query()
+            ->where('status', 'published')
+            ->pluck('name', 'id')
+            ->toArray();
+
+        $pages = [0 => __('Choose page')] + $pages;
 
         if ($this->getModel()) {
 
@@ -80,6 +88,14 @@ class ProductForm extends FormAbstract
             ->setFormOption('files', true)
             ->add('name', TextField::class, NameFieldOption::make()->required())
             ->add(
+                'page_id',
+                SelectField::class,
+                SelectFieldOption::make()
+                    ->label(__('Page'))
+                    ->choices($pages)
+                    ->searchable()
+            )
+            ->add(
                 'description',
                 EditorField::class,
                 EditorFieldOption::make()
@@ -102,11 +118,11 @@ class ProductForm extends FormAbstract
                     'priority' => 9999,
                 ],
             ])
-            ->when(! EcommerceHelper::isDisabledPhysicalProduct(), function (): void {
-                $this->add('product_type', 'hidden', [
-                    'value' => request()->input('product_type') ?: ProductTypeEnum::PHYSICAL,
-                ]);
-            })
+            // ->when(! EcommerceHelper::isDisabledPhysicalProduct(), function (): void {
+            //     $this->add('product_type', 'hidden', [
+            //         'value' => request()->input('product_type') ?: ProductTypeEnum::PHYSICAL,
+            //     ]);
+            // })
             ->add('status', SelectField::class, StatusFieldOption::make())
             ->add(
                 'is_featured',
@@ -249,42 +265,42 @@ class ProductForm extends FormAbstract
             ])
             ->setBreakFieldPoint('status');
 
-        if (EcommerceHelper::isProductSpecificationEnabled()) {
-            $this->addMetaBox(
-                MetaBox::make('product-specification-table')
-                    ->title(trans('plugins/ecommerce::product-specification.specification_tables.title'))
-                    ->hasTable()
-                    ->attributes(['class' => 'product-specification-table'])
-                    ->headerActionContent(view('plugins/ecommerce::products.partials.specification-table.header', [
-                        'model' => $this->getModel(),
-                        'tables' => SpecificationTable::query()->pluck('name', 'id'),
-                    ])->render())
-                    ->content(view('plugins/ecommerce::products.partials.specification-table.content', [
-                        'model' => $this->getModel(),
-                        'getTableUrl' => route('ecommerce.specification-tables.index'),
-                    ])->render())
-            );
-        }
+        // if (EcommerceHelper::isProductSpecificationEnabled()) {
+        //     $this->addMetaBox(
+        //         MetaBox::make('product-specification-table')
+        //             ->title(trans('plugins/ecommerce::product-specification.specification_tables.title'))
+        //             ->hasTable()
+        //             ->attributes(['class' => 'product-specification-table'])
+        //             ->headerActionContent(view('plugins/ecommerce::products.partials.specification-table.header', [
+        //                 'model' => $this->getModel(),
+        //                 'tables' => SpecificationTable::query()->pluck('name', 'id'),
+        //             ])->render())
+        //             ->content(view('plugins/ecommerce::products.partials.specification-table.content', [
+        //                 'model' => $this->getModel(),
+        //                 'getTableUrl' => route('ecommerce.specification-tables.index'),
+        //             ])->render())
+        //     );
+        // }
 
-        if (EcommerceHelper::isEnabledProductOptions()) {
-            $this
-                ->addMetaBoxes([
-                    'product_options_box' => [
-                        'title' => trans('plugins/ecommerce::product-option.name'),
-                        'content' => view('plugins/ecommerce::products.partials.product-option-form', [
-                            'options' => GlobalOptionEnum::options(),
-                            'globalOptions' => GlobalOption::query()->pluck('name', 'id')->all(),
-                            'product' => $this->getModel(),
-                            'routes' => [
-                                'ajax_option_info' => route('global-option.ajaxInfo'),
-                            ],
-                        ]),
-                        'priority' => 4,
-                    ],
-                ]);
-        }
+        // if (EcommerceHelper::isEnabledProductOptions()) {
+        //     $this
+        //         ->addMetaBoxes([
+        //             'product_options_box' => [
+        //                 'title' => trans('plugins/ecommerce::product-option.name'),
+        //                 'content' => view('plugins/ecommerce::products.partials.product-option-form', [
+        //                     'options' => GlobalOptionEnum::options(),
+        //                     'globalOptions' => GlobalOption::query()->pluck('name', 'id')->all(),
+        //                     'product' => $this->getModel(),
+        //                     'routes' => [
+        //                         'ajax_option_info' => route('global-option.ajaxInfo'),
+        //                     ],
+        //                 ]),
+        //                 'priority' => 4,
+        //             ],
+        //         ]);
+        // }
 
-        $productAttributeSets = ProductAttributeSet::getAllWithSelected($productId, []);
+        // $productAttributeSets = ProductAttributeSet::getAllWithSelected($productId, []);
 
         $this
             ->addMetaBoxes([

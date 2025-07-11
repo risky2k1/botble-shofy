@@ -41,6 +41,10 @@ Route::group(['namespace' => 'Botble\Contact\Http\Controllers'], function (): vo
                 'as' => 'public.send.contact',
                 'uses' => 'PublicController@postSendContact',
             ]);
+            Route::post('contact/send/fast', [
+                'as' => 'public.send.contact.fast',
+                'uses' => 'PublicController@postSendContactFast',
+            ]);
         });
     }
 });

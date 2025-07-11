@@ -6,7 +6,7 @@
         style="background-image: url({{ RvMedia::getImageUrl($shortcode->background_image) }})">
         <div class="container">
             <div class="title-article-contact">
-                <h2>{{ $shortcode->title ?? '' }}</h2>
+                <h2>{!! $shortcode->title ?? '' !!}</h2>
             </div>
             <div class="list-article-item">
                 <div class="row">

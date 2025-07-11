@@ -219,7 +219,7 @@ class Menu
         return RepositoryHelper::applyBeforeExecuteQuery($items, new MenuModel())->get();
     }
 
-    public function generateMenu(array $args = []): ?string
+    public function generateMenu(array $args = [], int $level = 1): ?string
     {
         $this->load();
 
@@ -280,6 +280,7 @@ class Menu
             ];
 
             $data['options'] = Html::attributes(Arr::get($args, 'options', []));
+            $data['level'] = $level;
         }
 
         if ($theme && $view) {

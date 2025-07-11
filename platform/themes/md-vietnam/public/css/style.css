@@ -14,7 +14,14 @@
         width: 33.333333%;
     }
 }
+.tp-footer-image {
+    /* text-align: right; */
+}
 
+span.tp-footer-title {
+    text-align: right !important;
+    width: 100%;
+}
 .footer-primary-sidebar .panel.panel-default:nth-child(3) {
     text-align: center;
 }
@@ -27,7 +34,9 @@ footer {
 .tp-footer-social a {
     padding: 10px;
 }
-
+.tp-footer-widget {
+    padding-right: 0px;
+}
 .tp-footer-social {
     display: flex;
     justify-content: center;
@@ -269,7 +278,7 @@ section.box-sumenh {
 }
 
 .box-content-sumenh {
-    padding-top: 65px;
+    padding-top: 52px;
     position: relative;
     z-index: 99;
     background: #fff;
@@ -320,7 +329,7 @@ section.box-sumenh {
 }
 
 .box-content-sumenh {
-    height: 263px;
+    height: 225px;
     background: unset;
 }
 
@@ -355,7 +364,7 @@ section.box-sumenh.sumenhsimple2 .box-content-sumenh {
 
 section.box-sumenh.sumenhsimple2 {
     overflow: hidden;
-    padding: 43px 0px 44px;
+    padding: 25px 0px 44px;
 }
 
 figure.image.image_resized img {
@@ -370,6 +379,7 @@ section.develop.tp-full-width {
     position: relative;
     background-attachment: fixed !important;
     background-position: 50%;
+    margin-bottom: 20px;
 }
 
 section.develop.tp-full-width:before {
@@ -377,7 +387,7 @@ section.develop.tp-full-width:before {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: #1d1d2f61;
+    background: #1d1d2fc2;
     left: 0;
     top: 0;
 }
@@ -510,6 +520,12 @@ section.tp-shop-area img {
 }
 .box-body-memeber-condition-2 .row {
     align-items: center;
+}
+.tp-slider-active-8.swiper-container .item-sumenh-member {
+    overflow: hidden;
+}
+.raw-html-embed.gioithieuchung1 .features-grid {
+    margin-top: 5px !important;
 }
 @media(max-width:990px){
     section.box-sumenh {

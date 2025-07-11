@@ -121,7 +121,7 @@ class HandleFrontPages
                     EcommerceHelper::handleCustomerRecentlyViewedProduct($product);
                 }
 
-                Theme::breadcrumb()->add(__('Products'), route('public.products'));
+                Theme::breadcrumb()->add(__('Field of operation'), route('public.products'));
 
                 $category = $product->categories->sortByDesc('id')->first();
 
@@ -234,7 +234,7 @@ class HandleFrontPages
                     );
                 }
 
-                Theme::breadcrumb()->add(__('Products'), route('public.products'));
+                Theme::breadcrumb()->add(__('Field of operation'), route('public.products'));
 
                 if ($category->parents->isNotEmpty()) {
                     foreach ($category->parents->reverse() as $parentCategory) {
@@ -363,7 +363,7 @@ class HandleFrontPages
                 SeoHelper::meta()->setUrl($tag->url);
 
                 Theme::breadcrumb()
-                    ->add(__('Products'), route('public.products'))
+                    ->add(__('Field of operation'), route('public.products'))
                     ->add($tag->name);
 
                 if (function_exists('admin_bar')) {

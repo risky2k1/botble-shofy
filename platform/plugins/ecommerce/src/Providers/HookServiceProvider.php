@@ -1223,6 +1223,10 @@ class HookServiceProvider extends ServiceProvider
             Menu::registerMenuOptions(ProductCategory::class, trans('plugins/ecommerce::product-categories.menu'));
         }
 
+        if (Auth::user()->hasPermission('products.index')) {
+            Menu::registerMenuOptions(Product::class, trans('plugins/ecommerce::products.menu'));
+        }
+
         return true;
     }
 

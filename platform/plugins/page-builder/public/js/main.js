@@ -5,7 +5,7 @@ let currentEl = null
 let params = {}
 
 // Undo stack for drag and drop operations
-const undoStack = []
+let undoStack = []
 const MAX_UNDO_STEPS = 50 // Limit the number of undo steps to prevent memory issues
 
 // Hàm helper để parse giá trị CSS
@@ -96,6 +96,7 @@ function createControlsForElement(el) {
         // Colors
         textColor: rgbToHex(computedStyle.color),
         backgroundColor: rgbToHex(computedStyle.backgroundColor),
+        background: computedStyle.backgroundImage,
         borderColor: rgbToHex(computedStyle.borderColor),
         borderWidth: parsePixelValue(computedStyle.borderWidth),
         borderStyle: computedStyle.borderStyle,
@@ -107,6 +108,11 @@ function createControlsForElement(el) {
         shadowBlur: 10,
         shadowSpread: 0,
         shadowColor: '#000000',
+
+        // AOS
+        aos: el.getAttribute('data-aos') || '',
+        easing: el.getAttribute('data-aos-easing') || '',
+        duration: el.getAttribute('data-aos-duration') || 800,
 
         // Image
         imageSrc: el.getAttribute('src') || '',
@@ -129,6 +135,7 @@ function createControlsForElement(el) {
     addColorControls()
     addEffectsControls()
     addImageControls()
+    addAOSControls()
 }
 
 function applyStyle(property, value) {
@@ -613,11 +620,20 @@ function addColorControls() {
     folder
         .addBinding(params, 'backgroundColor', {
             label: 'Background color',
-            color: { type: 'rgba' }
         })
         .on('change', (ev) => {
             if (currentEl) currentEl.style.backgroundColor = ev.value
         })
+
+    folder
+        .addBinding(params, 'background', {
+            label: 'Background',
+            readonly: false,
+            multiline: false, // nếu cần gõ nhiều dòng gradient
+        })
+        .on('change', (ev) => {
+            if (currentEl) currentEl.style.background = ev.value;
+        });
 
     // Border color with RGBA support
     folder
@@ -760,58 +776,90 @@ function addEffectsControls() {
     })
 }
 
-function addImageControls() {
-    if (params.imageSrc) {
-        const imageFolder = pane.addFolder({ title: '🖼️ Image', expanded: true })
+// Folder hiệu ứng AOS
+function addAOSControls() {
+    if (typeof AOS === 'undefined') {
+        return; // Không thỏa điều kiện → không hiển thị folder
+    }
 
-        // Tạo input file ẩn
-        const fileInput = document.createElement('input')
-        fileInput.type = 'file'
-        fileInput.accept = 'image/*'
-        fileInput.style.display = 'none'
-        document.body.appendChild(fileInput)
+    const aosFolder = pane.addFolder({ title: '🌀 AOS Animation', expanded: false })
 
-        // Tạo ảnh
-        const img = document.createElement('img')
-        img.src = params.imageSrc
-        img.className = 'clickable-image'
-        img.style.width = '100%'
-        img.style.height = '100px'
-        img.style.marginTop = '10px'
-        img.style.marginBottom = '10px'
-        img.style.objectFit = 'contain'
-        img.style.cursor = 'pointer'
-
-        // Khi nhấn vào ảnh → mở chọn file
-        img.addEventListener('click', () => {
-            fileInput.click()
+    aosFolder
+        .addBinding(params, 'aos', {
+            label: 'Effect',
+            options: {
+                '❌ Không có': '',
+                'Fade Up': 'fade-up',
+                'Fade Down': 'fade-down',
+                'Fade Left': 'fade-left',
+                'Fade Right': 'fade-right',
+                'Zoom In': 'zoom-in',
+                'Zoom Out': 'zoom-out',
+                'Flip Left': 'flip-left',
+                'Flip Right': 'flip-right',
+                'Slide Up': 'slide-up',
+                'Slide Down': 'slide-down',
+                'Slide Left': 'slide-left',
+                'Slide Right': 'slide-right',
+            },
         })
-
-        // Khi người dùng chọn ảnh
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0]
-            if (file) {
-                const reader = new FileReader()
-                reader.onload = function (e) {
-                    const newSrc = e.target.result
-                    img.src = newSrc
-                    params.imageSrc = newSrc
-                    // Nếu có currentEl cần cập nhật
-                    if (currentEl) currentEl.setAttribute('src', newSrc)
+        .on('change', (ev) => {
+            if (currentEl) {
+                if (ev.value === '') {
+                    currentEl.removeAttribute('data-aos')
+                } else {
+                    currentEl.setAttribute('data-aos', ev.value)
                 }
-                reader.readAsDataURL(file)
+                AOS.refresh(); // Cập nhật lại AOS
             }
         })
 
-        // Gắn ảnh vào thư mục
-        imageFolder.element.appendChild(img)
+    aosFolder
+        .addBinding(params, 'easing', {
+            label: 'Easing',
+            options: {
+                'Ease': 'ease',
+                'Ease-in': 'ease-in',
+                'Ease-out': 'ease-out',
+                'Ease-in-out': 'ease-in-out',
+                'Linear': 'linear',
+                'Ease-in-sine': 'ease-in-sine',
+                'Ease-out-sine': 'ease-out-sine',
+                'Ease-in-out-sine': 'ease-in-out-sine',
+            },
+        })
+        .on('change', (ev) => {
+            if (currentEl) {
+                currentEl.setAttribute('data-aos-easing', ev.value)
+                AOS.refresh()
+            }
+        })
+
+    aosFolder
+        .addBinding(params, 'duration', {
+            label: 'Duration (ms)',
+            min: 100,
+            max: 3000,
+            step: 100,
+        })
+        .on('change', (ev) => {
+            if (currentEl) {
+                currentEl.setAttribute('data-aos-duration', ev.value)
+                AOS.refresh()
+            }
+        })
+}
+
+// Folder ảnh
+function addImageControls() {
+    if (params.imageSrc) {
+        const imageFolder = pane.addFolder({ title: '🖼️ Image', expanded: true })
 
         // Binding URL và cập nhật ảnh
         imageFolder
             .addBinding(params, 'imageSrc', { label: 'Source URL' })
             .on('change', (ev) => {
                 if (currentEl) currentEl.setAttribute('src', ev.value)
-                img.src = ev.value
             })
 
         // Binding alt
@@ -819,7 +867,6 @@ function addImageControls() {
             .addBinding(params, 'imageAlt', { label: 'Alt text' })
             .on('change', (ev) => {
                 if (currentEl) currentEl.setAttribute('alt', ev.value)
-                img.alt = ev.value
             })
     }
 }
@@ -1128,7 +1175,6 @@ function initDraggable() {
 }
 
 
-
 function handleElementClick(el) {
     // Bỏ chọn element cũ nếu có
     if (currentEl) {
@@ -1154,30 +1200,63 @@ function initSaveContent() {
     $saveButton.on('click', function () {
         const $contentClone = $('#content').clone()
 
-        // Xóa tất cả class selected-element, attribute draggable, contenteditable
         $contentClone.find('.selected-element').removeClass('selected-element')
+
+        // Xóa riêng từng thuộc tính bằng vòng lặp
         $contentClone
             .find('[draggable], [contenteditable]')
             .addBack('[draggable], [contenteditable]')
-            .removeAttr('draggable contenteditable')
-        // Lấy HTML sau khi đã xóa class
+            .each(function () {
+                this.removeAttribute('draggable')
+                this.removeAttribute('contenteditable')
+            })
+
         const content = $contentClone.html()
-        // console.log(content)
+
+        const data = {
+
+        }
+
+        // Handle data
+        const pageFormDiv = document.createElement('div');
+        pageFormDiv.innerHTML = JSON.parse(document.getElementById('page_form')
+            .value ||
+            '{}');
+
+        const inputs = pageFormDiv.querySelectorAll(
+            'input[name], select[name], textarea[name]');
+
+        inputs.forEach(input => {
+            // Nếu là checkbox hoặc radio, chỉ lấy nếu được chọn
+            if ((input.type === 'checkbox' || input.type === 'radio') && !
+                input.checked) {
+                return;
+            }
+
+            // Ghi đè giá trị nếu trùng key (chỉ lấy 1 giá trị cuối cùng)
+            data[input.name] = input.value;
+        });
+
 
         // Hiển thị trạng thái đang lưu
         $saveButton
             .prop('disabled', true)
             .html('<i class="fas fa-spinner fa-spin"></i> Saving...')
 
+        data.content = JSON.stringify({ content }),
+        data.ref_lang = $('#ref_lang').val() ?? '';
+
         $.ajax({
             url: $('#save-route').val(),
             method: 'POST',
             contentType: 'application/json',
-            data: JSON.stringify({ content }),
+            data: data,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
             success: function (response) {
+                undoStack = []
+                updateUndoButtonState()
                 // Hiển thị thông báo thành công
                 showNotification('Content saved successfully!', 'success')
             },
@@ -1189,7 +1268,15 @@ function initSaveContent() {
                 // Khôi phục trạng thái nút
                 $saveButton
                     .prop('disabled', false)
-                    .html('<i class="fas fa-save"></i> Save Content')
+                    .html(`
+                        <svg class="icon  svg-icon-ti-ti-device-floppy" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M6 4h10l4 4v10a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2"></path>
+                            <path d="M12 14m-2 0a2 2 0 1 0 4 0a2 2 0 1 0 -4 0"></path>
+                            <path d="M14 4l0 4l-6 0l0 -4"></path>
+                        </svg>
+                        <div class="tooltip">Lưu nội dung</div>
+                        `)
             },
         })
     })
@@ -1221,9 +1308,20 @@ function showNotification(message, type = 'success') {
     }, 3000)
 }
 
+function generateUniqueClass(prefix = 'rdclass-') {
+    let className;
+    do {
+        className = prefix + Math.random().toString(36).substring(2, 8);
+    } while (document.querySelector('.' + className));
+    return className;
+}
+
 // Hàm duplicate element
 function duplicateElement(element) {
     if (!element) return
+
+    // Lưu trạng thái trước khi thực hiện
+    saveCurrentState()
 
     // Clone element
     const clone = element.cloneNode(true)
@@ -1233,6 +1331,10 @@ function duplicateElement(element) {
 
     // Thêm thuộc tính draggable và event listeners cho drag & drop
     clone.setAttribute('draggable', 'true')
+
+    // Tạo và thêm class random không trùng lặp
+    const uniqueClass = generateUniqueClass();
+    clone.classList.add(uniqueClass);
 
     // Thêm event listeners cho drag & drop
     clone.addEventListener('dragstart', (e) => {
@@ -1348,14 +1450,17 @@ function deleteElement(element) {
     }
 
     if (confirm('Are you sure you want to delete this element?')) {
+        saveCurrentState()
         element.remove()
         currentEl = null
+        saveCurrentState() // Lưu lại trạng thái sau khi xóa
         initMainPane()
     }
 }
 
 // Hàm tạo bảng mới
 function createTable(rows = 3, cols = 3) {
+    saveCurrentState() // Lưu trạng thái trước khi tạo bảng
     const table = document.createElement('table');
     table.className = 'editor-table';
     table.style.width = '100%';
@@ -1442,6 +1547,7 @@ function showGridDialog() {
     const numCols = Math.min(parseInt(cols) || 2, 6)
 
     if (numRows > 0 && numCols > 0) {
+        saveCurrentState() // Lưu trạng thái trước khi tạo grid
         const grid = createBootstrapGrid(numRows, numCols)
         const content = document.getElementById('content')
 
@@ -1451,6 +1557,7 @@ function showGridDialog() {
             content.appendChild(grid)
         }
 
+        initDraggable()
         handleElementClick(grid)
         saveCurrentState()
     } else {
@@ -1458,66 +1565,119 @@ function showGridDialog() {
     }
 }
 
-
 function createElement(tag, classList = []) {
     const el = document.createElement(tag)
     el.classList.add(...classList)
     return el
 }
 
+// Hàm chèn iframe
+function insertEmbed() {
+    // Hiển thị hộp thoại nhập mã nhúng
+    const embedCode = prompt('Dán mã nhúng iframe vào đây:', '');
+
+    if (!embedCode) return; // Người dùng đã hủy
+
+    saveCurrentState() // Lưu trạng thái trước khi chèn iframe
+
+    // Tạo một div container để bọc nội dung
+    const container = document.createElement('div');
+    container.className = 'custom-embed';
+    container.style.position = 'relative';
+    container.style.paddingBottom = '56.25%'; // 16:9 ratio
+    container.style.height = '0';
+    container.style.overflow = 'hidden';
+    container.style.maxWidth = '100%';
+
+    // Tạo thẻ tạm để đưa mã HTML vào
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = embedCode;
+
+    // Tìm iframe trong đó
+    const iframe = tempDiv.querySelector('iframe');
+
+    if (!iframe) {
+        showNotification('Không tìm thấy thẻ iframe hợp lệ', 'error');
+        return;
+    }
+
+
+    // Thêm iframe vào container
+    container.appendChild(iframe);
+
+    // Chèn vào nội dung
+    const selectedElement = document.querySelector('.selected-element');
+    if (selectedElement) {
+        selectedElement.innerHTML = '';
+        selectedElement.appendChild(container);
+    } else {
+        const newElement = createElement('div', ['element', 'embed-element']);
+        newElement.appendChild(container);
+        document.getElementById('content').appendChild(newElement);
+        handleElementClick(newElement);
+    }
+
+    saveCurrentState();
+
+    initDraggable();
+}
+
+
+// Hàm khởi tạo nút Embed
+function initEmbedButtons() {
+    const embedBtn = document.getElementById('add-embed');
+    if (embedBtn) {
+        embedBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            insertEmbed();
+        });
+    }
+}
+
 // Hàm khởi tạo chức năng tải ảnh lên
 function initImageUpload() {
     const uploadBtn = document.getElementById('upload-image')
-    const fileInput = document.getElementById('image-upload')
-    const content = document.getElementById('content')
+    const rvMediaModal = document.getElementById('rv_media_modal')
+    if (!uploadBtn || !rvMediaModal) return
 
-    if (!uploadBtn || !fileInput || !content) return
+    uploadBtn.addEventListener('click', () => document.querySelector('.preview-image-inner a').click())
 
-    // Nhấn nút => mở chọn file
-    uploadBtn.addEventListener('click', () => fileInput.click())
+    $(document).on('change', 'input.image-data', function () {
+        console.log('Value changed to:', $(this).val());
 
-    fileInput.addEventListener('change', (e) => {
-        const file = e.target.files?.[0]
-        if (!file) return
+        const imgUrl = $(this).val();
+        const selected = document.querySelector('.selected-element');
 
-        // Kiểm tra định dạng và dung lượng
-        if (!file.type.startsWith('image/')) {
-            showNotification('Vui lòng chọn file ảnh hợp lệ (JPG, PNG, GIF, WEBP)', 'error')
-            return
-        }
-        if (file.size > 5 * 1024 * 1024) {
-            showNotification('Kích thước ảnh tối đa là 5MB', 'error')
-            return
-        }
+        const imgSrc = '/storage/' + imgUrl;
 
-        const reader = new FileReader()
-        reader.onload = (event) => {
-            const imgUrl = event.target.result
-            const selected = document.querySelector('.selected-element')
+        saveCurrentState();
 
-            const img = document.createElement('img')
-            img.src = imgUrl
-            img.draggable = true
-
-            saveCurrentState()
-
-            if (selected) {
-                selected.appendChild(img)
+        if (selected) {
+            // Nếu selected là ảnh <img> thì thay src
+            if (selected.tagName.toLowerCase() === 'img') {
+                selected.src = imgSrc;
             } else {
-                const newElement = document.createElement('div')
-                newElement.classList.add('element', 'image-element')
-                newElement.appendChild(img)
-                content.appendChild(newElement)
-                handleElementClick(newElement)
+                // Nếu không phải img thì thêm ảnh mới vào selected
+                const img = document.createElement('img');
+                img.src = imgSrc;
+                img.draggable = true;
+                selected.appendChild(img);
             }
+        } else {
+            const newElement = document.createElement('div');
+            newElement.classList.add('element', 'image-element');
+            const img = document.createElement('img');
+            img.src = imgSrc;
+            img.draggable = true;
+            newElement.appendChild(img);
 
-            saveCurrentState()
-            initDraggable()
+            content.appendChild(newElement);
+            handleElementClick(newElement);
         }
 
-        reader.readAsDataURL(file)
-        fileInput.value = ''
-    })
+        saveCurrentState();
+        initDraggable();
+    });
 }
 
 
@@ -1554,8 +1714,6 @@ function showTableDialog() {
 
         // Chọn bảng vừa tạo
         handleElementClick(table);
-
-
 
         // Khởi tạo lại các sự kiện
         initDraggable();
@@ -1774,16 +1932,24 @@ function initElementsDragAndDrop() {
 
 // Hàm thêm/xóa link cho element
 function toggleLink(element) {
-    // Nếu element đã có link cha là thẻ a
+    saveCurrentState(); // Lưu trạng thái trước khi thay đổi
+
+    // Tìm thẻ a cha có thuộc tính href
     const parentLink = element.closest('a[href]');
 
     if (parentLink) {
-        // Nếu đã có link, xóa link
-        const parent = parentLink.parentNode;
-        while (parentLink.firstChild) {
-            parent.insertBefore(parentLink.firstChild, parentLink);
+        if (parentLink.classList.length > 0) {
+            // Nếu thẻ a có class, chỉ xóa href (bỏ link)
+            parentLink.removeAttribute('href');
+        } else {
+            // Nếu thẻ a không có class, xóa thẻ a giữ nguyên nội dung
+            const parent = parentLink.parentNode;
+            while (parentLink.firstChild) {
+                parent.insertBefore(parentLink.firstChild, parentLink);
+            }
+            parent.removeChild(parentLink);
         }
-        parent.removeChild(parentLink);
+        saveCurrentState(); // Lưu lại trạng thái sau khi thay đổi
         return { action: 'removed' };
     } else {
         // Nếu chưa có link, thêm link mới
@@ -1811,23 +1977,49 @@ function initLinkButton() {
             // Xóa link
             const result = toggleLink(currentEl);
             if (result.action === 'removed') {
-                $(this).html('<i class="fas fa-link"></i> Add Link');
+                $(this).html(`
+                        <svg class="icon  svg-icon-ti-ti-link" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 15l6 -6"></path>
+                            <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+                            <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+                        </svg>
+                        <div class="tooltip">Thêm liên kết</div>
+                    `);
                 $(this).removeClass('btn-danger').addClass('btn-info');
             }
         } else {
             // Thêm link mới
             showLinkDialog('', (linkUrl) => {
                 if (linkUrl) {
-                    const a = document.createElement('a');
-                    a.href = linkUrl;
-                    a.target = '_blank';
+                    // Kiểm tra xem currentEl có phải thẻ <a> không
+                    if (currentEl.tagName.toLowerCase() === 'a') {
+                        // Nếu đã là <a> thì chỉ thay đổi href
+                        currentEl.href = linkUrl;
+                    } else {
+                        // Nếu không phải <a> thì tạo thẻ <a> mới và bọc currentEl
+                        const a = document.createElement('a');
+                        a.href = linkUrl;
+                        a.target = '_blank';
 
-                    // Bọc element bằng thẻ a
-                    currentEl.parentNode.insertBefore(a, currentEl);
-                    a.appendChild(currentEl);
+                        currentEl.parentNode.insertBefore(a, currentEl);
+                        a.appendChild(currentEl);
+                    }
 
                     // Cập nhật giao diện
-                    $('#link-element').html('<i class="fas fa-unlink"></i> Remove Link');
+                    $('#link-element').html(`
+                        <svg class="icon  svg-icon-ti-ti-unlink" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M17 22v-2"></path>
+                            <path d="M9 15l6 -6"></path>
+                            <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+                            <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+                            <path d="M20 17h2"></path>
+                            <path d="M2 7h2"></path>
+                            <path d="M7 2v2"></path>
+                        </svg>
+                        <div class="tooltip">Hủy liên kết</div>
+                    `);
                     $('#link-element').removeClass('btn-info').addClass('btn-danger');
                 }
             });
@@ -1844,10 +2036,30 @@ function updateLinkButtonState() {
 
     const linkButton = $('#link-element');
     if (hasLink) {
-        linkButton.html('<i class="fas fa-unlink"></i> Remove Link');
+        linkButton.html(`
+                        <svg class="icon  svg-icon-ti-ti-unlink" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M17 22v-2"></path>
+                            <path d="M9 15l6 -6"></path>
+                            <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+                            <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+                            <path d="M20 17h2"></path>
+                            <path d="M2 7h2"></path>
+                            <path d="M7 2v2"></path>
+                        </svg>
+                        <div class="tooltip">Hủy liên kết</div>
+                    `);
         linkButton.removeClass('btn-info').addClass('btn-danger');
     } else {
-        linkButton.html('<i class="fas fa-link"></i> Add Link');
+        linkButton.html(`
+                        <svg class="icon  svg-icon-ti-ti-link" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                            <path d="M9 15l6 -6"></path>
+                            <path d="M11 6l.463 -.536a5 5 0 0 1 7.071 7.072l-.534 .464"></path>
+                            <path d="M13 18l-.397 .534a5.068 5.068 0 0 1 -7.127 0a4.972 4.972 0 0 1 0 -7.071l.524 -.463"></path>
+                        </svg>
+                        <div class="tooltip">Thêm liên kết</div>
+                    `);
         linkButton.removeClass('btn-danger').addClass('btn-info');
     }
 }
@@ -1869,6 +2081,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initTableButton()
     initGridButton()
     initImageUpload()
+    initEmbedButtons()
 
     // Cập nhật trạng thái nút link khi chọn element mới
     $(document).on('click', function (e) {

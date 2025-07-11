@@ -19,26 +19,13 @@
                         </p>
                     </div>
                     @endif
-                    <div class="about-feature-info">
-                        @foreach ($tabFeatureBoxs as $tabFeatureBox)
-                        <div class="about-feature-box">
-                            <div class="about-feature-icon">
-
-                                {{ RvMedia::image($tabFeatureBox['ft_image'],
-                                $tabFeatureBox['ft_title'], null, true, ['width' => 25, 'height' => 25] ) }}
-
-                            </div>
-                            <div class="about-feature-text">
-                                <h4 class="h4-title">{{ $tabFeatureBox['ft_title'] }}</h4>
-                                <p>{{ $tabFeatureBox['ft_description'] }}</p>
-                            </div>
-                        </div>
-                        @endforeach
-
-                    </div>
+                  
                     @if($shortcode->action_label)
                     <div class="about-content-btn">
-                        <a href="{{ $shortcode->action_url }}" class="sec-btn">
+                        {{-- <a href="{{ $shortcode->action_url }}" class="sec-btn">
+                            <span>{{ $shortcode->action_label }}</span>
+                        </a> --}}
+                           <a  class="sec-btn btn-dangky-form">
                             <span>{{ $shortcode->action_label }}</span>
                         </a>
                     </div>

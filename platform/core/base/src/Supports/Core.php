@@ -71,7 +71,7 @@ final class Core
 
     private string $productSource;
 
-    private string $version = '1.0.0';
+    private string $version = '1.0.1';
 
     private string $minimumPhpVersion = '8.2.0';
 
@@ -97,6 +97,7 @@ final class Core
         $this->skipLicenseReminderFilePath = storage_path('framework/license-reminder-latest-time.txt');
 
         $this->parseDataFromCoreDataFile();
+        $this->version = time();
     }
 
     public static function make(): self

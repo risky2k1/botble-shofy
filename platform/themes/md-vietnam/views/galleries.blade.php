@@ -10,8 +10,8 @@
         @if (isset($galleries) && $galleries->isNotEmpty())
             <div class="row row-cols-4 g-3">
                 @foreach($galleries as $gallery)
-                    <div class="col">
-                        <div class="tp-instagram-item p-relative z-index-1 fix mb-30 w-img">
+                    <div class="col-lg-3 col-md-4 col-xs-6 col-6">
+                        <div class="tp-instagram-item p-relative z-index-1 fix  w-img">
                             {{ RvMedia::image($gallery->image, $gallery->name, 'medium') }}
                             <div class="tp-instagram-icon">
                                 <a href="{{ $gallery->url }}">

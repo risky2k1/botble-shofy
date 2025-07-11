@@ -20,6 +20,7 @@ use Botble\Base\Forms\FormAbstract;
 use Botble\Ecommerce\Facades\ProductCategoryHelper;
 use Botble\Ecommerce\Http\Requests\ProductCategoryRequest;
 use Botble\Ecommerce\Models\ProductCategory;
+use Botble\Page\Models\Page;
 use Botble\Support\Services\Cache\Cache;
 use Carbon\Carbon;
 
@@ -49,6 +50,13 @@ class ProductCategoryForm extends FormAbstract
             $cache->put($cacheKey, $categories, Carbon::now()->addHours(2));
         }
 
+        $pages = Page::query()
+            ->where('status', 'published')
+            ->pluck('name', 'id')
+            ->toArray();
+
+        $pages = [0 => __('Choose page')] + $pages;
+
         $maxOrder = ProductCategory::query()
             ->whereIn('parent_id', [0, null])
             ->latest('order')
@@ -73,18 +81,20 @@ class ProductCategoryForm extends FormAbstract
                     ->searchable()
             )
             ->add(
+                'page_id',
+                SelectField::class,
+                SelectFieldOption::make()
+                    ->label(__('Page'))
+                    ->choices($pages)
+                    ->searchable()
+            )
+            ->add(
                 'description',
                 EditorField::class,
                 ContentFieldOption::make()
                     ->label(trans('core/base::forms.description'))
             )
-            ->add(
-                'content',
-                EditorField::class,
-                ContentFieldOption::make()
-                    ->label(trans('core/base::forms.content'))
-                    ->allowedShortcodes()
-            )
+            ->add('content', EditorField::class, ContentFieldOption::make()->allowedShortcodes())
             ->add('status', SelectField::class, StatusFieldOption::make())
             ->add('image', MediaImageField::class, MediaImageFieldOption::make())
             ->add(

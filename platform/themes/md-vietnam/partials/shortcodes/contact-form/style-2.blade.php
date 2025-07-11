@@ -42,7 +42,7 @@
                         name="content" cols="50" aria-required="true"></textarea>
                 </div>
 
-                <div class="d-flex justify-content-between w-100 align-items-center">
+                <div class="d-flex justify-content-between w-100 align-items-center form-contacts">
                     <div class="policy-label-form">
                         <label class="required form-check">
                             <input type="checkbox" id="agree_terms_and_policy_243f28785407323f2c450d79cc588bc4"

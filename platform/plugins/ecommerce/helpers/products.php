@@ -252,7 +252,7 @@ if (! function_exists('the_product_price')) {
 }
 
 if (! function_exists('get_related_products')) {
-    function get_related_products(Product $product, ?int $limit = null): Collection|LengthAwarePaginator|Product|null
+    function get_related_products(Product $product, ?int $limit = null, ?int $page = null): Collection|LengthAwarePaginator|Product|null
     {
         if (! EcommerceHelper::isEnabledRelatedProducts()) {
             return new EloquentCollection();
@@ -268,7 +268,11 @@ if (! function_exists('get_related_products')) {
                 'ec_products.order' => 'ASC',
                 'ec_products.created_at' => 'DESC',
             ],
-            'take' => (int) $limit,
+            // 'take' => (int) $limit,
+            'paginate' => [
+                'per_page' => $limit,
+                'current_paged' => $page,
+            ],
             'select' => [
                 'ec_products.*',
             ],

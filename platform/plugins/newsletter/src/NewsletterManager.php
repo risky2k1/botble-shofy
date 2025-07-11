@@ -61,7 +61,7 @@ class NewsletterManager extends Manager implements Factory
                             ->label(__('Popup Image')),
                         TextField::make()
                             ->name('newsletter_popup_title')
-                            ->label(__('Popup Title')),
+                            ->label(__('Popup Link')),
                         TextField::make()
                             ->name('newsletter_popup_subtitle')
                             ->label(__('Popup Subtitle')),

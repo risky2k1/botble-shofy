@@ -37,7 +37,7 @@ class PublicProductController extends BaseController
                 ->setNextUrl(route('public.products'));
         }
 
-        SeoHelper::setTitle(theme_option('ecommerce_products_seo_title') ?: __('Products'))
+        SeoHelper::setTitle(theme_option('ecommerce_products_seo_title') ?: __('Field of operation'))
             ->setDescription(theme_option('ecommerce_products_seo_description'));
 
         $with = EcommerceHelper::withProductEagerLoadingRelations();
@@ -60,7 +60,7 @@ class PublicProductController extends BaseController
             )->render();
         }
 
-        Theme::breadcrumb()->add(__('Products'), route('public.products'));
+        Theme::breadcrumb()->add(__('Field of operation'), route('public.products'));
 
         $products = $productService->getProduct($request, null, null, $with);
 

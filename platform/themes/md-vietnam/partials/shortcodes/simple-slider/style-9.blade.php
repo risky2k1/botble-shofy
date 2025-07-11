@@ -1,6 +1,6 @@
 <section class="box-sumenh sumenhsimple2">
     <div class="container">
-        <div class="list-item-sumenh">
+        <div class="list-item-sumenh ">
             <div class="tp-slider-active-8 swiper-container  @if ($shortcode->animation_enabled == 'no') tp-slider-no-animation @endif"
                 data-loop="{{ $shortcode->is_loop == 'yes' }}" data-autoplay="{{ $shortcode->is_autoplay == 'yes' }}"
                 data-effect="{{ $shortcode->effect }}"

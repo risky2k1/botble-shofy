@@ -50,7 +50,7 @@ class ProductRequest extends Request
         $rules = [
             'name' => ['required', 'string', 'max:250'],
             'description' => ['nullable', 'string', 'max:300000'],
-            'content' => ['nullable', 'string', 'max:300000'],
+            'content' => ['nullable', 'string'],
             'price' => [
                 'numeric',
                 'nullable',

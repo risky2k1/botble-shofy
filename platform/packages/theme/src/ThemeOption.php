@@ -476,7 +476,7 @@ class ThemeOption
             if (Arr::get($field, 'type') !== 'hidden' && $this->hasOption($name)) {
                 $attributes['value'] = $this->getOption($name);
             }
-
+            
             return call_user_func_array([Form::class, $field['type']], array_values($attributes));
         } catch (Throwable $exception) {
             BaseHelper::logError($exception);
