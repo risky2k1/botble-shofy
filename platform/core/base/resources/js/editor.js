@@ -127,6 +127,7 @@ class EditorManagement {
                 content: window.siteEditorLocale || 'en',
             },
             image: {
+                resizeUnit: 'px',
                 toolbar: [
                     'imageTextAlternative',
                     'imageStyle:inline',

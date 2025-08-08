@@ -90,9 +90,7 @@ abstract class FormAbstract extends Form implements ExtensibleContract
         $this->setFormOption('class', 'js-base-form');
     }
 
-    public function setup(): void
-    {
-    }
+    public function setup(): void {}
 
     public function buildForm(): void
     {
@@ -319,7 +317,7 @@ abstract class FormAbstract extends Form implements ExtensibleContract
 
         return tap(
             parent::renderForm($options, $showStart, $showFields, $showEnd),
-            fn ($rendered) => $this->dispatchAfterRendering($rendered)
+            fn($rendered) => $this->dispatchAfterRendering($rendered)
         );
     }
 
@@ -466,7 +464,7 @@ abstract class FormAbstract extends Form implements ExtensibleContract
             $model = $form->getModel();
 
             $model->fill($form->getRequestData())
-                ->save();
+            ->save();
 
             $form->setModel($model);
         });
@@ -482,6 +480,7 @@ abstract class FormAbstract extends Form implements ExtensibleContract
     public function saving(callable|Closure $callback, bool $withoutEvents = false): void
     {
         $model = $this->getModel();
+        
         $request = $this->request;
 
         if ($model instanceof BaseModel) {
@@ -492,13 +491,17 @@ abstract class FormAbstract extends Form implements ExtensibleContract
             }
         }
 
+
         if (! $withoutEvents) {
             $this->dispatchBeforeSaving();
         }
 
+
         call_user_func($callback, $this);
 
+
         $this->saveMetadataFields();
+
 
         if (! $withoutEvents) {
             $this->dispatchAfterSaving();

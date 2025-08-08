@@ -39,7 +39,6 @@ class BaseQueryBuilder extends Builder
     public function wherePublished($column = 'status'): static
     {
         $this->where($column, BaseStatusEnum::PUBLISHED);
-
         return $this;
     }
 
