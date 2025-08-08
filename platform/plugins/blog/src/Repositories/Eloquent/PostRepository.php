@@ -3,6 +3,7 @@
 namespace Botble\Blog\Repositories\Eloquent;
 
 use Botble\Base\Models\BaseQueryBuilder;
+use Botble\Blog\Models\Category;
 use Botble\Blog\Models\Post;
 use Botble\Blog\Repositories\Interfaces\PostInterface;
 use Botble\Language\Facades\Language;
@@ -74,23 +75,67 @@ class PostRepository extends RepositoriesAbstract implements PostInterface
         }
     }
 
+    private function getAllCategoryIds(array|int|string $categoryId): array
+    {
+        $ids = collect((array) $categoryId);
+
+        $categories = Category::query()
+            ->with('children.children')
+            ->whereIn('id', $ids)
+            ->get();
+
+        return $ids->merge($this->getChildCategoryIds($categories))
+            ->unique()
+            ->values()
+            ->all();
+    }
+
+
+    private function getChildCategoryIds(Collection $categories): Collection
+    {
+        $ids = collect();
+
+        foreach ($categories as $category) {
+            $ids->push($category->id);
+            if ($category->children->isNotEmpty()) {
+                $ids = $ids->merge($this->getChildCategoryIds($category->children));
+            }
+        }
+
+        return $ids;
+    }
+
+
     public function getByCategory(
         array|int|string $categoryId,
         int $paginate = 12,
-        int $limit = 0
+        int $limit = 0,
+        bool $isFeatured = false
     ): Collection|LengthAwarePaginator {
+
+        $categoryIds = $this->getAllCategoryIds($categoryId);
+        $categoryIds = array_map('intval', array_filter((array) $categoryIds));
+
         $data = $this->model
             ->wherePublished()
-            ->whereHas('categories', function (Builder $query) use ($categoryId): void {
-                $query->whereIn('categories.id', array_filter((array) $categoryId));
+            ->whereHas('categories', function (Builder $query) use ($categoryIds): void {
+                $query->whereIn('categories.id', $categoryIds);
             })
             ->select('*')
             ->distinct()
             ->with('slugable')
             ->orderByDesc('created_at');
 
+        if ($isFeatured) {
+            $data = $data->where('is_featured', true);
+        }
+
         if ($paginate != 0) {
-            return $this->applyBeforeExecuteQuery($data)->paginate($paginate);
+            $attributes = request()->all();
+
+            $posts = $this->applyBeforeExecuteQuery($data)->paginate($paginate);
+
+            return $posts->appends($attributes);
         }
 
         return $this->applyBeforeExecuteQuery($data)->limit($limit)->get();

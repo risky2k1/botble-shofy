@@ -11,4 +11,9 @@ Theme::registerRoutes(function (): void {
         ->name('public.ajax.render-ui-block')
         ->middleware(RequiresJsonRequestMiddleware::class)
         ->withoutMiddleware(VerifyCsrfToken::class);
+
+    Route::get('ajax/render-ui-blocks', [ShortcodeController::class, 'ajaxRenderUiBlock'])
+        ->name('public.ajax.render-ui-block')
+        ->middleware(RequiresJsonRequestMiddleware::class)
+        ->withoutMiddleware(VerifyCsrfToken::class);
 });

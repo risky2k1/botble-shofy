@@ -107,15 +107,18 @@ $(() => {
         $menuStyle3.append(`<li id="marker" class="tp-menu-line"></li>`)
     }
 
-    if ($('#tp-offcanvas-lang-toggle').length > 0) {
+    if ($('.tp-lang-toggle').length > 0) {
         window.addEventListener('click', function (e) {
-            if (document.getElementById('tp-offcanvas-lang-toggle').contains(e.target)) {
+            console.log(1234);
+
+            if (document.querySelector('.tp-lang-toggle')) {
                 $('.tp-lang-list').toggleClass('tp-lang-list-open')
             } else {
                 $('.tp-lang-list').removeClass('tp-lang-list-open')
             }
         })
     }
+
 
     if ($('#tp-offcanvas-currency-toggle').length > 0) {
         window.addEventListener('click', function (e) {
@@ -338,7 +341,7 @@ $(() => {
     const initSlick = () => {
         const $sliderActive4 = $('.tp-slider-active-4')
 
-        if (! $sliderActive4.length) {
+        if (!$sliderActive4.length) {
             return
         }
 
@@ -380,7 +383,7 @@ $(() => {
     const initSwiperSlider = (element, options) => {
         const $element = $(element)
 
-        if (! $element.length) {
+        if (!$element.length) {
             return
         }
 
@@ -406,11 +409,11 @@ $(() => {
 
     const initSwiper = () => {
         initSwiperSlider('.tp-slider-active', {
-                 loop: true, 
-    autoplay: {
-      delay: 3000, 
-      disableOnInteraction: false, 
-    },
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
             slidesPerView: 1,
             spaceBetween: 30,
             effect: 'slide',
@@ -826,7 +829,7 @@ $(() => {
             },
         })
 
-        $('.tp-product-related-slider-active').each(function(index, element) {
+        $('.tp-product-related-slider-active').each(function (index, element) {
             const itemsPerView = $(element).data('items-per-view') || 4
 
             initSwiperSlider(element, {

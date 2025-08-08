@@ -3,7 +3,7 @@
     Theme::set('pageTitle', $gallery->name);
 @endphp
 
-<section @class(['pb-100',  'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
+<section @class(['pb-30',  'pt-50' => ! theme_option('theme_breadcrumb_enabled', true)])>
     <div class="container">
         {{-- <div>
             {!! BaseHelper::clean($gallery->description) !!}

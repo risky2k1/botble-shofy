@@ -31,8 +31,10 @@ class PageBuilderController extends BaseController
      * PageBuilderController constructor.
      * @param PageInterface $pageRepository
      */
-    public function __construct(PageInterface $pageRepository, LanguageAdvancedController $languageAdvancedController)
-    {
+    public function __construct(
+        PageInterface $pageRepository,
+        LanguageAdvancedController $languageAdvancedController
+    ) {
         $this->pageRepository = $pageRepository;
         $this->languageAdvancedController = $languageAdvancedController;
     }
@@ -56,7 +58,7 @@ class PageBuilderController extends BaseController
 
     public function saveBuilder(Request $request, $pageId)
     {
-        if (empty($request->ref_lang)) {
+        if (empty($request->get('ref_lang'))) {
             $page = $this->pageRepository->findOrFail($pageId);
 
             PageForm::createFromModel($page)

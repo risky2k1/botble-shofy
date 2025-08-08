@@ -8,9 +8,13 @@ use Illuminate\Support\Str;
 
 class SlugService
 {
-    public function create(?string $name, int|string|null $slugId = 0, $model = null): ?string
+    public function create(?string $name, int|string|null $slugId = 0, $model = null, $refLang = ''): ?string
     {
         $slug = Str::slug($name, '-', ! SlugHelper::turnOffAutomaticUrlTranslationIntoLatin() ? 'en' : false);
+
+        if ($refLang == 'vi' || $refLang == '') {
+            $slug = Str::slug($name, '-', 'vi');
+        }
 
         $index = 1;
         $baseSlug = $slug;

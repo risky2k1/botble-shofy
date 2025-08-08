@@ -36,7 +36,7 @@ app()->booted(function (): void {
 
         $styles = [];
 
-        foreach (range(1, 2) as $i) {
+        foreach (range(1, 3) as $i) {
             $styles[$i] = [
                 'label' => __('Style :number', ['number' => $i]),
                 'image' => Theme::asset()->url(sprintf('images/shortcodes/contact-form/style-%s.png', $i)),

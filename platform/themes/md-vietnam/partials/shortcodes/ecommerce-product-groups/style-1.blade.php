@@ -1,13 +1,7 @@
 @php
     $category_ids = explode(',', $shortcode->category_ids);
-    $categories = get_product_categories([
-        'whereIn' => $category_ids,
-        'with' => ['products'],
-    ]);
-    $category_products = [];
-    foreach ($categories as $category) {
-        $category_products[] = $category->products->take($shortcode->limit);
-    }
+
+    $posts = get_posts_by_category($category_ids, 10, 0, true);
 @endphp
 <section class="field">
     <div class="ctnr">
@@ -33,9 +27,7 @@
                             @foreach ($categories as $category)
                                 <div class="swiper-slide">
                                     <div class="slide_item_wrapper"
-                                        style="
-                        background-image: url('{{ RvMedia::getImageUrl($category->image) }}');
-                      ">
+                                        style=" background-image: url('{{ RvMedia::getImageUrl($category->image) }}');">
                                         <div class="slide_item_inner">
                                             <div class="lvhd_slide_title">
                                                 {{ $category->name }}
@@ -81,27 +73,27 @@
                     </ul>
                 </div>
                 <div class="tab-content">
-                    @foreach ($category_products as $key => $products)
+                    @foreach ($categories as $key => $category)
                         <div class="tab-pane {{ $key === 0 ? 'active' : '' }}" id="bvc{{ $key }}">
                             <div class="porfolio-cat-list home_sp_kkgd_wrapper">
                                 <div class="swiper-wrapper">
-                                    @foreach ($products as $product)
+                                    @foreach ($category->posts as $post)
                                         <div class="swiper-slide">
                                             <div class="portfolio-item-wrapper">
-                                                <a href="{{ $product->url }}">
+                                                <a href="{{ $post->url }}">
                                                     <div class="pitem-image">
-                                                        {{ RvMedia::image($product->image, $product->name) }}
+                                                        {{ RvMedia::image($post->image, $post->name) }}
                                                     </div>
                                                     <div class="pitem-title">
-                                                        {{ $product->name }}
+                                                        {{ $post->name }}
                                                     </div>
                                                 </a>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
-                                {{-- <div class="lvhd-button-prev swiper-button-disabled"></div>
-                                <div class="lvhd-button-next"></div> --}}
+                                <div class="lvhd-button-prev swiper-button-disabled"></div>
+                                <div class="lvhd-button-next"></div>
                             </div>
                         </div>
                     @endforeach

@@ -17,7 +17,7 @@ interface PostInterface extends RepositoryInterface
 
     public function getRelatedCategoryIds(Post|int|string $model): array;
 
-    public function getByCategory(array|int|string $categoryId, int $paginate = 12, int $limit = 0): Collection|LengthAwarePaginator;
+    public function getByCategory(array|int|string $categoryId, int $paginate = 12, int $limit = 0, bool $isFeatured = false): Collection|LengthAwarePaginator;
 
     public function getByUserId(int|string $authorId, int $paginate = 6): Collection|LengthAwarePaginator;
 

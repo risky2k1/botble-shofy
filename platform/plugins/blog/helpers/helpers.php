@@ -4,6 +4,7 @@ use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Base\Facades\BaseHelper;
 use Botble\Base\Models\BaseModel;
 use Botble\Base\Supports\SortItemsWithChildrenHelper;
+use Botble\Blog\Models\Category;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
 use Botble\Blog\Repositories\Interfaces\PostInterface;
 use Botble\Blog\Repositories\Interfaces\TagInterface;
@@ -16,35 +17,45 @@ use Illuminate\Support\Collection;
 if (! function_exists('get_featured_posts')) {
     function get_featured_posts(int $limit, array $with = []): Collection
     {
-        return app(PostInterface::class)->getFeatured($limit, $with);
+        $data = app(PostInterface::class)->getFeatured($limit, $with);
+
+        return $data;
     }
 }
 
 if (! function_exists('get_latest_posts')) {
     function get_latest_posts(int $limit, array $excepts = [], array $with = []): Collection
     {
-        return app(PostInterface::class)->getListPostNonInList($excepts, $limit, $with);
+        $data = app(PostInterface::class)->getListPostNonInList($excepts, $limit, $with);
+
+        return $data;
     }
 }
 
 if (! function_exists('get_related_posts')) {
     function get_related_posts(int|string $id, int $limit): Collection
     {
-        return app(PostInterface::class)->getRelated($id, $limit);
+        $data = app(PostInterface::class)->getRelated($id, $limit);
+
+        return $data;
     }
 }
 
 if (! function_exists('get_posts_by_category')) {
-    function get_posts_by_category(int|string|array $categoryId, int $paginate = 12, int $limit = 0): Collection|LengthAwarePaginator
+    function get_posts_by_category(int|string|array $categoryId, int $paginate = 12, int $limit = 0, bool $isFeatured = true): Collection|LengthAwarePaginator
     {
-        return app(PostInterface::class)->getByCategory($categoryId, $paginate, $limit);
+        $data = app(PostInterface::class)->getByCategory($categoryId, $paginate, $limit, $isFeatured);
+
+        return $data;
     }
 }
 
 if (! function_exists('get_posts_by_tag')) {
     function get_posts_by_tag(string $slug, int $paginate = 12): Collection|LengthAwarePaginator
     {
-        return app(PostInterface::class)->getByTag($slug, $paginate);
+        $data = app(PostInterface::class)->getByTag($slug, $paginate);
+
+        return $data;
     }
 }
 
@@ -61,14 +72,19 @@ if (! function_exists('get_all_posts')) {
         int $perPage = 12,
         array $with = ['slugable', 'categories', 'categories.slugable', 'author']
     ): Collection|LengthAwarePaginator {
-        return app(PostInterface::class)->getAllPosts($perPage, $active, $with);
+
+        $data = app(PostInterface::class)->getAllPosts($perPage, $active, $with);
+
+        return $data;
     }
 }
 
 if (! function_exists('get_recent_posts')) {
     function get_recent_posts(int $limit): Collection|LengthAwarePaginator
     {
-        return app(PostInterface::class)->getRecentPosts($limit);
+        $data = app(PostInterface::class)->getRecentPosts($limit);
+
+        return $data;
     }
 }
 
@@ -203,4 +219,35 @@ if (! function_exists('get_blog_page_url')) {
 
         return $blogPage->url;
     }
+}
+
+
+function get_all_category_ids(array|int|string $categoryId): array
+{
+    $ids = collect((array) $categoryId);
+
+    $categories = Category::query()
+        ->with('children.children')
+        ->whereIn('id', $ids)
+        ->get();
+
+    return $ids->merge(get_child_category_ids($categories))
+        ->unique()
+        ->values()
+        ->all();
+}
+
+
+function get_child_category_ids(Collection $categories): Collection
+{
+    $ids = collect();
+
+    foreach ($categories as $category) {
+        $ids->push($category->id);
+        if ($category->children->isNotEmpty()) {
+            $ids = $ids->merge(get_child_category_ids($category->children));
+        }
+    }
+
+    return $ids;
 }

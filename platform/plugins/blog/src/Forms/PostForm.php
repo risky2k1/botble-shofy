@@ -6,6 +6,7 @@ use Botble\Base\Forms\FieldOptions\ContentFieldOption;
 use Botble\Base\Forms\FieldOptions\DescriptionFieldOption;
 use Botble\Base\Forms\FieldOptions\IsFeaturedFieldOption;
 use Botble\Base\Forms\FieldOptions\MediaImageFieldOption;
+use Botble\Base\Forms\FieldOptions\MultiChecklistFieldOption;
 use Botble\Base\Forms\FieldOptions\NameFieldOption;
 use Botble\Base\Forms\FieldOptions\RadioFieldOption;
 use Botble\Base\Forms\FieldOptions\SelectFieldOption;
@@ -13,6 +14,7 @@ use Botble\Base\Forms\FieldOptions\StatusFieldOption;
 use Botble\Base\Forms\FieldOptions\TagFieldOption;
 use Botble\Base\Forms\Fields\EditorField;
 use Botble\Base\Forms\Fields\MediaImageField;
+use Botble\Base\Forms\Fields\MultiCheckListField;
 use Botble\Base\Forms\Fields\OnOffField;
 use Botble\Base\Forms\Fields\RadioField;
 use Botble\Base\Forms\Fields\SelectField;
@@ -25,15 +27,36 @@ use Botble\Blog\Http\Requests\PostRequest;
 use Botble\Blog\Models\Category;
 use Botble\Blog\Models\Post;
 use Botble\Blog\Models\Tag;
+use Botble\Language\Facades\Language;
+use Botble\Page\Models\Page;
 
 class PostForm extends FormAbstract
 {
     public function setup(): void
     {
+        $pages = Page::query()
+            ->where('status', 'published')
+            ->pluck('name', 'id')
+            ->toArray();
+
+        $pages = [0 => __('Choose page')] + $pages;
+
+        $supportedLocales = collect(Language::getSupportedLocales())->mapWithKeys(function ($item, $key) {
+            return [$key => $item['lang_name']];
+        })->toArray();
+
         $this
             ->model(Post::class)
             ->setValidatorClass(PostRequest::class)
             ->add('name', TextField::class, NameFieldOption::make()->required())
+            ->add(
+                'page_id',
+                SelectField::class,
+                SelectFieldOption::make()
+                    ->label(__('Page'))
+                    ->choices($pages)
+                    ->searchable()
+            )
             ->add('description', TextareaField::class, DescriptionFieldOption::make())
             ->add(
                 'is_featured',
@@ -42,6 +65,16 @@ class PostForm extends FormAbstract
             )
             ->add('content', EditorField::class, ContentFieldOption::make()->allowedShortcodes())
             ->add('status', SelectField::class, StatusFieldOption::make())
+            ->when($supportedLocales, function () use ($supportedLocales): void {
+                $this
+                    ->add('display_in_languages[]',
+                        MultiCheckListField::class,
+                        MultiChecklistFieldOption::make()
+                            ->label('Hiển thị trong ngôn ngữ')
+                            ->choices($supportedLocales)
+                            ->selected(old('display_in_languages', $this->getModel()->display_in_languages))
+                    );
+            })
             ->when(get_post_formats(true), function (PostForm $form, array $postFormats): void {
                 if (count($postFormats) > 1) {
                     $choices = [];
@@ -109,7 +142,7 @@ class PostForm extends FormAbstract
                                     ->tags()
                                     ->select('name')
                                     ->get()
-                                    ->map(fn (Tag $item) => $item->name)
+                                    ->map(fn(Tag $item) => $item->name)
                                     ->implode(',')
                             );
                     })

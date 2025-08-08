@@ -79,12 +79,14 @@ class CategoryController extends BaseController
             ->saving(function (CategoryForm $form) use ($request): void {
                 $form
                     ->getModel()
-                    ->fill([...$request->validated(),
+                    ->fill([
+                        ...$request->validated(),
                         'author_id' => Auth::guard()->id(),
                         'author_type' => User::class,
                     ])
                     ->save();
             });
+
 
         $response = $this->httpResponse();
 

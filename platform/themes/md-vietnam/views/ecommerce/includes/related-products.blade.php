@@ -1,4 +1,4 @@
-@if(isset($products))
+@if (isset($products))
     @if ($products->isNotEmpty())
         <section class="tp-related-product">
             <div class="container">
@@ -7,8 +7,9 @@
                 </div>
 
                 <div class="row">
-                    <div class="tp-product-related-slider">
-                        <div class="tp-product-related-slider-active swiper-container mb-10" @if (theme_option('number_of_related_product', 4) < 6) data-items-per-view="{{ theme_option('number_of_related_product', 4) }}" @endif>
+                    <div class="tp-product-related-slider" style="overflow: hidden;">
+                        <div class="tp-product-related-slider-active swiper-container mb-10"
+                            @if (theme_option('number_of_related_product', 4) < 6) data-items-per-view="{{ theme_option('number_of_related_product', 4) }}" @endif>
                             <div class="swiper-wrapper">
                                 @foreach ($products as $product)
                                     <div class="swiper-slide">
@@ -18,7 +19,7 @@
                             </div>
                         </div>
                         <div class="tp-related-swiper-scrollbar tp-swiper-scrollbar"></div>
-                        <div class="related-product-pagination mt-3">
+                        <div class="related-product-pagination mt-3 d-none">
                             {!! $products->links(Theme::getThemeNamespace('partials.pagination')) !!}
                         </div>
                     </div>
@@ -27,7 +28,8 @@
         </section>
     @endif
 @else
-    <div data-bb-toggle="block-lazy-loading" data-url="{{ route('public.ajax.related-products', $product) }}" class="position-relative" style="min-height: 14rem">
+    <div data-bb-toggle="block-lazy-loading" data-url="{{ route('public.ajax.related-products', $product) }}"
+        class="position-relative" style="min-height: 14rem">
         <div class="loading-spinner"></div>
     </div>
 @endif

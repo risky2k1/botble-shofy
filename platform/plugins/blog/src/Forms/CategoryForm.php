@@ -7,11 +7,13 @@ use Botble\Base\Forms\FieldOptions\DescriptionFieldOption;
 use Botble\Base\Forms\FieldOptions\HiddenFieldOption;
 use Botble\Base\Forms\FieldOptions\IsDefaultFieldOption;
 use Botble\Base\Forms\FieldOptions\IsFeaturedFieldOption;
+use Botble\Base\Forms\FieldOptions\MediaImageFieldOption;
 use Botble\Base\Forms\FieldOptions\NameFieldOption;
 use Botble\Base\Forms\FieldOptions\SelectFieldOption;
 use Botble\Base\Forms\FieldOptions\StatusFieldOption;
 use Botble\Base\Forms\Fields\CoreIconField;
 use Botble\Base\Forms\Fields\HiddenField;
+use Botble\Base\Forms\Fields\MediaImageField;
 use Botble\Base\Forms\Fields\OnOffField;
 use Botble\Base\Forms\Fields\SelectField;
 use Botble\Base\Forms\Fields\TextareaField;
@@ -37,9 +39,9 @@ class CategoryForm extends FormAbstract
                         }
 
                         return Category::query()
-                                ->whereIn('parent_id', [0, null])
-                                ->latest('order')
-                                ->value('order') + 1;
+                            ->whereIn('parent_id', [0, null])
+                            ->latest('order')
+                            ->value('order') + 1;
                     })
             )
             ->add('name', TextField::class, NameFieldOption::make()->required())
@@ -69,6 +71,7 @@ class CategoryForm extends FormAbstract
                     ->searchable()
             )
             ->add('description', TextareaField::class, DescriptionFieldOption::make())
+            ->add('image', MediaImageField::class, MediaImageFieldOption::make())
             ->add('is_default', OnOffField::class, IsDefaultFieldOption::make())
             ->add(
                 'icon',

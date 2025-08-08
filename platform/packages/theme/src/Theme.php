@@ -657,6 +657,10 @@ class Theme implements ThemeContract
         // Add namespace to find in a theme path.
         $path = $this->getThemeNamespace($viewDir . '.' . $view);
 
+        // if (isset($args['post']) && !$args['post']->content) {
+        //     $this->handleViewNotFound($path);
+        // }
+
         if ($this->view->exists($path)) {
             return $this->setUpContent($path, $args);
         }
@@ -677,8 +681,9 @@ class Theme implements ThemeContract
 
         // Keeping arguments.
         $this->arguments = $args;
-
         try {
+
+
             $content = $this->view->make($view, $args)->render();
         } catch (Throwable $exception) {
             if (App::hasDebugModeEnabled()) {
@@ -873,7 +878,7 @@ class Theme implements ThemeContract
     public function registerRoutes(Closure|callable $closure): Router
     {
         return Route::group(['middleware' => ['web', 'core']], function () use ($closure): void {
-            Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), fn () => $closure());
+            Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), fn() => $closure());
         });
     }
 

@@ -31,6 +31,7 @@ class Category extends BaseModel implements HasTreeCategoryContract
         'icon',
         'is_featured',
         'order',
+        'image',
         'is_default',
         'status',
         'author_id',
@@ -48,7 +49,7 @@ class Category extends BaseModel implements HasTreeCategoryContract
     protected static function booted(): void
     {
         static::deleted(function (Category $category): void {
-            $category->children()->each(fn (Model $child) => $child->delete());
+            $category->children()->each(fn(Model $child) => $child->delete());
 
             $category->posts()->detach();
         });

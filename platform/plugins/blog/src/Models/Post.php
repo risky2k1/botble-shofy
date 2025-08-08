@@ -6,8 +6,10 @@ use Botble\ACL\Models\User;
 use Botble\Base\Casts\SafeContent;
 use Botble\Base\Models\BaseModel;
 use Botble\Blog\Enums\PostStatusEnum;
+use Botble\Page\Models\Page;
 use Botble\Revision\RevisionableTrait;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
 
@@ -38,6 +40,8 @@ class Post extends BaseModel
         'status',
         'author_id',
         'author_type',
+        'page_id',
+        'display_in_languages'
     ];
 
     protected static function booted(): void
@@ -51,13 +55,30 @@ class Post extends BaseModel
             $post->author_id = $post->author_id ?: auth()->id();
             $post->author_type = $post->author_type ?: User::class;
         });
+
+        static::addGlobalScope('display_in_languages', function ($query) {
+            if (!is_in_admin()) {
+                $locale = app()->getLocale();
+
+                $query->where(function ($q) use ($locale) {
+                    $q->whereNull('display_in_languages')
+                        ->orWhereJsonContains('display_in_languages', $locale);
+                });
+            }
+        });
     }
 
     protected $casts = [
         'status' => PostStatusEnum::class,
         'name' => SafeContent::class,
         'description' => SafeContent::class,
+        'display_in_languages' => 'array'
     ];
+
+    public function page(): BelongsTo
+    {
+        return $this->belongsTo(Page::class, 'page_id');
+    }
 
     public function tags(): BelongsToMany
     {

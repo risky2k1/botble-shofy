@@ -80,6 +80,7 @@ class PublicController extends BaseController
         event(new RenderingSingleEvent($slug));
 
         if (! empty($result) && is_array($result)) {
+
             if (isset($result['view'])) {
                 Theme::addBodyAttributes(['id' => Str::slug(Str::snake(Str::afterLast($slug->reference_type, '\\'))) . '-' . $slug->reference_id]);
 

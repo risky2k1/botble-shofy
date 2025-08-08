@@ -15,12 +15,24 @@ use Illuminate\Support\Str;
 
 class SlugController extends SettingController
 {
+    private function containsCJKCharacters(string $text): bool
+    {
+        return preg_match('/[\x{4E00}-\x{9FFF}\x{3400}-\x{4DBF}\x{3040}-\x{309F}\x{30A0}-\x{30FF}\x{AC00}-\x{D7AF}]/u', $text);
+    }
+
     public function store(SlugRequest $request, SlugService $slugService)
     {
+        $refLang = $request->input('ref_lang', 'vi');
+
+        if ($this->containsCJKCharacters($request->input('value'))) {
+            $refLang = 'ja';
+        }
+
         return $slugService->create(
             $request->input('value'),
             $request->input('slug_id'),
-            $request->input('model')
+            $request->input('model'),
+            $refLang
         );
     }
 

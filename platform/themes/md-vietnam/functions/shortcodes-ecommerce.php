@@ -108,7 +108,7 @@ app()->booted(function (): void {
                 SelectField::class,
                 SelectFieldOption::make()
                     ->choices(
-                        ProductCategory::query()
+                        Category::query()
                             ->wherePublished()
                             ->pluck('name', 'id')
                             ->all()
@@ -656,9 +656,28 @@ app()->booted(function (): void {
                 ];
             }
 
+            $categoryIds = explode(',', $shortcode->category_ids);
+            $categoryIds = array_map('intval', array_filter($categoryIds));
+            $categoryIds = get_all_category_ids($categoryIds);
+
+            $categories = Category::query()
+                ->wherePublished()
+                ->with('posts', function ($query) use ($shortcode, $categoryIds) {
+                    $query->where('is_featured', true)
+                        ->whereHas('categories', function ($query) use ($categoryIds) {
+                            $query->whereIn('categories.id', $categoryIds);
+                        })
+                        ->take($shortcode->limit);
+                })
+                ->orderBy('order', 'ASC')
+                ->when($shortcode->category_ids, function ($query) use ($shortcode) {
+                    $query->whereIn('id', Shortcode::fields()->parseIds($shortcode->category_ids))->limit($shortcode->limit);
+                })->get();
+
+
             return Theme::partial(
                 'shortcodes.ecommerce-product-groups.index',
-                compact('shortcode', 'productTabs', 'selectedTabs', 'groups', 'style')
+                compact('shortcode', 'productTabs', 'selectedTabs', 'groups', 'style', 'categories')
             );
         }
     );
@@ -746,7 +765,7 @@ app()->booted(function (): void {
                 SelectField::class,
                 SelectFieldOption::make()
                     ->choices(
-                        ProductCategory::query()
+                        Category::query()
                             ->wherePublished()
                             ->pluck('name', 'id')
                             ->all()
@@ -765,7 +784,7 @@ app()->booted(function (): void {
             //         'value' => $selectedTabs,
             //     ]
             // )
-            ;
+        ;
     });
 
     Shortcode::register(

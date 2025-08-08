@@ -78,4 +78,19 @@ class ShofyController extends PublicController
                 ['products' => get_related_products($product, $limit, $page)]
             )->render());
     }
+
+    public function ajaxGetPostByCategory($categories)
+    {
+        $limit = theme_option('number_of_related_product', 4);
+        $page = request()->get('page', 1);
+
+        return $this
+            ->httpResponse()
+            ->setData(view(
+                Theme::getThemeNamespace(
+                    'shortcodes.blog-posts.index'
+                ),
+                ['posts' => get_related_products($categories, $limit, $page)]
+            )->render());
+    }
 }

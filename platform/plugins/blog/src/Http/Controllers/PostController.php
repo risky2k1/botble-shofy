@@ -57,8 +57,10 @@ class PostController extends BaseController
             ->withCreatedSuccessMessage();
     }
 
-    public function edit(Post $post)
+    public function edit($id)
     {
+        $post = Post::withoutGlobalScope('display_in_languages')->findOrFail($id);
+
         $this->pageTitle(trans('core/base::forms.edit_item', ['name' => $post->name]));
 
         return PostForm::createFromModel($post)->renderForm();

@@ -603,6 +603,19 @@ function makeElementEditable(el) {
             this.blur()
         }
     })
+
+     // ✅ Handle paste: strip formatting
+    el.addEventListener('paste', function (e) {
+        e.preventDefault();
+
+
+        // Lấy plain text từ clipboard
+        const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+        console.log('Pasting content...', text);
+
+        // Dán text vào vị trí con trỏ
+        document.execCommand('insertText', false, text);
+    });
 }
 
 // Folder màu sắc
@@ -1226,6 +1239,8 @@ function initSaveContent() {
         const inputs = pageFormDiv.querySelectorAll(
             'input[name], select[name], textarea[name]');
 
+
+
         inputs.forEach(input => {
             // Nếu là checkbox hoặc radio, chỉ lấy nếu được chọn
             if ((input.type === 'checkbox' || input.type === 'radio') && !
@@ -1238,22 +1253,23 @@ function initSaveContent() {
         });
 
 
+
         // Hiển thị trạng thái đang lưu
         $saveButton
             .prop('disabled', true)
             .html('<i class="fas fa-spinner fa-spin"></i> Saving...')
 
-        data.content = JSON.stringify({ content }),
+        data.content = content
         data.ref_lang = $('#ref_lang').val() ?? '';
+
 
         $.ajax({
             url: $('#save-route').val(),
             method: 'POST',
-            contentType: 'application/json',
-            data: data,
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
             },
+            data: data,
             success: function (response) {
                 undoStack = []
                 updateUndoButtonState()

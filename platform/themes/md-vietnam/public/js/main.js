@@ -51,6 +51,34 @@ $(() => {
         });
     });
 
+    $(document).on('click', '.related-post-pagination .pages-number', function (e) {
+        e.preventDefault();
+
+        const $element = $(this);
+        const url = $element.attr('href');
+
+        const $container = $element.closest('.tp-blog-area');
+
+        $.ajax({
+            url: url,
+            type: 'GET',
+            success: ({ data }) => {
+                $container.replaceWith(data); // ✅ Thay toàn bộ block cha bằng data
+
+                // Cập nhật lazy load nếu có
+                if (typeof Theme.lazyLoadInstance !== 'undefined') {
+                    Theme.lazyLoadInstance.update();
+                }
+
+                // Khởi động lại Swiper nếu cần
+                if (typeof initSwiper === 'function') {
+                    initSwiper();
+                }
+            },
+            error: (error) => Theme.handleError(error),
+        });
+    });
+
     const initSlick = () => {
         $('.slick-wrapper-single-client-card').slick({
             dots: false,
@@ -166,15 +194,19 @@ $(() => {
             })
         })
 
-        $('.tp-blog-main-slider-active').each(function (index, element) {
-            const itemsPerView = $(element).data('items-per-view') || 4
+        $('.tp-blog-main-slider-active-2').each(function (index, element) {
+            const $element = $(element)
+            const itemsPerView = $element.data('items-per-view') || 4
+            const slideCount = $element.find('.swiper-slide').length
+            const shouldLoop = slideCount > itemsPerView
 
             initSwiperSlider(element, {
                 slidesPerView: itemsPerView,
                 spaceBetween: 24,
-                loop: false,
-                enteredSlides: false,
+                loop: shouldLoop,
+                enteredSlides: true,
                 autoplay: false,
+                allowTouchMove: shouldLoop,
                 pagination: {
                     el: '.tp-related-slider-dot',
                     clickable: true,
@@ -182,25 +214,18 @@ $(() => {
                         return '<span class="' + className + '">' + '<button>' + (index + 1) + '</button>' + '</span>'
                     },
                 },
-                // Navigation arrows
-                navigation: {
-                    nextEl: '.tp-related-slider-button-next',
-                    prevEl: '.tp-related-slider-button-prev',
-                },
-
                 scrollbar: {
                     el: '.tp-post-related-swiper-scrollbar',
                     draggable: true,
                     dragClass: 'tp-swiper-scrollbar-drag',
                     snapOnRelease: true,
                 },
-
                 breakpoints: {
                     1200: {
-                        slidesPerView: itemsPerView,
+                        slidesPerView: 4,
                     },
                     992: {
-                        slidesPerView: itemsPerView - 1,
+                        slidesPerView: 3,
                     },
                     768: {
                         slidesPerView: 2,
@@ -217,9 +242,11 @@ $(() => {
         })
 
 
+
         initSwiperSlider('.box-lvhd-right', {
             slidesPerView: 2.5,
             spaceBetween: 30,
+            autoplay: true,
             navigation: {
                 nextEl: ".lvhd-button-next",
                 prevEl: ".lvhd-button-prev",
@@ -246,6 +273,7 @@ $(() => {
 
         initSwiperSlider('.home_sp_kkgd_wrapper', {
             slidesPerView: 4,
+            autoplay: true,
             navigation: {
                 nextEl: ".home_sp_kkgd_wrapper .lvhd-button-next",
                 prevEl: ".home_sp_kkgd_wrapper .lvhd-button-prev",
@@ -340,36 +368,36 @@ $(() => {
             },
         })
 
-    initSwiperSlider('.news-slide-list', {
-    direction: "vertical",
-    slidesPerView: 4,
-    spaceBetween: 30,
-    watchOverflow: true,
-    resistanceRatio: 0,
-    loop: true,
-    autoplay: {
-        delay: 3000,
-        disableOnInteraction: false,
-    },
-    breakpoints: {
-        320: {
+        initSwiperSlider('.news-slide-list', {
+            direction: "vertical",
             slidesPerView: 4,
-            spaceBetween: 10,
-        },
-        767: {
-            slidesPerView: 4,
-            spaceBetween: 10,
-        },
-        991: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-        },
-        1400: {
-            slidesPerView: 4,
-            spaceBetween: 20,
-        },
-    },
-});
+            spaceBetween: 30,
+            watchOverflow: true,
+            resistanceRatio: 0,
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            breakpoints: {
+                320: {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+                767: {
+                    slidesPerView: 4,
+                    spaceBetween: 10,
+                },
+                991: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                },
+                1400: {
+                    slidesPerView: 4,
+                    spaceBetween: 20,
+                },
+            },
+        });
 
         initSwiperSlider('.list-address-slider', {
             slidesPerView: 3,
@@ -398,33 +426,33 @@ $(() => {
 
 
 
-        //    initSwiperSlider('.tp-slider-active-8', {
-        //          loop: true,
-        //         autoplay: {
-        //         delay: 3000,
-        //         disableOnInteraction: false,
-        //         },
-        //         slidesPerView: 3,
-        //         effect: 'fade',
-        //         breakpoints: {
-        //             320: {
-        //                 slidesPerView: 2,
-        //                 spaceBetween: 0,
-        //             },
-        //             767: {
-        //                 slidesPerView: 2,
-        //                 spaceBetween: 10,
-        //             },
-        //             991: {
-        //                 slidesPerView: 3,
-        //                 spaceBetween: 20,
-        //             },
-        //             1400: {
-        //                 slidesPerView: 3,
-        //                 spaceBetween: 20,
-        //             },
-        //         },
-        //     })
+        initSwiperSlider('.tp-slider-active-9', {
+            loop: true,
+            autoplay: {
+                delay: 3000,
+                disableOnInteraction: false,
+            },
+            slidesPerView: 3,
+            effect: 'fade',
+            breakpoints: {
+                320: {
+                    slidesPerView: 2,
+                    spaceBetween: 0,
+                },
+                767: {
+                    slidesPerView: 2,
+                    spaceBetween: 10,
+                },
+                991: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                1400: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+            },
+        })
 
 
         new Swiper(".banner-desk", {

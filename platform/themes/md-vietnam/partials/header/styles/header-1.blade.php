@@ -3,7 +3,7 @@
         <div class="popup-container">
             <div class="popup-header">
                 <button class="close-btn">×</button>
-                <h2> {{ __("FREE CONSULTATION") }}</h2>
+                <h2> {{ __('FREE CONSULTATION') }}</h2>
             </div>
 
             <div class="popup-content" id="popupForm">
@@ -11,26 +11,27 @@
                     @csrf
                     <div class="form-group">
                         <input type="text" id="name" name="name" class="form-control"
-                            placeholder="Alex Nguyen" required>
+                            placeholder="{{ __('Fullname') }}" required>
                     </div>
 
                     <div class="form-group">
                         <input type="tel" id="phone" name="phone" class="form-control"
-                            placeholder="033****888" required>
+                            placeholder="{{ __('Phone number') }}" required>
                     </div>
 
                     <div class="form-group">
                         <input type="email" id="email" name="email" class="form-control"
-                            placeholder="alex.nguyen@example.com" required>
+                            placeholder="{{ __('Email') }}" required>
                     </div>
 
                     <div class="form-group">
-                        <textarea id="content" name="content" class="form-control" required placeholder="{{ __('Hello, I need help with') }}..."></textarea>
+                        <textarea id="content" name="content" class="form-control" required
+                            placeholder="{{ __('Hello, I need help with') }}..."></textarea>
                     </div>
 
 
                     <div class="ta-center">
-                          <button type="submit" class="submit-btn">{{ __('CONSULT NOW') }}</button>
+                        <button type="submit" class="submit-btn">{{ __('CONSULT NOW') }}</button>
                     </div>
                 </form>
             </div>
@@ -45,8 +46,11 @@
         </div>
         {!! Menu::renderMenuLocation('main-menu', ['view' => 'main-menu']) !!}
 
-        <div class="mobile-menu-btn">
-            <x-core::icon name="ti ti-menu-2" size="sx" />
+        <div class="d-flex align-items-center justify-content-end gap-2 header-right language-mobile">
+            <div> {!! Theme::partial('language-switcher', ['type' => 'mobile']) !!}</div>
+            <div class="mobile-menu-btn">
+                <x-core::icon name="ti ti-menu-2" size="sx" />
+            </div>
         </div>
         <div class="contact-info">
             <a href="tel:{{ theme_option('hotline') }}" class="hotline">

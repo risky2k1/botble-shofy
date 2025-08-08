@@ -60,7 +60,7 @@
                 <div class="offcanvas__lang d-flex align-items-center justify-content-md-end">
                     <div class="offcanvas__lang-img mr-15">
                         @if ($languageDisplay === 'all' || $languageDisplay === 'flag')
-                            {!! language_flag(Language::getCurrentLocaleFlag(), Language::getCurrentLocaleName(), 24) !!}
+                            {!! language_flag(Language::getCurrentLocaleFlag(), Language::getCurrentLocaleName(), 16) !!}
                         @endif
                     </div>
                     <div class="offcanvas__lang-wrapper">

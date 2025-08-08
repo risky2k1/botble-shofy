@@ -33,10 +33,9 @@ app()->booted(function (): void {
         $posts = match ($shortcode->type) {
             'featured' => get_featured_posts($limit),
             'popular' => get_popular_posts($limit),
-            'category' => get_posts_by_category($categoryIds, 0, $limit),
+            'category' => get_posts_by_category($categoryIds, 10, $limit, $shortcode->style == '2'),
             default => get_recent_posts($limit),
         };
-        // dd($posts->pluck('id'));
 
         if ($posts->isEmpty()) {
             return null;
@@ -50,8 +49,6 @@ app()->booted(function (): void {
     Shortcode::setPreviewImage('blog-posts', Theme::asset()->url('images/shortcodes/blog-posts.png'));
 
     Shortcode::setAdminConfig('blog-posts', function (array $attributes) {
-
-
         $styles = [];
 
         foreach (range(1, 2) as $i) {

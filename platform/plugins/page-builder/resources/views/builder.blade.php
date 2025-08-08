@@ -132,7 +132,7 @@
     <script src="{{ asset('vendor/core/core/base/js/core.js?v=' . time()) }}"></script>
     </script>
 
-    <script type="module" src="{{ asset('vendor/core/plugins/page-builder/js/main.js') }}"></script>
+    <script type="module" src="{{ asset('vendor/core/plugins/page-builder/js/main.js?v=' . time()) }}"></script>
 
 
     {{-- MEDIA --}}

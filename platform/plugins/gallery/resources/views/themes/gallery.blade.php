@@ -8,7 +8,7 @@
         {!! Theme::breadcrumb()->render() !!}
     </div>
 </section>
-<section class="section pt-50 pb-100">
+<section class="section pt-50 pb-30">
     <div class="container">
         <div class="page-content">
             <article class="post post--single">

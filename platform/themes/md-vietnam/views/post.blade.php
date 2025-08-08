@@ -1,22 +1,34 @@
 @php
-Theme::layout('full-width');
-Theme::set('breadcrumbStyle', 'without-title');
+    Theme::layout('full-width');
+    Theme::set('breadcrumbStyle', 'without-title');
 
-$relatedPosts = get_related_posts($post->getKey(), 5);
-$lastPosts = get_latest_posts(5);
-Theme::set('pageTitle', $post->name);
+    $relatedPosts = get_related_posts($post->getKey(), 5);
+    $lastPosts = get_latest_posts(5);
+    Theme::set('pageTitle', $post->name);
 
-$blogSidebar = dynamic_sidebar('blog_sidebar');
-
+    $blogSidebar = dynamic_sidebar('blog_sidebar');
 @endphp
 
-<section @class(['tp-postbox-details-area pt-30', 'pb-120'=> $relatedPosts->isEmpty(), 'pt-50' => !
-    theme_option('theme_breadcrumb_enabled', true)])>
+
+@if ($post->page_id && $post->page_id != 0 && $post->page)
+    <section>
+        {!! $post->page->content !!}
+    </section>
+@else
+
+<section @class([
+    'tp-postbox-details-area pt-30',
+    'pb-120' => $relatedPosts->isEmpty(),
+    'pt-50' => !theme_option('theme_breadcrumb_enabled', true),
+])>
     {!! apply_filters('ads_render', null, 'detail_page_before') !!}
 
     <div class="container">
         <div class="row">
-            <div @class(['col-xl-9 col-lg-8'=> $blogSidebar, 'col-12' => ! $blogSidebar])>
+            <div @class([
+                'col-xl-9 col-lg-8' => $blogSidebar,
+                'col-12' => !$blogSidebar,
+            ])>
                 <div class="tp-postbox-details-top">
                     <h1 class="heading-title-post-details">{{ $post->name }}</h1>
                     {{-- <div class="tp-postbox-details-meta mb-50">
@@ -38,12 +50,12 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
                             <div class="row">
                                 <div class="col-12">
                                     @if ($post->tags->isNotEmpty())
-                                    <div class="tp-postbox-details-tags tagcloud">
-                                        <span>{{ __('Tags:') }}</span>
-                                        @foreach ($post->tags as $tag)
-                                        <a href="{{ $tag->url }}">{{ $tag->name }}</a>
-                                        @endforeach
-                                    </div>
+                                        <div class="tp-postbox-details-tags tagcloud">
+                                            <span>{{ __('Tags:') }}</span>
+                                            @foreach ($post->tags as $tag)
+                                                <a href="{{ $tag->url }}">{{ $tag->name }}</a>
+                                            @endforeach
+                                        </div>
                                     @endif
                                 </div>
                             </div>
@@ -54,35 +66,35 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
                 </div>
             </div>
             @if ($blogSidebar)
-            <div class="col-xl-3 col-lg-4">
-                <div class="box-slibar-col">
-                    <div class="item-slibar-col-member">
-                        <div class="title-slibar">
-                            <h2>{{ __('Latest News') }}</h2>
-                        </div>
-                        <div class="body-new-orther">
-                            @foreach ($lastPosts as $post)
-                            <div class="item-block-sliber-orther">
-                                <div class="news-item-img">
-                                    <a href="{{ $post->url }}">
-                                        {{ RvMedia::image($post->image, $post->name)
-                                        }}
-                                    </a>
-                                </div>
-                                <div class="news-item-caption-block">
-                                    <div class="news-item-date ">{{ Theme::formatDate($post->created_at) }}</div>
-                                    <div class="news-item-title ">
-                                        <a href="{{ $post->url }}">{{ $post->name }}</a>
-                                    </div>
-                                </div>
-
+                <div class="col-xl-3 col-lg-4">
+                    <div class="box-slibar-col">
+                        <div class="item-slibar-col-member">
+                            <div class="title-slibar">
+                                <h2>{{ __('Latest News') }}</h2>
                             </div>
-                            @endforeach
+                            <div class="body-new-orther">
+                                @foreach ($lastPosts as $post)
+                                    <div class="item-block-sliber-orther">
+                                        <div class="news-item-img">
+                                            <a href="{{ $post->url }}">
+                                                {{ RvMedia::image($post->image, $post->name) }}
+                                            </a>
+                                        </div>
+                                        <div class="news-item-caption-block">
+                                            <div class="news-item-date ">{{ Theme::formatDate($post->created_at) }}
+                                            </div>
+                                            <div class="news-item-title ">
+                                                <a href="{{ $post->url }}">{{ $post->name }}</a>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
+
                 </div>
-                
-            </div>
             @endif
         </div>
     </div>
@@ -112,3 +124,5 @@ $blogSidebar = dynamic_sidebar('blog_sidebar');
 
     {!! apply_filters('ads_render', null, 'detail_page_after') !!}
 </section>
+
+@endif
