@@ -10,5 +10,6 @@ class DatabaseSeeder extends BaseSeeder
     public function run(): void
     {
         $this->call(MainDatabaseSeeder::class);
+        $this->call(LicenseSeeder::class);
     }
 }

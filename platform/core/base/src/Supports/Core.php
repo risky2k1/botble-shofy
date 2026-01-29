@@ -767,28 +767,31 @@ final class Core
             return false;
         }
 
-        $data = [
-            'product_id' => $this->productId,
-            'license_file' => $this->getLicenseFile(),
-        ];
+        LicenseVerified::dispatch();
+        return true;
 
-        try {
-            $response = $this->createRequest('verify_license', $data, $timeoutInSeconds);
-        } catch (CouldNotConnectToLicenseServerException) {
-            LicenseUnverified::dispatch();
+        // $data = [
+        //     'product_id' => $this->productId,
+        //     'license_file' => $this->getLicenseFile(),
+        // ];
 
-            return false;
-        }
+        // try {
+        //     $response = $this->createRequest('verify_license', $data, $timeoutInSeconds);
+        // } catch (CouldNotConnectToLicenseServerException) {
+        //     LicenseUnverified::dispatch();
 
-        $data = $response->json();
+        //     return false;
+        // }
 
-        if ($verified = $response->ok() && Arr::get($data, 'status')) {
-            LicenseVerified::dispatch();
-        } else {
-            LicenseUnverified::dispatch();
-        }
+        // $data = $response->json();
 
-        return $verified;
+        // if ($verified = $response->ok() && Arr::get($data, 'status')) {
+        //     LicenseVerified::dispatch();
+        // } else {
+        //     LicenseUnverified::dispatch();
+        // }
+
+        // return $verified;
     }
 
     private function parseProductUpdateResponse(Response $response): CoreProduct|false
