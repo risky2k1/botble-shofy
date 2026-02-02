@@ -13,13 +13,19 @@
 
 {!! apply_filters('theme_front_meta', null) !!}
 
+@php
+    $schema = [
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => rescue(function () {
+            return SeoHelper::openGraph()->getProperty('site_name');
+        }),
+        'url' => url(''),
+    ];
+@endphp
+
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "{{ rescue(fn() => SeoHelper::openGraph()->getProperty('site_name')) }}",
-  "url": "{{ url('') }}"
-}
+{!! json_encode($schema, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
 </script>
 
 {!! Theme::typography()->renderCssVariables() !!}
