@@ -41,21 +41,21 @@ class Blueprint extends IlluminateBlueprint
         };
     }
 
-    public function morphs($name, $indexName = null): void
+    public function morphs($name, $indexName = null, $after = null): void
     {
         match ($this->getModelTypeOfId()) {
             'UUID' => $this->uuidMorphs($name, $indexName),
             'ULID' => $this->ulidMorphs($name, $indexName),
-            default => parent::morphs($name, $indexName),
+            default => parent::morphs($name, $indexName, $after),
         };
     }
 
-    public function nullableMorphs($name, $indexName = null): void
+    public function nullableMorphs($name, $indexName = null, $after = null): void
     {
         match ($this->getModelTypeOfId()) {
             'UUID' => $this->nullableUuidMorphs($name, $indexName),
             'ULID' => $this->nullableUlidMorphs($name, $indexName),
-            default => parent::nullableMorphs($name, $indexName),
+            default => parent::nullableMorphs($name, $indexName, $after),
         };
     }
 
